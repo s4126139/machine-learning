@@ -1,6 +1,87 @@
-​So far we've just been ​fitting straight lines to our data. ​Let's take the ideas of multiple linear regression and ​feature engineering to come up with ​a new algorithm called polynomial regression, ​which will let you fit curves, ​non-linear functions, to your data. ​Let's say you have a housing ​data-set that looks like this, ​where feature x is the size in square feet. ​It doesn't look like a straight line ​fits this data-set very well. ​Maybe you want to fit a curve, ​maybe a quadratic function to the data like ​this which includes a size x and also x squared, ​which is the size raised to the power of two. ​Maybe that will give you a better fit to the data. ​But then you may decide that ​your quadratic model doesn't really make sense ​because a quadratic function eventually comes back down. 
-​Well, we wouldn't really expect ​housing prices to go down when the size increases. ​Big houses seem like they should usually cost more. ​Then you may choose a cubic function where we ​now have not only x squared, but x cubed. ​Maybe this model produces this curve here, ​which is a somewhat better fit to ​the data because the size ​does eventually come back up as the size increases. ​These are both examples of polynomial regression, ​because you took your optional feature x, ​and raised it to the power of ​two or three or any other power. ​In the case of the cubic function, ​the first feature is the size, ​the second feature is the size squared, ​and the third feature is the size cubed. ​I just want to point out one more thing, ​which is that if you create features that are ​these powers like the square ​of the original features like this, ​then feature scaling becomes increasingly important. 
-​If the size of the house ranges from say, ​1-1,000 square feet, ​then the second feature, ​which is a size squared, ​will range from one to a million, ​and the third feature, ​which is size cubed, ​ranges from one to a billion. ​These two features, x squared and x cubed, ​take on very different ranges of ​values compared to the original feature x. ​If you're using gradient descent, ​it's important to apply feature scaling to get ​your features into comparable ranges of values. ​Finally, just one last example of how you ​really have a wide range of choices of features to use. ​Another reasonable alternative to ​taking the size squared and ​size cubed is to say use the square root of x. ​Your model may look like w_1 times ​x plus w_2 times the square root of x plus b. ​The square root function looks like this, ​and it becomes a bit less steep as x increases, ​but it doesn't ever completely flatten out, ​and it certainly never ever comes back down. 
-​This would be another choice of features that ​might work well for this data-set as well. ​You may ask yourself, ​how do I decide what features to use? ​Later in the second course in this specialization, ​you see how you can choose different features and ​different models that include ​or don't include these features, ​and you have a process for measuring how well ​these different models perform to help you ​decide which features to include or not include. ​For now, I just want you to be aware ​that you have a choice in what features you use. ​By using feature engineering and polynomial functions, ​you can potentially get ​a much better model for your data. ​In the optional lab that follows this video, ​you will see some code that implements ​polynomial regression using features like x, ​x squared, and x cubed. ​Please take a look and run the code and see how it works. 
-​There's also another optional lab ​after that one that shows how to ​use a popular open source toolkit ​that implements linear regression. ​Scikit-learn is ​a very widely used open source machine learning library ​that is used by many practitioners ​in many of the top AI, ​internet, machine learning companies in the world. ​If either now or in the future ​you're using machine learning in your job, ​there's a very good chance you'll be using ​tools like Scikit-learn to train your models. ​Working through that optional lab will give you ​a chance to not only better understand linear regression, ​but also see how this can be done in ​just a few lines of code using ​a library like Scikit-learn. ​For you to have a solid understanding ​of these algorithms, ​and be able to apply them, ​I do think is important that you ​know how to implement linear regression ​yourself and not just call ​some scikit-learn function that is a black-box. ​But scikit-learn also has ​an important role in a way ​machine learning is done in practice today. ​We're just about at the end of this week. 
-​Congratulations on finishing all of this week's videos. ​Please do take a look at the practice ​quizzes and also the practice lab, ​which I hope will let you try out and ​practice ideas that we've discussed. ​In this week's practice lab, ​you implement linear regression. ​I hope you have a lot of fun getting ​this learning algorithm to work for yourself. ​Best of luck with that. ​I also look forward to seeing you in next week's videos, ​where we'll go beyond regression, ​that is predicting numbers, ​to talk about our first classification algorithm, ​which can predict categories. ​I'll see you next week. 
+# Polynomial Regression
+
+## Core idea
+
+Polynomial regression extends multiple linear regression by creating transformed features such as `x²` and `x³`. The model remains linear in its parameters, but it can fit a curved relationship between the original input and the target.
+
+## Why use polynomial features?
+
+A straight line may not fit a dataset well. For house-price prediction, the relationship between house size `x` and price may be curved.
+
+A quadratic model uses `x` and `x²`:
+
+```text
+f(x) = w1*x + w2*x² + b
+```
+
+This can fit a curve, but a quadratic curve may eventually turn downward. That behaviour may not make sense if larger houses are generally expected to cost more.
+
+A cubic model adds `x³`:
+
+```text
+f(x) = w1*x + w2*x² + w3*x³ + b
+```
+
+The cubic form can produce a different curved shape that rises again as house size increases.
+
+Both are polynomial regression because the original feature is raised to different powers and each transformed value is treated as another input feature.
+
+## Polynomial regression as feature engineering
+
+For the cubic model, one original feature creates three model inputs:
+
+| Model input | Constructed feature |
+|---|---|
+| First feature | `x` |
+| Second feature | `x²` |
+| Third feature | `x³` |
+
+Multiple linear regression can then learn a separate coefficient for each constructed feature.
+
+## Feature scaling becomes more important
+
+Polynomial powers can create extremely different numeric ranges.
+
+If the original house-size feature ranges from `1` to `1,000`:
+
+| Feature | Range |
+|---|---:|
+| `x` | `1` to `1,000` |
+| `x²` | `1` to `1,000,000` |
+| `x³` | `1` to `1,000,000,000` |
+
+When gradient descent is used, these features should be scaled to comparable ranges.
+
+## Other possible transformations
+
+Polynomial powers are not the only choice. Another model could use the square root of the original feature:
+
+```text
+f(x) = w1*x + w2*sqrt(x) + b
+```
+
+The square-root curve becomes less steep as `x` increases, but it does not flatten completely or turn downward.
+
+## Choosing features
+
+There is no single transformation that must be used for every dataset. Possible choices include:
+
+- the original feature `x`;
+- a quadratic term `x²`;
+- a cubic term `x³`;
+- a square-root term `sqrt(x)`.
+
+Different feature and model choices can be compared by measuring how well the resulting models perform. The lesson emphasises that feature engineering and polynomial functions can produce a much better fit than a straight line.
+
+## Main takeaway
+
+Polynomial regression fits non-linear curves by applying feature engineering to the inputs and then using multiple linear regression on the transformed features.
+
+## ML lifecycle phase
+
+**Primary phase: Phase 05 — Preprocessing and Feature Engineering.**
+
+Creating `x²`, `x³`, or `sqrt(x)` is a feature-transformation task.
+
+The choice between different polynomial forms also connects to **Phase 08 — Validation and Hyperparameter Tuning**, where alternative feature/model choices are compared.
+
