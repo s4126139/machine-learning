@@ -1,6 +1,76 @@
-​When running gradient descent, ​how can you tell if it is converging? ​That is, whether it's helping you to find ​parameters close to the global minimum ​of the cost function. ​By learning to recognize what ​a well-running implementation of ​gradient descent looks like, ​we will also, in a later video, ​be better able to choose a good learning rate Alpha. ​Let's take a look. As a reminder, ​here's the gradient descent rule. ​One of the key choices is ​the choice of the learning rate Alpha. ​Here's something that I often do to make ​sure that gradient descent is working well. 
-​Recall that the job of ​gradient descent is to find parameters w ​and b that hopefully minimize the cost function J. ​What I'll often do is plot the cost function J, ​which is calculated on the training set, ​and I plot the value of J at ​each iteration of gradient descent. ​Remember that each iteration means after ​each simultaneous update of the parameters w and b. ​In this plot, the horizontal axis is ​the number of iterations of ​gradient descent that you've run so far. ​You may get a curve that looks like this. ​Notice that the horizontal axis ​is the number of iterations of ​gradient descent and not a parameter like w or b. ​This differs from previous graphs you've ​seen where the vertical axis was cost ​J and the horizontal axis was ​a single parameter like w or b. 
-​This curve is also called a learning curve. ​Note that there are ​a few different types of learning ​curves used in machine learning, ​and you see some of the types ​later in this course as well. ​Concretely, if you look here at this point on the curve, ​this means that after you've run ​gradient descent for 100 iterations, ​meaning 100 simultaneous updates of the parameters, ​you have some learned values for w and b. ​If you compute the cost J, w, ​b for those values of w and b, ​the ones you got after 100 iterations, ​you get this value for the cost J. ​That is this point on the vertical axis. ​This point here corresponds to the value of J for ​the parameters that you got after ​200 iterations of gradient descent. ​Looking at this graph helps you to see ​how your cost J changes ​after each iteration of gradient descent. 
-​If gradient descent is working properly, ​then the cost J should ​decrease after every single iteration. ​If J ever increases after one iteration, ​that means either Alpha is chosen poorly, ​and it usually means Alpha is too large, ​or there could be a bug in the code. ​Another useful thing that this part can tell ​you is that if you look at this curve, ​by the time you reach maybe 300 iterations also, ​the cost J is leveling ​off and is no longer decreasing much. ​By 400 iterations, ​it looks like the curve has flattened out. ​This means that gradient descent has more or less ​converged because the curve is no longer decreasing. ​Looking at this learning curve, ​you can try to spot whether or not ​gradient descent is converging. ​By the way, the number ​of iterations that gradient descent ​takes a conversion can vary ​a lot between different applications. 
-​In one application, it may ​converge after just 30 iterations. ​For a different application, ​it could take 1,000 or 100,000 iterations. ​It turns out to be very difficult to tell in ​advance how many iterations ​gradient descent needs to converge, ​which is why you can create ​a graph like this, a learning curve. ​Try to find out when you can start ​training your particular model. ​Another way to decide when your model is done training ​is with an automatic convergence test. ​Here is the Greek alphabet epsilon. ​Let's let epsilon be a ​variable representing a small number, ​such as 0.001 or 10^-3. 
-​If the cost J decreases by less ​than this number epsilon on one iteration, ​then you're likely on this flattened part of ​the curve that you see on ​the left and you can declare convergence. ​Remember, convergence, ​hopefully in the case that you found parameters ​w and b that are close to the minimum possible value of ​J. I usually find ​that choosing the right threshold ​epsilon is pretty difficult. ​I actually tend to look at graphs ​like this one on the left, ​rather than rely on automatic convergence tests. ​Looking at the solid figure can tell you, ​I'll give you at some advanced warning if ​maybe gradient descent is not working correctly as well. ​You've now seen what the learning curve ​should look like when gradient descent is running well. ​Let's take these insights and in the next video, ​take a look at how to ​choose an appropriate learning rate. 
+# Checking Gradient Descent for Convergence
+
+## Purpose
+
+Check whether gradient descent is moving the parameters `w` and `b` toward values close to the global minimum of the cost function `J`.
+
+Recognising correct convergence also helps identify problems with the learning rate `alpha` or the implementation.
+
+## Plot the cost against iterations
+
+During training, calculate the training cost after every simultaneous update of `w` and `b`, then plot:
+
+- **Horizontal axis:** number of gradient-descent iterations.
+- **Vertical axis:** training cost `J(w, b)` after each iteration.
+
+The horizontal axis represents iterations, not a parameter such as `w` or `b`.
+
+This plot is called a **learning curve** in this lesson. For example:
+
+- the point at iteration 100 is the cost produced by the parameters learned after 100 updates;
+- the point at iteration 200 is the cost produced after 200 updates.
+
+## How to interpret the curve
+
+| Curve behaviour | Meaning |
+|---|---|
+| `J` decreases after every iteration | Gradient descent is behaving as expected |
+| `J` increases after an iteration | The learning rate may be too large, or the code may contain a bug |
+| `J` is still decreasing noticeably | Training has not converged yet |
+| `J` levels off and changes very little | Gradient descent has approximately converged |
+
+A correctly running gradient descent should make `J` decrease after every iteration.
+
+## Number of iterations
+
+The required number of iterations cannot usually be predicted in advance and can vary greatly between applications:
+
+- one problem may converge after about 30 iterations;
+- another may require 1,000 iterations;
+- another may require 100,000 iterations.
+
+Therefore, plotting the learning curve is useful for deciding whether training should continue.
+
+## Automatic convergence test
+
+Let `epsilon` be a small number, for example:
+
+```text
+epsilon = 0.001 = 10^-3
+```
+
+If the decrease in cost during one iteration is smaller than `epsilon`, the curve is probably in its flat region and convergence may be declared:
+
+```text
+J(previous iteration) - J(current iteration) < epsilon
+```
+
+Choosing a suitable value for `epsilon` can be difficult. The lesson therefore prefers inspecting the learning curve because it also provides an early warning when gradient descent is not working correctly.
+
+## Key checklist
+
+- Record the training cost after every simultaneous parameter update.
+- Confirm that the cost decreases after each iteration.
+- Investigate the learning rate or code if the cost increases.
+- Continue training while the cost is still decreasing noticeably.
+- Treat a nearly flat cost curve as evidence of convergence.
+- Do not assume the same iteration count will work for every problem.
+
+## ML lifecycle phase
+
+**Primary phase: Phase 07 — Model Training.**
+
+Checking the convergence curve is part of monitoring the optimisation process while model parameters are being learned.
+
+It also informs **Phase 08 — Validation and Hyperparameter Tuning**, because the observed behaviour helps with the later choice of learning rate `alpha`.
+
