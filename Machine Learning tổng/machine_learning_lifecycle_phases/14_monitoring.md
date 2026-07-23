@@ -119,5 +119,7 @@ Monitoring is an ongoing phase rather than a one-time completion. The release is
 
 - [Scikit-learn: Metrics and scoring](https://scikit-learn.org/stable/modules/model_evaluation.html)
 - [Scikit-learn: Probability calibration](https://scikit-learn.org/stable/modules/calibration.html)
+- [Google: Production ML monitoring](https://developers.google.com/machine-learning/crash-course/production-ml-systems/monitoring)
+- [NIST AI Risk Management Framework Core](https://airc.nist.gov/airmf-resources/airmf/5-sec-core/)
 
 [Previous: Phase 13 - Deployment](13_deployment.md) | [Index](README.md) | [Next: Phase 15 - Retraining and Maintenance](15_retraining_and_maintenance.md)

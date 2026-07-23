@@ -108,8 +108,10 @@ Scikit-learn supplies estimators, pipelines, inference APIs, and offline perform
 - Monitoring and rollback work before full release.
 - Ownership and incident response are active and documented.
 
-## Official reference
+## Official references
 
 - [Scikit-learn: Computational performance](https://scikit-learn.org/stable/computing/computational_performance.html)
+- [Microsoft Learn: Machine learning lifecycle](https://learn.microsoft.com/en-us/azure/databricks/machine-learning/concepts/ml-lifecycle)
+- [Google: Rules of Machine Learning](https://developers.google.com/machine-learning/guides/rules-of-ml)
 
 [Previous: Phase 12 - Model Finalisation and Packaging](12_model_finalisation_and_packaging.md) | [Index](README.md) | [Next: Phase 14 - Monitoring](14_monitoring.md)

@@ -45,8 +45,8 @@ flowchart TD
 - [ ] Validate replacement/fallback behaviour before switching traffic or jobs.
 - [ ] Stop new traffic, scheduled predictions, retraining jobs, and automated promotion for the retired version.
 - [ ] Remove routing/registry production status and update application configuration.
-- [ ] Revoke model-specific credentials, permissions, tokens, and unused access paths.
 - [ ] Archive required artefacts, code, environment, configuration, data references, evaluations, approvals, incidents, and model card.
+- [ ] Revoke model-specific credentials, permissions, tokens, and unused access paths.
 - [ ] Apply retention/deletion policy to artefacts, logs, predictions, and personal data.
 - [ ] Stop dedicated compute, storage, dashboards, and alerts only after cutover is verified.
 - [ ] Confirm zero unintended traffic and no unresolved downstream dependency.
@@ -102,8 +102,9 @@ flowchart TD
 - Required audit/reproducibility evidence is archived and prohibited data is deleted.
 - Replacement, fallback, or service closure has been verified and communicated.
 
-## Official reference
+## Official references
 
 - [Scikit-learn: Model persistence](https://scikit-learn.org/stable/model_persistence.html)
+- [NIST AI Risk Management Framework Core](https://airc.nist.gov/airmf-resources/airmf/5-sec-core/)
 
 [Previous: Phase 15 - Retraining and Maintenance](15_retraining_and_maintenance.md) | [Index](README.md) | [Next: Index](README.md)

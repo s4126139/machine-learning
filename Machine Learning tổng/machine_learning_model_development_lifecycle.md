@@ -2,8 +2,8 @@
 
 ## Verification scope
 
-- Verified against the installed `scikit-learn 1.9.0` environment and the
-  official stable documentation on 2026-07-21.
+- Verified against the installed `scikit-learn 1.9.0` and `SciPy 1.17.1`
+  environments and the official documentation on 2026-07-23.
 - Native scikit-learn items are shown with their exact class or function names.
 - Collection, governance, deployment, monitoring, and retirement are broader
   MLOps stages; scikit-learn does not provide a complete MLOps platform.
@@ -19,10 +19,13 @@
 - [Preprocessing API](https://scikit-learn.org/stable/api/sklearn.preprocessing.html)
 - [Common pitfalls and data leakage](https://scikit-learn.org/stable/common_pitfalls.html)
 - [Model persistence](https://scikit-learn.org/stable/model_persistence.html)
+- [NIST AI Risk Management Framework Core](https://airc.nist.gov/airmf-resources/airmf/5-sec-core/)
 - [Microsoft Learn: Machine learning lifecycle](https://learn.microsoft.com/en-us/azure/databricks/machine-learning/concepts/ml-lifecycle)
 - [Microsoft Learn: Exploratory data analysis](https://learn.microsoft.com/en-us/azure/databricks/exploratory-data-analysis/)
 - [IBM SPSS Modeler: Data Understanding Overview](https://www.ibm.com/docs/en/spss-modeler/saas?topic=understanding-data-overview)
 - [Google Machine Learning Crash Course: Numerical data - First steps](https://developers.google.com/machine-learning/crash-course/numerical-data/first-steps)
+- [Google: Rules of Machine Learning](https://developers.google.com/machine-learning/guides/rules-of-ml)
+- [Google: Production ML monitoring](https://developers.google.com/machine-learning/crash-course/production-ml-systems/monitoring)
 
 ## High-level lifecycle
 
@@ -43,18 +46,29 @@
         ↓
 8. Validation and Hyperparameter Tuning
         ↓
-9. Final Evaluation
+9. Evaluation Metrics
         ↓
-10. Model Finalisation and Packaging
+10. Error Analysis and Robustness
         ↓
-11. Deployment
+11. Final Evaluation
         ↓
-12. Monitoring
+12. Model Finalisation and Packaging
         ↓
-13. Retraining and Maintenance
+13. Deployment
         ↓
-14. Retirement
+14. Monitoring
+        ↓
+15. Retraining and Maintenance
+        ↓
+16. Model Retirement
 ```
+
+This is a navigation order, not a claim that every decision happens only once.
+The primary metric is defined in Phase 1 and reused in baseline, validation,
+error analysis, final evaluation, and monitoring; Phase 9 consolidates its
+correct computation and reporting. Governance is similarly cross-cutting:
+Phase 2 focuses on data governance, while ownership, risk, approval, monitoring,
+and safe retirement continue throughout the lifecycle.
 
 ## Core principles
 
@@ -66,6 +80,8 @@
 - Put preprocessing and the model in one reproducible pipeline.
 - Track data, code, configuration, experiments, and model versions.
 - Monitor the deployed model and retrain only through a controlled process.
+- Apply governance, security, privacy, accountability, and risk controls across
+  the complete lifecycle, including safe decommissioning.
 
 # 1. Problem Definition
 
@@ -157,6 +173,11 @@ Acquire relevant, representative, authorised, and traceable data.
 
 Explore the dataset statistically and visually, understand its relationship to
 the target, and identify quality problems before modelling.
+
+Before the split, whole-dataset inspection should be limited to non-destructive
+schema, integrity, provenance, and broad quality checks needed to design the
+split. After the test set is locked, target-informed exploration and modelling
+decisions must use only the training/development data.
 
 ## Exploratory data analysis
 

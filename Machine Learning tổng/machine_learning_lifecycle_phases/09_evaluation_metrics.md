@@ -57,7 +57,7 @@ flowchart TD
 
 | Case | Primary candidates | Supporting diagnostics | Attention point |
 |---|---|---|---|
-| General regression | MAE, RMSE, $R^2$ | Median AE, residual plots | MAE is robust; RMSE weights large errors more; $R^2$ can be negative |
+| General regression | MAE, RMSE, $R^2$ | Median AE, residual plots | MAE weights errors linearly; RMSE emphasises large errors; $R^2$ can be negative |
 | Positive/skewed regression | RMSLE, MAE, pinball loss | Error by target range | RMSLE requires valid non-negative targets/predictions |
 | Binary balanced classification | Accuracy, F1, ROC-AUC | Confusion matrix, precision, recall, log loss | Label metric requires a threshold; AUC uses scores |
 | Binary imbalanced classification | Average Precision, recall, precision, F-beta, balanced accuracy | ROC-AUC, confusion matrix, alert volume | Accuracy can hide minority-class failure |
@@ -158,6 +158,9 @@ Scorer strings follow a **higher-is-better** convention. Loss scorers therefore 
 - **Threshold dependence:** precision, recall, F1, specificity, and confusion matrix change with the decision threshold.
 - **Class prevalence:** precision and AP depend strongly on prevalence; compare datasets carefully.
 - **MAPE near zero:** small or zero targets can make values unstable or misleading.
+- **Calibration overclaim:** Brier loss and log loss reflect probability quality,
+  including calibration and discrimination/resolution; use calibration curves
+  when calibration itself is the question.
 - **Aggregation bias:** compute folds, groups, horizons, or queries correctly before averaging.
 - **No uncertainty:** one score can hide fold variance, temporal variation, or small-sample instability.
 - **Metric selection on test:** do not choose the winning metric or threshold after reading final test results.

@@ -22,6 +22,8 @@ flowchart TD
 - Applies to every initial dataset and every later data refresh.
 - Includes existing files/databases, APIs, logs, sensors, surveys, third-party data, and human annotation.
 - Governance depth increases for personal, medical, financial, biometric, copyrighted, or high-risk data.
+- Data governance is concentrated here, but model ownership, risk, approval,
+  monitoring, incident response, and retirement governance continue across all phases.
 
 ## Inputs
 
@@ -114,6 +116,11 @@ Common broader tools—**not scikit-learn**:
 - Raw data can be reconstructed or retrieved from a fixed version.
 - Access, privacy, licence, security, and retention requirements are approved.
 - Known collection gaps and biases are documented for later evaluation.
+
+## Official references
+
+- [NIST AI Risk Management Framework Core](https://airc.nist.gov/airmf-resources/airmf/5-sec-core/)
+- [Microsoft Learn: Machine learning lifecycle](https://learn.microsoft.com/en-us/azure/databricks/machine-learning/concepts/ml-lifecycle)
 
 ---
 

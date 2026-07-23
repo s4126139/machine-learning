@@ -41,6 +41,12 @@ flowchart TD
     P10 -. "assumption invalid" .-> P01
 ```
 
+Phase 9 is not the first time metrics are chosen. The primary metric is fixed in
+Phase 1, used for baseline and validation decisions, then calculated and
+reported consistently through Phases 9, 11, and 14. Governance is also
+cross-cutting: Phase 2 concentrates on data governance, while ownership, risk,
+approval, monitoring, and safe retirement continue across all phases.
+
 ## Phase pages
 
 | Phase | Page | Primary function |
@@ -107,16 +113,20 @@ flowchart TD
 
 1. Define the prediction unit and target before selecting an algorithm.
 2. Design the split from the real deployment question—not from convenience.
-3. Split before fitting any data-dependent transformation.
-4. Fit preprocessing, feature selection, and resampling only on training folds.
-5. Use a `Pipeline`, usually with a `ColumnTransformer`, for tabular workflows.
-6. Use validation/CV for model, feature, threshold, and hyperparameter decisions.
-7. Keep the test set untouched until the model-selection process is complete.
-8. Select metrics from decision costs, class balance, target properties, and use case.
-9. Compare against a meaningful baseline and inspect failures, not only averages.
-10. Preserve the complete fitted preprocessing-and-model artefact and its environment.
-11. A production model is incomplete without monitoring, ownership, and rollback.
-12. Retraining is a new controlled model-development cycle, not an automatic overwrite.
+3. Before the split, limit whole-dataset inspection to schema, integrity,
+   provenance, and broad quality checks; after the test set is locked,
+   target-informed modelling decisions use training/development data only.
+4. Split before fitting any data-dependent transformation.
+5. Fit preprocessing, feature selection, and resampling only on training folds.
+6. Use a `Pipeline`, usually with a `ColumnTransformer`, for tabular workflows.
+7. Use validation/CV for model, feature, threshold, and hyperparameter decisions.
+8. Keep the test set untouched until the model-selection process is complete.
+9. Select metrics from decision costs, class balance, target properties, and use case.
+10. Compare against a meaningful baseline and inspect failures, not only averages.
+11. Preserve the complete fitted preprocessing-and-model artefact and its environment.
+12. A production model is incomplete without monitoring, ownership, and rollback.
+13. Retraining is a new controlled model-development cycle, not an automatic overwrite.
+14. Apply governance, security, privacy, accountability, and risk controls throughout the lifecycle.
 
 ## Iteration routes
 
@@ -164,6 +174,10 @@ Obsolete objective       → return to Phase 1 or retire the model
 - [Common pitfalls and data leakage](https://scikit-learn.org/stable/common_pitfalls.html)
 - [Pipelines and composite estimators](https://scikit-learn.org/stable/modules/compose.html)
 - [Model persistence](https://scikit-learn.org/stable/model_persistence.html)
+- [Microsoft Learn: Machine learning lifecycle](https://learn.microsoft.com/en-us/azure/databricks/machine-learning/concepts/ml-lifecycle)
+- [Google: Rules of Machine Learning](https://developers.google.com/machine-learning/guides/rules-of-ml)
+- [Google: Production ML monitoring](https://developers.google.com/machine-learning/crash-course/production-ml-systems/monitoring)
+- [NIST AI Risk Management Framework Core](https://airc.nist.gov/airmf-resources/airmf/5-sec-core/)
 
 ## How to use these pages
 
