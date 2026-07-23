@@ -117,4 +117,4 @@ Common broader tools—**not scikit-learn**:
 
 ---
 
-[Previous: Problem Definition](01_problem_definition.md) · [Index](README.md) · [Next: Data Understanding and Validation](03_data_understanding_and_validation.md)
+[Previous: Problem Definition](01_problem_definition.md) · [Index](README.md) · [Next: EDA, Understanding, and Validation](03_data_understanding_and_validation.md)

@@ -23,7 +23,7 @@ every phase receives equal effort.
 ```mermaid
 flowchart TD
     P01["01 Problem definition"] --> P02["02 Data collection and governance"]
-    P02 --> P03["03 Data understanding and validation"]
+    P02 --> P03["03 Exploratory data analysis (EDA), understanding, and validation"]
     P03 --> P04["04 Data splitting and evaluation design"]
     P04 --> P05["05 Preprocessing and feature engineering"]
     P05 --> P06["06 Baseline development"]
@@ -47,7 +47,7 @@ flowchart TD
 |---:|---|---|
 | 1 | [Problem Definition](01_problem_definition.md) | Define target, task, users, metric, constraints, and success |
 | 2 | [Data Collection and Governance](02_data_collection_and_governance.md) | Acquire authorised, representative, traceable data |
-| 3 | [Data Understanding and Validation](03_data_understanding_and_validation.md) | Profile quality, distributions, labels, bias, and leakage risks |
+| 3 | [Exploratory Data Analysis (EDA), Understanding, and Validation](03_data_understanding_and_validation.md) | Explore distributions and relationships; profile quality, labels, bias, and leakage risks |
 | 4 | [Data Splitting](04_data_splitting.md) | Create a valid training, validation, and test protocol |
 | 5 | [Preprocessing and Feature Engineering](05_preprocessing_and_feature_engineering.md) | Build leakage-safe model inputs |
 | 6 | [Baseline Development](06_baseline_development.md) | Establish the minimum benchmark |

@@ -1,8 +1,25 @@
-# Phase 03 — Data Understanding and Validation
+# Phase 03 — Exploratory Data Analysis (EDA), Understanding, and Validation
 
 ## Purpose
 
-Confirm that the collected data is structurally valid, understandable, sufficiently representative, and safe to move into model development.
+Explore the collected data statistically and visually, then confirm that it is structurally valid, understandable, sufficiently representative, and safe to move into model development.
+
+## Is EDA a separate lifecycle phase?
+
+EDA is not missing from this handbook. It is the exploratory workstream inside
+Phase 03:
+
+- Microsoft's current ML lifecycle names its second development stage "Explore
+  and understand the data" and defines EDA as summarising and visualising data
+  to reveal distributions, correlations, missing values, and outliers.
+- IBM's CRISP-DM guidance groups data description, exploration with tables and
+  graphics, and data-quality verification under the broader **Data
+  Understanding** phase.
+
+These are different labels for substantially overlapping lifecycle
+responsibilities. This handbook keeps one combined phase to avoid duplicating
+work. In a course report or notebook, it is still appropriate to use an
+explicit **EDA** section and map it to this phase.
 
 ## Visual map
 
@@ -10,13 +27,15 @@ Confirm that the collected data is structurally valid, understandable, sufficien
 flowchart TD
     A["Versioned raw data"] --> B["Check schema, keys, units, and timestamps"]
     B --> C["Check missingness, duplicates, and invalid values"]
-    C --> D["Inspect distributions across target, groups, and time"]
-    D --> E["Check labels, leakage, and production compatibility"]
-    E --> F["Log issues, severity, and owners"]
-    F --> G{"Ready for split design?"}
-    G -->|No| H["Resolve, document, and rerun checks"]
-    H --> B
-    G -->|Yes| I["Approved data-readiness report"]
+    C --> D["Univariate EDA: distributions, frequencies, and outliers"]
+    D --> E["Bivariate/multivariate EDA: target, feature, group, and time relationships"]
+    E --> F["Check labels, leakage, and production compatibility"]
+    F --> G["Translate findings into testable modelling implications"]
+    G --> H["Log issues, severity, and owners"]
+    H --> I{"Ready for split design?"}
+    I -->|No| J["Resolve, document, and rerun checks"]
+    J --> B
+    I -->|Yes| K["Approved EDA and data-readiness report"]
 ```
 
 ## When this phase applies / task-specific variants
@@ -41,13 +60,16 @@ flowchart TD
 - [ ] Detect exact duplicates, near-duplicates where relevant, and repeated entities.
 - [ ] Review unique counts, constants, identifiers, rare values, and unexpected categories.
 - [ ] Check allowed ranges, cross-field rules, impossible values, and referential integrity.
-- [ ] Inspect numeric distributions, categorical frequencies, and target distribution.
+- [ ] Perform univariate EDA: inspect numeric distributions, categorical frequencies, and the target distribution.
+- [ ] Perform bivariate EDA: inspect each plausible feature's relationship with the target using task-appropriate statistics and plots.
+- [ ] Perform multivariate EDA: inspect correlations or associations, redundant signals, interactions, confounding groups, and time effects where relevant.
 - [ ] Review class balance, multilabel structure, and samples per class where applicable.
 - [ ] Investigate outliers; distinguish valid rare events from measurement/data errors.
 - [ ] Check label quality, disagreement, ambiguity, missing labels, and delayed labels.
 - [ ] Inspect relationships that may reveal target leakage or post-outcome variables.
 - [ ] Review patterns by time, entity/group, location, source, device, and important subgroup.
 - [ ] Compare development data definitions with expected production inputs.
+- [ ] Record each material EDA finding with its evidence, modelling implication, and any follow-up experiment; do not treat correlation alone as proof of causation or a reason to remove a feature.
 - [ ] Record each issue, severity, owner, resolution, and accepted limitation.
 - [ ] Convert confirmed rules into repeatable validation tests.
 
@@ -99,6 +121,7 @@ These are external tools, not scikit-learn APIs.
 
 ## Outputs / deliverables
 
+- reproducible EDA report containing plots, statistics, findings, and modelling implications;
 - data profile and target profile;
 - validated schema and reusable data-quality rules;
 - missingness, duplicate, outlier, class/group/time coverage summaries;
@@ -112,8 +135,16 @@ These are external tools, not scikit-learn APIs.
 - Schema, units, keys, timestamps, target, and prediction unit match their definitions.
 - Critical missingness, duplication, invalid-value, label, and leakage issues are resolved or explicitly accepted.
 - Important classes, groups, periods, sources, and modalities have documented coverage.
+- Material EDA findings are linked to evidence and a concrete downstream decision, check, or experiment.
 - Repeatable validation rules detect known failure modes.
 - The correct random, stratified, grouped, temporal, or custom split strategy can now be specified.
+
+## Official references
+
+- [Microsoft Learn: Machine learning lifecycle](https://learn.microsoft.com/en-us/azure/databricks/machine-learning/concepts/ml-lifecycle)
+- [Microsoft Learn: Exploratory data analysis](https://learn.microsoft.com/en-us/azure/databricks/exploratory-data-analysis/)
+- [IBM SPSS Modeler: Data Understanding Overview](https://www.ibm.com/docs/en/spss-modeler/saas?topic=understanding-data-overview)
+- [Google Machine Learning Crash Course: Numerical data - First steps](https://developers.google.com/machine-learning/crash-course/numerical-data/first-steps)
 
 ---
 

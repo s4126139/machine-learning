@@ -133,4 +133,4 @@ Important API notes:
 
 ---
 
-[Previous: Data Understanding and Validation](03_data_understanding_and_validation.md) · [Index](README.md) · [Next: Preprocessing and Feature Engineering](05_preprocessing_and_feature_engineering.md)
+[Previous: EDA, Understanding, and Validation](03_data_understanding_and_validation.md) · [Index](README.md) · [Next: Preprocessing and Feature Engineering](05_preprocessing_and_feature_engineering.md)

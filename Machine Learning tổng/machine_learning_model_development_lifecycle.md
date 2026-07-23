@@ -19,6 +19,10 @@
 - [Preprocessing API](https://scikit-learn.org/stable/api/sklearn.preprocessing.html)
 - [Common pitfalls and data leakage](https://scikit-learn.org/stable/common_pitfalls.html)
 - [Model persistence](https://scikit-learn.org/stable/model_persistence.html)
+- [Microsoft Learn: Machine learning lifecycle](https://learn.microsoft.com/en-us/azure/databricks/machine-learning/concepts/ml-lifecycle)
+- [Microsoft Learn: Exploratory data analysis](https://learn.microsoft.com/en-us/azure/databricks/exploratory-data-analysis/)
+- [IBM SPSS Modeler: Data Understanding Overview](https://www.ibm.com/docs/en/spss-modeler/saas?topic=understanding-data-overview)
+- [Google Machine Learning Crash Course: Numerical data - First steps](https://developers.google.com/machine-learning/crash-course/numerical-data/first-steps)
 
 ## High-level lifecycle
 
@@ -27,7 +31,7 @@
         ↓
 2. Data Collection and Governance
         ↓
-3. Data Understanding and Validation
+3. Exploratory Data Analysis (EDA), Understanding, and Validation
         ↓
 4. Data Splitting
         ↓
@@ -147,11 +151,12 @@ Acquire relevant, representative, authorised, and traceable data.
 - privacy and legal permission;
 - train–production consistency.
 
-# 3. Data Understanding and Validation
+# 3. Exploratory Data Analysis (EDA), Understanding, and Validation
 
 ## Function
 
-Understand the dataset and identify quality problems before modelling.
+Explore the dataset statistically and visually, understand its relationship to
+the target, and identify quality problems before modelling.
 
 ## Exploratory data analysis
 
