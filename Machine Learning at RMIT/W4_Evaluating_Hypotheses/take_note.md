@@ -121,11 +121,7 @@ At approximately 08:43, the lecturer emphasizes the following:
 
 The main warning is:
 
-$$
-\text{Low training error}
-\nRightarrow
-\text{Low generalization error}
-$$
+> **Low training error does not imply low generalization error.**
 
 To choose $\lambda$, we need data that:
 
