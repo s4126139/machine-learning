@@ -16,6 +16,31 @@ where:
 - $c$ denotes one class;
 - $p(c)$ is the proportion of the samples in $S$ that belong to class $c$.
 
+### How to read the formula
+
+| Part | Meaning |
+|---|---|
+| $p(c)^2$ | The probability that two independent draws are both from class $c$ |
+| $\sum_{c=1}^{C}p(c)^2$ | The probability that two independent draws have the same class |
+| $1-\sum_{c=1}^{C}p(c)^2$ | The probability that the two class labels are different |
+| Output | One impurity score for the whole data set or node $S$ |
+
+The summation sign $\sum$ means: calculate the squared proportion for every class and
+add the results. Since the class proportions must satisfy
+
+$$
+\sum_{c=1}^{C}p(c)=1,
+$$
+
+Gini impurity can also be written as
+
+$$
+\operatorname{Gini}(S)
+=\sum_{c=1}^{C}p(c)\bigl(1-p(c)\bigr).
+$$
+
+Here, $1-p(c)$ is the probability of drawing any class other than $c$.
+
 The interpretation is simple:
 
 - $\operatorname{Gini}(S)=0$ means that $S$ is pure: every sample has the same class.
@@ -25,6 +50,9 @@ The interpretation is simple:
 $$
 \operatorname{Gini}_{\max}=1-\frac{1}{C}.
 $$
+
+In this expression, $C$ is the total number of classes and $1/C$ is the class
+proportion when all classes are equally represented.
 
 For binary classification, the maximum is therefore $0.5$, not $1$.
 
@@ -210,20 +238,49 @@ $v\in\operatorname{Values}(A)$. Following the lecture's information-gain notatio
 the Gini reduction as
 
 $$
-\boxed{
-\Delta\operatorname{Gini}(S,A)
+\boxed{\Delta\operatorname{Gini}(S,A)
 =\operatorname{Gini}(S)
 -\sum_{v\in\operatorname{Values}(A)}
-\frac{|S_v|}{|S|}\operatorname{Gini}(S_v)
-}
+\frac{\lvert S_v\rvert}{\lvert S\rvert}
+\operatorname{Gini}(S_v)}
 $$
+
+### Split-formula notation
+
+| Symbol | Meaning |
+|---|---|
+| $A$ | The candidate attribute used to split the current node |
+| $\operatorname{Values}(A)$ | All branches created by $A$, such as `Positive` and `Negative` |
+| $v$ | One possible branch value of $A$ |
+| $S_v$ | The subset of samples sent to branch $v$ |
+| $\lvert S\rvert$ | Number of samples in the parent node |
+| $\lvert S_v\rvert$ | Number of samples in child node $S_v$ |
+| $\frac{\lvert S_v\rvert}{\lvert S\rvert}$ | The proportion of parent samples sent to that child |
+| $\operatorname{Gini}(S_v)$ | Impurity of that child |
+| $\sum_v\frac{\lvert S_v\rvert}{\lvert S\rvert}\operatorname{Gini}(S_v)$ | Weighted impurity after the split |
+| $\Delta\operatorname{Gini}(S,A)$ | Impurity removed by splitting $S$ using $A$ |
+
+Read the formula from right to left:
+
+1. calculate the Gini impurity of every child;
+2. weight each child by the fraction of samples it receives;
+3. add the weighted child impurities;
+4. subtract the result from the parent impurity.
+
+A larger positive $\Delta\operatorname{Gini}(S,A)$ indicates a better immediate split.
+If the reduction is $0$, the split has not made the class labels less mixed.
 
 A greedy tree selects the candidate split with the largest reduction.
 
-The weighting $\frac{|S_v|}{|S|}$ is essential. Without it, a tiny pure node could look
+The weighting $\frac{\lvert S_v\rvert}{\lvert S\rvert}$ is essential. Without it, a tiny pure node could look
 far more valuable than it really is.
 
 ### Worked example using the Week 5 lecture data
+
+![Week 5 lecture example: decision tree using Gini impurity](<lecture_image/Screenshot 2026-07-28 113000.png>)
+
+*Lecture reference: the 10-sample `Past Trend`, `Open Interest`, `Trading Volume`, and
+`Return` example, together with the resulting Gini-based tree.*
 
 The lecture's root data set contains:
 
@@ -303,6 +360,10 @@ $$
 &=2p(1-p).
 \end{aligned}
 $$
+
+Here, $p$ is the proportion of one class and $1-p$ is the proportion of the other
+class. The two forms are algebraically identical. The compact form $2p(1-p)$ makes it
+easy to see that the score is $0$ at $p=0$ or $p=1$ and largest at $p=0.5$.
 
 | $p$ | Class distribution | Gini impurity |
 |---:|---|---:|

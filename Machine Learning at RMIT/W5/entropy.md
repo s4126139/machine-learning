@@ -19,6 +19,25 @@ where:
 - $c$ denotes one class;
 - $p(c)$ is the proportion of $S$ that has class $c$.
 
+### How to read the formula
+
+| Part | Meaning |
+|---|---|
+| $\log_2 p(c)$ | Logarithm of the probability of class $c$ |
+| $-\log_2 p(c)$ | Information or “surprise” produced by observing class $c$ |
+| $p(c)\left[-\log_2 p(c)\right]$ | Probability-weighted information from class $c$ |
+| $\sum_{c=1}^{C}$ | Add the contribution of every class |
+| Output | Average uncertainty in the class label, measured in bits |
+
+The class proportions must satisfy
+
+$$
+\sum_{c=1}^{C}p(c)=1.
+$$
+
+The minus sign makes the result non-negative because
+$\log_2 p(c)\leq0$ whenever $0<p(c)\leq1$.
+
 The convention $0\log_2 0=0$ is used, justified by the limit
 $\lim_{p\to0^+}p\log p=0$.
 
@@ -31,6 +50,9 @@ The interpretation is:
 $$
 \operatorname{Entropy}_{\max}(S)=\log_2 C.
 $$
+
+Here, $C$ is the number of classes. The maximum occurs when every class has proportion
+$p(c)=1/C$.
 
 For two equally represented classes, the maximum is $1$ bit.
 
@@ -56,6 +78,10 @@ $$
 
 where $dS$ is the change in thermodynamic entropy, $\delta Q_{\mathrm{rev}}$ is
 reversible heat transfer, and $T$ is absolute temperature.
+
+The subscript `rev` matters: the equality defines the entropy change by considering a
+reversible path. In this historical physics formula, $S$ denotes physical entropy; it
+is not the data set $S$ used later in the Week 5 machine-learning notation.
 
 Clausius introduced the name in his 1865 paper “On Several Convenient Forms of the
 Fundamental Equations of the Mechanical Theory of Heat”
@@ -87,6 +113,9 @@ where:
 - $W$ is the number of microscopic configurations compatible with the observed
   macroscopic state.
 
+The natural logarithm $\ln$ converts a multiplicative number of configurations into an
+additive entropy. $k_{\mathrm{B}}$ supplies the physical scale and units.
+
 More possible microstates mean greater entropy. This was the crucial conceptual bridge
 from macroscopic heat to counting and probability.
 
@@ -98,6 +127,10 @@ probability distributions. The discrete Gibbs entropy has the form
 $$
 S=-k_{\mathrm{B}}\sum_i p_i\ln p_i.
 $$
+
+Here, $i$ indexes a possible physical microstate and $p_i$ is its probability. If all
+$W$ states are equally likely, then $p_i=1/W$ and the Gibbs expression reduces to
+$S=k_{\mathrm{B}}\ln W$.
 
 Gibbs's *Elementary Principles in Statistical Mechanics* was published in 1902 and is
 available through
@@ -116,6 +149,9 @@ a logarithmic measure:
 $$
 H=K\log N.
 $$
+
+In Hartley's formula, $N$ is the number of equally likely alternatives and $K$ is a
+positive scaling constant that determines the unit.
 
 The logarithm is important because independent choices multiply their numbers of
 possibilities, while their information should add:
@@ -171,6 +207,19 @@ D_{\mathrm{KL}}(P\|Q)
 =\sum_c P(c)\log\frac{P(c)}{Q(c)}.
 $$
 
+### Relative-entropy notation
+
+| Symbol | Meaning |
+|---|---|
+| $P$ | Reference or target probability distribution |
+| $Q$ | Approximating or model probability distribution |
+| $P(c)$ and $Q(c)$ | Probabilities assigned to class or outcome $c$ |
+| $\log\frac{P(c)}{Q(c)}$ | Information difference for outcome $c$ |
+| $D_{\mathrm{KL}}(P\|Q)$ | Expected information difference under $P$ |
+
+The order matters: in general,
+$D_{\mathrm{KL}}(P\|Q)\neq D_{\mathrm{KL}}(Q\|P)$.
+
 Their paper “On Information and Sufficiency” appeared in 1951
 ([DOI: 10.1214/aoms/1177729694](https://doi.org/10.1214/aoms/1177729694)).
 
@@ -185,6 +234,14 @@ and satisfies
 $$
 H(P,Q)=H(P)+D_{\mathrm{KL}}(P\|Q).
 $$
+
+In these formulas:
+
+- $H(P,Q)$ is cross-entropy: outcomes are generated according to $P$ but encoded or
+  predicted using $Q$;
+- $H(P)$ is the irreducible entropy of the target distribution;
+- $D_{\mathrm{KL}}(P\|Q)$ is the additional cost caused by the mismatch between $P$
+  and $Q$.
 
 Because $H(P)$ is fixed with respect to a model $Q$, minimising cross-entropy is
 equivalent to minimising $D_{\mathrm{KL}}(P\|Q)$. This identity later became central to
@@ -236,36 +293,87 @@ flowchart LR
 
 ### 3.1 Information content of one event
 
-If an event has probability $p$, its self-information is
+If event or outcome $x$ occurs, its self-information is
 
 $$
-I(p)=-\log_2p.
+\boxed{I(x)=-\log_2P(x)}
 $$
+
+where:
+
+- $x$ is the event or outcome that has occurred;
+- $P(x)=p$ is the probability of that outcome;
+- $I(x)$ is the information received after learning that $x$ occurred, measured in
+  bits because the logarithm has base 2.
+
+The shorthand $I(p)=-\log_2p$ is sometimes used to emphasise that the numerical amount
+of information depends only on the event's probability. More precisely, however,
+self-information belongs to the observation of an outcome $x$.
+
+> **Key intuition:** self-information measures how much prior uncertainty is removed
+> when a particular outcome is observed. It does not measure how many words or how much
+> general knowledge the outcome contains.
 
 Consequences:
 
-- a certain event, $p=1$, gives $I(1)=0$ bits;
-- a rare event gives more information when it occurs;
-- independent events have additive information because logarithms turn products into
-  sums.
+- If $P(x)=1$, then $I(x)=-\log_2(1)=0$: a certain event tells us nothing unexpected.
+- The smaller $P(x)$ is, the larger $I(x)$ becomes: a rare event removes more prior
+  uncertainty when it occurs.
+- Two different outcomes with the same probability have the same self-information,
+  even though the outcomes themselves are different.
 
-For example:
+For example, the probability of obtaining ten heads in ten independent fair-coin tosses
+is
 
-| Event probability | Self-information |
-|---:|---:|
-| $1$ | $0$ bits |
-| $1/2$ | $1$ bit |
-| $1/4$ | $2$ bits |
-| $1/8$ | $3$ bits |
+$$
+P(HHHHHHHHHH)=\left(\frac12\right)^{10}=\frac{1}{1024}.
+$$
 
-### 3.2 Entropy is expected information
+Observing this event provides
 
-Before observing a class label, class $c$ occurs with probability $p(c)$ and would
-provide $-\log_2p(c)$ bits of information. The expected information is therefore
+$$
+I(HHHHHHHHHH)
+=-\log_2\left(\frac{1}{1024}\right)
+=10\text{ bits}.
+$$
+
+The logarithm is used because information from independent events should add. If $A$
+and $B$ are independent, then
 
 $$
 \begin{aligned}
-E[I(C)]
+I(A\cap B)
+&=-\log_2P(A\cap B)\\
+&=-\log_2\bigl(P(A)P(B)\bigr)\\
+&=-\log_2P(A)-\log_2P(B)\\
+&=I(A)+I(B).
+\end{aligned}
+$$
+
+Thus, one fair binary choice carries one bit, and $N$ equally likely outcomes require
+$\log_2N$ bits to identify. Since $P(x)=1/N$,
+
+$$
+I(x)=\log_2N=\log_2\left(\frac{1}{P(x)}\right)=-\log_2P(x).
+$$
+
+**Do not confuse the two levels:**
+
+- self-information $I(x)$ asks, “How surprising was the particular outcome that just
+  occurred?”;
+- entropy $H(X)=E[I(X)]$ asks, “Before observing the outcome, how uncertain is this
+  random variable on average?”
+
+### 3.2 Entropy is expected information
+
+Let $Y$ be the unknown target label. Before observing $Y$, the outcome $Y=c$ occurs
+with probability $p(c)$ and would provide
+$I(Y=c)=-\log_2P(Y=c)=-\log_2p(c)$ bits of self-information. The expected information
+is therefore
+
+$$
+\begin{aligned}
+H(Y)=E[I(Y)]
 &=\sum_{c=1}^{C}p(c)\bigl[-\log_2p(c)\bigr]\\
 &=-\sum_{c=1}^{C}p(c)\log_2p(c)\\
 &=\operatorname{Entropy}(S).
@@ -296,13 +404,36 @@ Suppose attribute $A$ divides $S$ into subsets $S_v$, one for each value
 $v\in\operatorname{Values}(A)$. Using the Week 5 notation:
 
 $$
-\boxed{
-\operatorname{Gain}(S,A)
+\boxed{\operatorname{Gain}(S,A)
 =\operatorname{Entropy}(S)
 -\sum_{v\in\operatorname{Values}(A)}
-\frac{|S_v|}{|S|}\operatorname{Entropy}(S_v)
-}
+\frac{\lvert S_v\rvert}{\lvert S\rvert}
+\operatorname{Entropy}(S_v)}
 $$
+
+### Information-gain notation
+
+| Symbol | Meaning |
+|---|---|
+| $A$ | Candidate attribute used to split $S$ |
+| $\operatorname{Values}(A)$ | All branches created by $A$ |
+| $v$ | One branch value, such as `Positive` or `Negative` |
+| $S_v$ | Subset of samples whose value of $A$ is $v$ |
+| $\lvert S\rvert$ | Number of samples in the parent node |
+| $\lvert S_v\rvert$ | Number of samples in child $S_v$ |
+| $\frac{\lvert S_v\rvert}{\lvert S\rvert}$ | Probability that a sample from $S$ enters child $S_v$ |
+| $\operatorname{Entropy}(S_v)$ | Uncertainty remaining inside child $S_v$ |
+| $\sum_v\frac{\lvert S_v\rvert}{\lvert S\rvert}\operatorname{Entropy}(S_v)$ | Weighted entropy after the split |
+| $\operatorname{Gain}(S,A)$ | Uncertainty removed by observing attribute $A$ |
+
+Read the formula from right to left:
+
+1. calculate the entropy of every child;
+2. weight each child entropy by the fraction of samples sent to it;
+3. add the weighted values to obtain the expected entropy after the split;
+4. subtract that value from the parent entropy.
+
+Higher information gain means that $A$ gives more information about the target class.
 
 The second term is the expected entropy after observing the value of $A$. Information
 gain is therefore the reduction in uncertainty about the class label.
@@ -318,6 +449,11 @@ This equality explains why the criterion is called information gain rather than 
 entropy reduction.
 
 ### 4.2 Worked example using the Week 5 lecture data
+
+![Week 5 lecture calculation of information gain for Past Trend](<lecture_image/Screenshot 2026-07-28 130009.png>)
+
+*Lecture reference: splitting $S$ into $S_1$ and $S_2$ using `Past Trend`, including
+the parent entropy, child entropies, branch weights, and final gain of $0.4200$.*
 
 The lecture's data set $S$ contains:
 
@@ -381,6 +517,11 @@ The split removes $0.4200$ bits of uncertainty about the target. In the lecture'
 comparison of the three attributes, `Past Trend` has the largest gain, so the greedy
 algorithm selects it at the root.
 
+![Week 5 lecture comparison of information gain across the three attributes](<lecture_image/Screenshot 2026-07-28 130041.png>)
+
+*Lecture comparison: `Past Trend` gives gain $0.4200$, `Open Interest` gives $0.0200$,
+and `Trading Volume` gives $0.2814$. The largest gain determines the greedy root split.*
+
 ### 4.3 Greedy recursion
 
 After choosing the best attribute:
@@ -409,6 +550,22 @@ $$
 y_{i,c}\log \hat p_{i,c}
 }
 $$
+
+### Cross-entropy-loss notation
+
+| Symbol | Meaning |
+|---|---|
+| $n$ | Number of training or evaluation samples |
+| $i$ | Index of one sample |
+| $C$ | Number of classes |
+| $c$ | Index of one class |
+| $y_{i,c}$ | One-hot target: $1$ if sample $i$ belongs to class $c$, otherwise $0$ |
+| $\hat p_{i,c}$ | Probability predicted by the model that sample $i$ belongs to class $c$ |
+| $\mathcal{L}_{\mathrm{CE}}$ | Mean cross-entropy loss over all samples |
+
+The inner sum selects the log probability of the true class because all incorrect
+classes have $y_{i,c}=0$. The outer sum adds the losses for all samples, and $1/n$
+converts the total into an average.
 
 Because only the true class has $y_{i,c}=1$, the loss for one sample is simply
 
@@ -479,6 +636,11 @@ H(\hat{\mathbf p}(x))
 =-\sum_c\hat p_c(x)\log\hat p_c(x).
 $$
 
+Here, $x$ is one input, $\hat p_c(x)$ is the model's predicted probability for class
+$c$, and $H(\hat{\mathbf p}(x))$ is the uncertainty of that prediction. A distribution
+concentrated on one class has low predictive entropy; a nearly uniform distribution has
+high predictive entropy.
+
 It can help identify uncertain predictions and prioritise cases for human review or
 active learning. However, entropy is meaningful only if the probability estimates are
 reasonably calibrated. An overconfident model can have low predictive entropy while
@@ -492,6 +654,11 @@ $$
 \mathcal{L}_{\mathrm{total}}
 =\mathcal{L}_{\mathrm{task}}-\lambda H(\pi).
 $$
+
+In this objective, $\mathcal{L}_{\mathrm{task}}$ is the original task loss, $H(\pi)$ is
+the entropy of a learned distribution or policy $\pi$, and $\lambda\geq0$ controls the
+strength of the entropy reward. When minimising the displayed loss, the minus sign
+encourages larger entropy.
 
 With $\lambda>0$, subtracting entropy rewards a broader distribution $\pi$, encouraging
 exploration or preventing premature collapse to a single choice. This idea is common in
@@ -701,7 +868,7 @@ $$
 \operatorname{Gain}(S,A)
 =\operatorname{Entropy}(S)
 -\sum_{v\in\operatorname{Values}(A)}
-\frac{|S_v|}{|S|}\operatorname{Entropy}(S_v).
+\frac{\lvert S_v\rvert}{\lvert S\rvert}\operatorname{Entropy}(S_v).
 }
 $$
 
