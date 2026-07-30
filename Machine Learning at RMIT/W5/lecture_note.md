@@ -216,6 +216,36 @@ For the historical development and broader ML applications of entropy, see
 
 Entropy evaluates one node. Information gain evaluates a candidate split.
 
+### 5.1 What is information gain used for?
+
+Information gain is used to choose the best attribute or threshold for splitting the
+samples at the current decision-tree node. It answers:
+
+> **How much uncertainty about the target class is removed after splitting on
+> attribute $A$?**
+
+At each node, a greedy tree:
+
+1. generates candidate splits from the available attributes;
+2. calculates the information gain of every candidate;
+3. selects the split with the **largest information gain**;
+4. repeats the process inside each child that still needs to be split.
+
+The interpretation is:
+
+- **large gain:** the split separates the classes well and creates purer children;
+- **small gain:** the attribute provides little information about the target;
+- **zero gain:** the weighted entropy after the split equals the parent entropy, so the
+  split has not reduced class uncertainty.
+
+In compact form:
+
+```text
+entropy before the split
+− weighted entropy after the split
+= information gain
+```
+
 Suppose attribute $A$ divides $S$ into children $S_v$, one for every branch value
 $v\in\operatorname{Values}(A)$. Then:
 
@@ -240,9 +270,21 @@ $$
 The weights are essential. A child that receives many samples should influence the
 post-split score more than a very small child.
 
+In information-theoretic notation, this empirical reduction is the mutual information
+between target $Y$ and attribute $A$:
+
+$$
+\operatorname{Gain}(S,A)
+=H(Y)-H(Y\mid A)
+=I(Y;A).
+$$
+
+Therefore, an attribute with larger information gain contains more useful information
+for predicting the target at that node.
+
 ![Information-gain formula from the lecture](<lecture_image/Screenshot 2026-07-28 125957.png>)
 
-### 5.1 Week 5 worked example
+### 5.2 Week 5 worked example
 
 At the root:
 
