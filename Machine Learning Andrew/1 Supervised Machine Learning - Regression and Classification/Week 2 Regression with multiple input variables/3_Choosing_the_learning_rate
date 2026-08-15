@@ -1,0 +1,86 @@
+# Choosing the Learning Rate
+
+## Core idea
+
+The learning rate `alpha` controls the size of each gradient-descent update.
+
+- If `alpha` is too small, gradient descent converges very slowly.
+- If `alpha` is too large, gradient descent may overshoot the minimum and fail to converge.
+- A useful value makes the cost decrease rapidly and consistently.
+
+## Recognising an excessively large learning rate
+
+Plot the cost `J` against the number of iterations.
+
+| Cost behaviour | Likely meaning |
+|---|---|
+| Cost sometimes increases and sometimes decreases | `alpha` may be too large, or the code may contain a bug |
+| Cost increases consistently | `alpha` may be too large, or the gradient update may be implemented incorrectly |
+| Cost decreases consistently | Gradient descent is moving in the expected direction |
+
+When `alpha` is too large, an update can jump across the minimum. The following update can overshoot again in the opposite direction, causing the cost to rise or oscillate.
+
+## Verify the gradient update
+
+The parameter update must move against the derivative:
+
+```text
+w1 := w1 - alpha * derivative
+```
+
+Using a plus sign instead of a minus sign moves the parameter farther from the minimum and can make the cost increase after every iteration.
+
+## Debugging with a very small learning rate
+
+If gradient descent is not working:
+
+1. Set `alpha` to a very small value.
+2. Run a few iterations.
+3. Check whether `J` decreases after every iteration.
+
+If the cost still increases with a very small `alpha`, there is probably a bug in the implementation.
+
+A very small learning rate is only a debugging tool. It is usually inefficient for actual training because convergence will require many iterations.
+
+## Search for a useful learning rate
+
+Try a sequence of learning rates and plot the cost curve for each one.
+
+Example values from the lesson:
+
+```text
+0.001 -> 0.003 -> 0.01 -> 0.03 -> 0.1 -> ...
+```
+
+Each value is roughly three times the previous value. A sequence increasing by a factor of ten, such as `0.001`, `0.01`, and `0.1`, can also provide an initial range.
+
+For every candidate value:
+
+- run gradient descent for a small number of iterations;
+- plot `J` against the iteration count;
+- check that the cost decreases consistently;
+- compare how quickly the cost decreases.
+
+Continue until the experiments include:
+
+- a value that is clearly too small;
+- a value that is clearly too large.
+
+Then choose the largest reasonable learning rate, or a value slightly smaller than it, that still decreases the cost rapidly and consistently.
+
+## Key checklist
+
+- Cost oscillates or rises: reduce `alpha` and check the implementation.
+- Cost decreases extremely slowly: `alpha` may be too small.
+- Very small `alpha` but cost still rises: likely implementation bug.
+- Cost decreases rapidly and consistently: reasonable candidate learning rate.
+- Do not select a tiny value merely because it is stable; training efficiency also matters.
+
+## ML lifecycle phase
+
+**Primary phase: Phase 08 — Validation and Hyperparameter Tuning.**
+
+The learning rate `alpha` is a training setting that must be chosen rather than learned as a model parameter.
+
+It is applied during **Phase 07 — Model Training**, where its effect is observed through the cost curve.
+
