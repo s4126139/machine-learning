@@ -1,5 +1,7 @@
 # Phase 08 — Validation and Hyperparameter Tuning
 
+> Shared core phase. Add compute/label/privacy budgets, checkpoint selection, repeated seeds, off-policy evaluation, and search-overfitting controls from the [specialisation overlays](../machine_learning_specialisations/README.md).
+
 [← Phase 07: Model Training](07_model_training.md) · [Lifecycle index](README.md) · [Phase 09: Evaluation Metrics →](09_evaluation_metrics.md)
 
 ## Purpose

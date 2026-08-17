@@ -1,5 +1,7 @@
 # Phase 09 — Evaluation Metrics
 
+> Shared core phase. Route specialised metrics, aggregation units, uncertainty, and human evaluation through the applicable [specialisation overlays](../machine_learning_specialisations/README.md), especially their task and modality guides.
+
 [← Phase 08: Validation and Hyperparameter Tuning](08_validation_and_hyperparameter_tuning.md) · [Lifecycle index](README.md) · [Phase 10: Error Analysis and Robustness →](10_error_analysis_and_robustness.md)
 
 ## Purpose

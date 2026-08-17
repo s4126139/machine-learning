@@ -1,4 +1,6 @@
-# Phase 13 - Deployment
+# Phase 13 — Deployment
+
+> Shared core phase. Add open/closed-loop behaviour, state, feedback, human override, output/action guardrails, client topology, and specialised serving controls from the [specialisation overlays](../machine_learning_specialisations/README.md).
 
 [Previous: Phase 12 - Model Finalisation and Packaging](12_model_finalisation_and_packaging.md) | [Index](README.md) | [Next: Phase 14 - Monitoring](14_monitoring.md)
 

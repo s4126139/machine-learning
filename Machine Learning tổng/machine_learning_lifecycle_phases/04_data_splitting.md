@@ -1,5 +1,7 @@
 # Phase 04 — Data Splitting
 
+> Shared core phase. The independence unit may be an entity, time window, source, client/site, speaker, scene, graph element, environment, geography, or episode; select the applicable [specialisation overlays](../machine_learning_specialisations/README.md).
+
 ## Purpose
 
 Create independent partitions for parameter learning, model selection, and final generalisation evaluation without leakage.

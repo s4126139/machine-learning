@@ -1,4 +1,6 @@
-# Phase 15 - Retraining and Maintenance
+# Phase 15 — Retraining and Maintenance
+
+> Shared core phase. Distinguish full retraining, fine-tuning, index refresh, online update, policy update, active-labelling cycle, and federated round using the [specialisation overlays](../machine_learning_specialisations/README.md).
 
 [Previous: Phase 14 - Monitoring](14_monitoring.md) | [Index](README.md) | [Next: Phase 16 - Model Retirement](16_model_retirement.md)
 

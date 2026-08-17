@@ -1,5 +1,7 @@
 # Machine Learning Lifecycle Phase Handbook
 
+> This is the shared core lifecycle. Start from the [root handbook portal](../README.md), classify the project with the [ML taxonomy passport](../machine_learning_specialisations/taxonomy_and_coverage.md#ml-taxonomy-passport), and add every applicable [specialisation overlay](../machine_learning_specialisations/README.md).
+
 ## Should every machine-learning problem follow this lifecycle?
 
 Use the lifecycle as a **decision framework**, not a rigid sequence in which
@@ -17,6 +19,19 @@ every phase receives equal effort.
   text, and images require different splits, metrics, and model families.
 - Some phases can iterate or run in parallel; a failed exit criterion sends the
   project back to an earlier phase.
+
+## Compose the lifecycle for a specialised project
+
+The 16 phases remain the common sequence. A specialised project adds requirements along four independent axes:
+
+| Axis | Examples | Routing |
+|---|---|---|
+| Task family | forecasting, ranking, generation, causal effect, survival, sequential decision | [Task overlays](../machine_learning_specialisations/README.md#task-families) |
+| Data modality/structure | image, video, text, audio, graph, spatial, multimodal | [Modality overlays](../machine_learning_specialisations/README.md#data-modalities-and-structures) |
+| Learning paradigm/method | deep/transfer, self-supervised, reinforcement, Bayesian | [Paradigm overlays](../machine_learning_specialisations/README.md#paradigms-and-methods) |
+| Operational setting | online/continual, active/HITL, federated, private, AutoML | [Operational overlays](../machine_learning_specialisations/README.md#operational-settings) |
+
+Example: an image model trained across hospitals is not one new lifecycle. It is `core + computer vision + deep/transfer + federated + privacy`. The overlays document only what changes in each phase.
 
 ## Lifecycle at a glance
 
@@ -109,6 +124,8 @@ flowchart TD
 | Image/audio/deep learning | Augmentation, pretrained models, hardware, dataset shift | subject/group split; no near-duplicate leakage | scikit-learn can handle downstream tabular embeddings; deep models are external |
 | Ranking/recommendation | Candidate generation, user/item leakage, top-k utility | user/time-aware offline protocol plus online testing | scikit-learn supplies building blocks; specialist recommenders and many @K metrics are custom/external |
 
+This table is a classical quick route, not the full taxonomy. Use the dedicated guides for [time series](../machine_learning_specialisations/task_families/time_series_and_forecasting.md), [clustering](../machine_learning_specialisations/task_families/clustering_and_dimensionality_reduction.md), [anomaly/OOD](../machine_learning_specialisations/task_families/anomaly_novelty_and_ood_detection.md), [NLP/LLMs](../machine_learning_specialisations/data_modalities_and_structures/nlp_documents_and_llms.md), [computer vision](../machine_learning_specialisations/data_modalities_and_structures/computer_vision.md), [speech/audio](../machine_learning_specialisations/data_modalities_and_structures/speech_and_audio.md), [deep learning](../machine_learning_specialisations/paradigms_and_methods/deep_learning_transfer_and_multitask.md), and [recommendation/ranking/retrieval](../machine_learning_specialisations/task_families/recommendation_ranking_and_retrieval.md).
+
 ## Non-negotiable rules
 
 1. Define the prediction unit and target before selecting an algorithm.
@@ -127,6 +144,7 @@ flowchart TD
 12. A production model is incomplete without monitoring, ownership, and rollback.
 13. Retraining is a new controlled model-development cycle, not an automatic overwrite.
 14. Apply governance, security, privacy, accountability, and risk controls throughout the lifecycle.
+15. Record the taxonomy passport and apply every relevant specialisation overlay; do not treat task, modality, learning signal, model family, and operating setting as the same axis.
 
 ## Iteration routes
 

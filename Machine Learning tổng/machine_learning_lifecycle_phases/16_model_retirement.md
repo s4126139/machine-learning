@@ -1,4 +1,6 @@
-# Phase 16 - Model Retirement
+# Phase 16 — Model Retirement
+
+> Shared core phase. Retire every specialised dependency—processors, tokenisers, prompts, indexes, embeddings, policies, client versions, privacy records, cached outputs, and retained data—identified by the [specialisation overlays](../machine_learning_specialisations/README.md).
 
 [Previous: Phase 15 - Retraining and Maintenance](15_retraining_and_maintenance.md) | [Index](README.md) | [Next: Index](README.md)
 

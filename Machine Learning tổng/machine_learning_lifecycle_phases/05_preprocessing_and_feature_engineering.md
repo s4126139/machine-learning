@@ -1,5 +1,7 @@
 # Phase 05 — Preprocessing and Feature Engineering
 
+> Shared core phase. Tokenisers, augmentation, learned representations, graph construction, pseudo-labels, and modality processors require the applicable [specialisation overlays](../machine_learning_specialisations/README.md).
+
 ## Purpose
 
 Define a reproducible, leakage-safe transformation from raw inputs to model-ready features.

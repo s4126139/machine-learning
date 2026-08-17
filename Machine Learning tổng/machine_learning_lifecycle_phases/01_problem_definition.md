@@ -1,5 +1,7 @@
 # Phase 01 — Problem Definition
 
+> Shared core phase. Record the [ML taxonomy passport](../machine_learning_specialisations/taxonomy_and_coverage.md#ml-taxonomy-passport) and apply the relevant [specialisation overlays](../machine_learning_specialisations/README.md).
+
 ## Purpose
 
 Convert a business or research need into a precise, measurable machine-learning task.
