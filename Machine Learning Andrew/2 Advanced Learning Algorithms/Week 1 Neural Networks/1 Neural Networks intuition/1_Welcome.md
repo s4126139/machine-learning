@@ -14,13 +14,13 @@ It also provides practical guidance for building machine learning systems. A pra
 | Week | Main topic | Central question |
 |---|---|---|
 | 1 | Neural-network inference | Given a trained neural network and its parameters, how does it make predictions? |
-| 2 | Training neural networks | Given labeled examples \(X\) and \(Y\), how are the parameters of a neural network learned? |
+| 2 | Training neural networks | Given labeled examples $X$ and $Y$, how are the parameters of a neural network learned? |
 | 3 | Practical machine learning advice | How can a machine learning system be built efficiently and quickly through better engineering decisions? |
 | 4 | Decision trees | How do decision-tree algorithms work, and how can they be used in applications? |
 
 ## Inference versus training
 
 - **Inference** means using an already-trained neural network to make predictions. For example, one could download trained parameters published online and use them to run the network.
-- **Training** means learning the neural network's parameters from a labeled training set \((X,Y)\).
+- **Training** means learning the neural network's parameters from a labeled training set $(X,Y)$.
 
 The course begins with inference and the mechanics of neural networks, then moves to training, practical system-building advice, and decision trees.

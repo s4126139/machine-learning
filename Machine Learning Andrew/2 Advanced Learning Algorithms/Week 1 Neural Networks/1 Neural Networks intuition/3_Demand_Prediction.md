@@ -6,7 +6,7 @@ Suppose a retailer wants to predict whether a T-shirt will become a top seller. 
 
 Start with one input feature:
 
-- \(x\): the price of the T-shirt
+- $x$: the price of the T-shirt
 
 A logistic regression unit fits a sigmoid function and produces
 
@@ -14,7 +14,7 @@ $$
 a=\frac{1}{1+e^{-(wx+b)}}.
 $$
 
-The output is denoted by \(a\), rather than \(f(x)\), because \(a\) stands for **activation**. Here, \(a\) is the predicted probability that the T-shirt will be a top seller.
+The output is denoted by $a$, rather than $f(x)$, because $a$ stands for **activation**. Here, $a$ is the predicted probability that the T-shirt will be a top seller.
 
 A logistic regression unit can be viewed as a highly simplified artificial neuron: a small computational unit that receives one or more numbers, performs a computation, and produces a number.
 
@@ -77,7 +77,7 @@ The computation proceeds layer by layer:
 
 The illustrative interpretation above assigns selected inputs to particular neurons—for example, price and shipping cost to affordability. Manually deciding these connections would be impractical in a large network.
 
-In a practical neural network, each neuron in a layer receives every value from the previous layer. A neuron can learn, through its parameters, to ignore inputs that are not useful and focus on the relevant ones. Therefore, the hidden layer receives the full vector $\mathbf{x}\), and its output is another vector of activations.
+In a practical neural network, each neuron in a layer receives every value from the previous layer. A neuron can learn, through its parameters, to ignore inputs that are not useful and focus on the relevant ones. Therefore, the hidden layer receives the full vector $\mathbf{x}$, and its output is another vector of activations.
 
 In general, each layer:
 
@@ -87,7 +87,7 @@ $$
 
 ## Why the middle layer is “hidden”
 
-A labeled training set provides the observed inputs \(\mathbf{x}\) and correct outputs \(y\). It does not provide target values for the intermediate activations, such as affordability, awareness, or perceived quality. Because these internal values are not observed in the training data, the layer that computes them is called a **hidden layer**.
+A labeled training set provides the observed inputs $\mathbf{x}$ and correct outputs $y$. It does not provide target values for the intermediate activations, such as affordability, awareness, or perceived quality. Because these internal values are not observed in the training data, the layer that computes them is called a **hidden layer**.
 
 The descriptive names above are only an intuition. During training, no one has to tell the network explicitly to compute these particular factors. The network learns for itself which hidden features are useful.
 
@@ -95,7 +95,7 @@ The descriptive names above are only an intuition. During training, no one has t
 
 If only the output part of the example is considered, it is logistic regression using affordability, awareness, and perceived quality to predict a top seller. These intermediate values may be more predictive than the original features.
 
-Previously, a useful feature might have been created manually—for example, multiplying a lot's frontage \(x_1\) by its depth \(x_2\) to construct a lawn-size feature:
+Previously, a useful feature might have been created manually—for example, multiplying a lot's frontage $x_1$ by its depth $x_2$ to construct a lawn-size feature:
 
 $$
 x_1x_2.
@@ -107,7 +107,7 @@ That is manual feature engineering. A neural network instead learns its own usef
 
 A network can contain multiple hidden layers. For example:
 
-- the input vector \(\mathbf{x}\) enters a first hidden layer with three neurons, producing three activations;
+- the input vector $\mathbf{x}$ enters a first hidden layer with three neurons, producing three activations;
 - those activations enter a second hidden layer with two neurons, producing two activations;
 - those two values enter the output layer, which produces the final prediction.
 
