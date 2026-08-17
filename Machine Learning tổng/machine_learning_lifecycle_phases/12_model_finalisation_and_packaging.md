@@ -1,4 +1,6 @@
-# Phase 12 - Model Finalisation and Packaging
+# Phase 12 — Model Finalisation and Packaging
+
+> Shared core phase. Package all specialised processors, tokenisers, prompts, indexes, graph schemas, label maps, policy/reward definitions, and runtime contracts required by the [specialisation overlays](../machine_learning_specialisations/README.md).
 
 [Previous: Phase 11 - Final Evaluation](11_final_evaluation.md) | [Index](README.md) | [Next: Phase 13 - Deployment](13_deployment.md)
 

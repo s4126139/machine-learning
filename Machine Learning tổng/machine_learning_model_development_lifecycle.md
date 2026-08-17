@@ -1,5 +1,7 @@
 # Machine Learning Model Development Lifecycle
 
+> This is the single-page **classical/core quick reference**. Start from the [handbook portal](README.md) and add all applicable [specialisation overlays](machine_learning_specialisations/README.md) for deep learning, specialised tasks, modalities, and operating settings.
+
 ## Verification scope
 
 - Verified against the installed `scikit-learn 1.9.0` and `SciPy 1.17.1`
@@ -9,6 +11,7 @@
   MLOps stages; scikit-learn does not provide a complete MLOps platform.
 - APIs can change between releases; check `sklearn.__version__` and the matching
   documentation before implementation.
+- Scikit-learn is an implementation reference for classical ML, not the taxonomy boundary of the handbook. Specialised guides use their own official and primary sources.
 
 ## Official references
 
@@ -69,6 +72,19 @@ error analysis, final evaluation, and monitoring; Phase 9 consolidates its
 correct computation and reporting. Governance is similarly cross-cutting:
 Phase 2 focuses on data governance, while ownership, risk, approval, monitoring,
 and safe retirement continue throughout the lifecycle.
+
+## Taxonomy and overlay routing
+
+Before Phase 01 is complete, record the project's [ML taxonomy passport](machine_learning_specialisations/taxonomy_and_coverage.md#ml-taxonomy-passport):
+
+- learning signal by training stage;
+- task or decision objective;
+- data modality and structural unit;
+- model family and knowledge-reuse regime;
+- update cadence, data/compute placement, feedback source, privacy boundary, and safety constraints;
+- links to every applicable overlay.
+
+The 16 core phases always apply. Specialisations are composable deltas, not additional numbered phases. Use the [overlay index](machine_learning_specialisations/README.md) for deep/transfer/domain adaptation, semi/weak/self-supervised, reinforcement, probabilistic/Bayesian, foundation-model systems, meta-learning, scientific ML, temporal sequences, forecasting, recommendation, generative, causal, survival, computer vision, video, NLP/LLM, audio, graph, multimodal, geospatial, online/continual, active/HITL, federated, privacy-preserving, and AutoML workflows.
 
 ## Core principles
 
@@ -952,6 +968,7 @@ Remove models that are obsolete, unsafe, unsupported, or no longer useful.
 
 ## Before training
 
+- [ ] Record the ML taxonomy passport and select every applicable specialisation overlay.
 - [ ] Define the target, task type, metric, and business objective.
 - [ ] Validate data permission, quality, labels, and representativeness.
 - [ ] Design the correct random, stratified, group, spatial, or time split.
@@ -983,3 +1000,5 @@ Remove models that are obsolete, unsafe, unsupported, or no longer useful.
 - [ ] Investigate alerts and production errors.
 - [ ] Retrain through the same controlled lifecycle.
 - [ ] Retire obsolete model versions safely.
+
+For specialised deliverables and exit criteria, finish the project-specific route in the [specialisation overlay index](machine_learning_specialisations/README.md).

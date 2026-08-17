@@ -1,5 +1,7 @@
 # Phase 07 — Model Training
 
+> Shared core phase. Training-stage, checkpoint, accelerator, policy, posterior, federated, and specialised-objective requirements live in the [specialisation overlays](../machine_learning_specialisations/README.md).
+
 [← Phase 06: Baseline Development](06_baseline_development.md) · [Lifecycle index](README.md) · [Phase 08: Validation and Hyperparameter Tuning →](08_validation_and_hyperparameter_tuning.md)
 
 ## Purpose

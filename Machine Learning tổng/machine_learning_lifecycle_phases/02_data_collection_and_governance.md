@@ -1,5 +1,7 @@
 # Phase 02 — Data Collection and Governance
 
+> Shared core phase. Add modality-, feedback-, client-, provenance-, privacy-, and licensing-specific requirements from the [specialisation overlays](../machine_learning_specialisations/README.md).
+
 ## Purpose
 
 Acquire relevant, representative, authorised, secure, traceable, and reproducible data for the defined task.

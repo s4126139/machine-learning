@@ -1,4 +1,6 @@
-# Phase 11 - Final Evaluation
+# Phase 11 — Final Evaluation
+
+> Shared core phase. Final evidence may be external, temporal, geographic, client-held, environment-based, simulator-based, or staged online; use the applicable [specialisation overlays](../machine_learning_specialisations/README.md).
 
 [Previous: Phase 10 - Error Analysis and Robustness](10_error_analysis_and_robustness.md) | [Index](README.md) | [Next: Phase 12 - Model Finalisation and Packaging](12_model_finalisation_and_packaging.md)
 

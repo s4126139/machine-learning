@@ -1,5 +1,7 @@
 # Phase 03 — Exploratory Data Analysis (EDA), Understanding, and Validation
 
+> Shared core phase. Add modality/structure integrity, contamination, annotation, reward, censoring, and feedback checks from the [specialisation overlays](../machine_learning_specialisations/README.md).
+
 ## Purpose
 
 Explore the collected data statistically and visually, then confirm that it is structurally valid, understandable, sufficiently representative, and safe to move into model development.

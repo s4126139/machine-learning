@@ -1,4 +1,6 @@
-# Phase 14 - Monitoring
+# Phase 14 — Monitoring
+
+> Shared core phase. Add representation/modality, generation, policy/reward, graph, client, privacy-budget, forgetting, and feedback-loop signals from the [specialisation overlays](../machine_learning_specialisations/README.md).
 
 [Previous: Phase 13 - Deployment](13_deployment.md) | [Index](README.md) | [Next: Phase 15 - Retraining and Maintenance](15_retraining_and_maintenance.md)
 

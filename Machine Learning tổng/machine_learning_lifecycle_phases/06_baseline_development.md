@@ -1,5 +1,7 @@
 # Phase 06 — Baseline Development
 
+> Shared core phase. Use task-specific heuristic, naive, pretrained/frozen, incumbent, or behaviour-policy baselines from the [specialisation overlays](../machine_learning_specialisations/README.md).
+
 [← Phase 05: Preprocessing and Feature Engineering](05_preprocessing_and_feature_engineering.md) · [Lifecycle index](README.md) · [Phase 07: Model Training →](07_model_training.md)
 
 ## Purpose

@@ -1,5 +1,7 @@
 # Phase 10 — Error Analysis and Robustness
 
+> Shared core phase. Add OOD, adversarial, hallucination, missing-modality, simulator, reward, causal-sensitivity, client, temporal, and forgetting tests from the [specialisation overlays](../machine_learning_specialisations/README.md).
+
 [← Phase 09: Evaluation Metrics](09_evaluation_metrics.md) · [Lifecycle index](README.md) · [Phase 11: Final Evaluation →](11_final_evaluation.md)
 
 ## Purpose
