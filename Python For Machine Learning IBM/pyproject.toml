@@ -11,5 +11,9 @@ dependencies = [
     "numpy==2.2.0",
     "pandas==2.2.3",
     "scikit-learn==1.6.0",
+    "scipy==1.14.1",
+    "seaborn==0.13.2",
+    "hdbscan==0.8.40",
+    "umap-learn==0.5.7",
     "xgboost==2.1.3",
 ]

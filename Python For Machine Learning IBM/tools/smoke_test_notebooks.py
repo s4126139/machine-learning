@@ -54,8 +54,6 @@ def smoke_test(path: Path) -> None:
             continue
         try:
             exec(compile(source, str(path), "exec"), namespace)
-            if source.strip():
-                placeholder_was_skipped = False
         except NameError as exc:
             if placeholder_was_skipped:
                 print(
