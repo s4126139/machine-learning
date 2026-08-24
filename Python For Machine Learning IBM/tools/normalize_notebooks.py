@@ -100,7 +100,19 @@ def _replace_remote_data_variables(source: str, basenames: Iterable[str]) -> str
 def _replace_local_data_reads(source: str, basenames: Iterable[str]) -> str:
     """Route direct ``pd.read_csv('file.csv')`` calls through the local resolver."""
     for basename in basenames:
-        pattern = rf"pd\.read_csv\(\s*(['\"]){re.escape(basename)}\1\s*\)"
+        pattern = rf"pd\.read_csv\(\s*(['\"]){re.escape(basename)}\1"
+        replacement = f"pd.read_csv(_resolve_local_data({basename!r})"
+        source = re.sub(pattern, replacement, source)
+    return source
+
+
+def _replace_remote_data_reads(source: str, basenames: Iterable[str]) -> str:
+    """Route direct remote ``pd.read_csv('https://.../file.csv')`` calls locally."""
+    for basename in basenames:
+        pattern = (
+            rf"pd\.read_csv\(\s*(['\"])https?://[^'\"]*/"
+            rf"{re.escape(basename)}(?:[?#][^'\"]*)?\1\s*\)"
+        )
         replacement = f"pd.read_csv(_resolve_local_data({basename!r}))"
         source = re.sub(pattern, replacement, source)
     return source
@@ -123,6 +135,7 @@ def normalize_notebook(
             updated = _replace_remote_data(updated, replacements)
             updated = _replace_remote_data_variables(updated, data_basenames)
             updated = _replace_local_data_reads(updated, data_basenames)
+            updated = _replace_remote_data_reads(updated, data_basenames)
             if updated != source:
                 cell["source"] = updated.splitlines(keepends=True)
                 changed = True
