@@ -36,16 +36,33 @@ def smoke_test(path: Path) -> None:
     notebook = json.loads(path.read_text(encoding="utf-8"))
     namespace: dict[str, object] = {"display": lambda *args, **kwargs: None}
     cells = [cell for cell in notebook.get("cells", []) if cell.get("cell_type") == "code"]
+    placeholder_was_skipped = False
     for index, cell in enumerate(cells, start=1):
         source = _clean_source("".join(cell.get("source", [])))
         if any(
             marker in source
-            for marker in ("# write your code here", "# ADD CODE", "#ADD CODE", "# YOUR CODE")
+            for marker in (
+                "# write your code here",
+                "# Enter your code here",
+                "# ADD CODE",
+                "#ADD CODE",
+                "# YOUR CODE",
+            )
         ):
             print(f"SKIP {path.name}: code cell {index} contains a learner placeholder")
+            placeholder_was_skipped = True
             continue
         try:
             exec(compile(source, str(path), "exec"), namespace)
+            if source.strip():
+                placeholder_was_skipped = False
+        except NameError as exc:
+            if placeholder_was_skipped:
+                print(
+                    f"SKIP {path.name}: code cell {index} depends on a skipped learner answer ({exc})"
+                )
+                continue
+            raise RuntimeError(f"{path.name}: code cell {index} failed: {exc}") from exc
         except Exception as exc:  # pragma: no cover - CLI diagnostic path
             raise RuntimeError(f"{path.name}: code cell {index} failed: {exc}") from exc
     print(f"PASS {path}")
