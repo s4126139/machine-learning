@@ -1,10 +1,23 @@
 from PIL import Image
 import networkx as nx
 import matplotlib.pyplot as plt
-from networkx.drawing.nx_pydot import graphviz_layout
+try:
+    from networkx.drawing.nx_pydot import graphviz_layout
+except ImportError:
+    graphviz_layout = None
 import numpy as np
 from matplotlib.widgets import Slider, Button
 plt.style.use('./deeplearning.mplstyle')
+
+
+def _tree_layout(graph):
+    """Use Graphviz when available, otherwise keep the lab self-contained."""
+    if graphviz_layout is not None:
+        try:
+            return graphviz_layout(graph, prog="dot")
+        except (ImportError, FileNotFoundError, OSError):
+            pass
+    return nx.spring_layout(graph, seed=42)
 
 def compute_entropy(y):
 
@@ -122,7 +135,7 @@ def generate_split_viz(node_indices, left_indices, right_indices, feature):
     G.add_edge(0,1)
     G.add_edge(0,2)
 
-    pos = graphviz_layout(G, prog="dot")
+    pos = _tree_layout(G)
 
     fig=plt.figure()
     ax=plt.subplot(111)
@@ -182,7 +195,7 @@ def generate_tree_viz(root_indices, y, tree):
     
     
     node_names = decision_names + leaf_names
-    pos = graphviz_layout(G, prog="dot")
+    pos = _tree_layout(G)
 
     fig=plt.figure(figsize=(14, 10))
     ax=plt.subplot(111)
