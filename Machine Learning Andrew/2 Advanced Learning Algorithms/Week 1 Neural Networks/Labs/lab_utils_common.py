@@ -191,7 +191,7 @@ def gradient_descent(X, y, w_in, b_in, alpha, num_iters, logistic=False, lambda_
     b = b_in
     w = w.reshape(-1,1)      #prep for matrix operations
     y = y.reshape(-1,1)
-    last_cost = np.Inf
+    last_cost = np.inf
 
     for i in range(num_iters):
 
