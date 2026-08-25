@@ -28,7 +28,8 @@ compatible Python environment. The parent project currently targets Python
 3.14, while the available Windows TensorFlow wheels support older Python
 versions. Use a separate Python 3.10–3.13 environment for those notebooks;
 the NumPy coffee lab is kept independent of TensorFlow and can run in the
-parent environment.
+parent environment. A starter dependency file for that companion environment
+is available at `../../requirements-course2-tensorflow.txt`.
 
 ## Local compatibility adjustments
 
@@ -38,6 +39,15 @@ parent environment.
   does not import TensorFlow just to draw its plots.
 - Scalar conversions are explicit in the NumPy lab and its plotting helper;
   this avoids the removed implicit one-element-array conversion in NumPy 2.x.
+
+The practice-lab notebook contains completed exercise solutions from a public
+reference mirror. Use it for personal study and do not submit the completed
+solutions as your own coursework.
+
+The extra `autils.load_weights()` helper is retained from the reference
+notebook set but is not used by these notebooks; it expects optional weight
+files (`data/w1.npy`, `b1.npy`, `w2.npy`, and `b2.npy`) that are not included
+in the public mirror.
 
 The notebooks are sourced for personal study from the public reference
 repository [harishmuh/Machine-Learning-Specialization-Coursera](https://github.com/harishmuh/Machine-Learning-Specialization-Coursera).

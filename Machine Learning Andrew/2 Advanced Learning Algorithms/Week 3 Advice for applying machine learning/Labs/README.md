@@ -18,9 +18,14 @@ python -m jupyter lab
 The model-selection notebooks use scikit-learn and the assignment also uses
 TensorFlow/Keras. Use a Python 3.10–3.13 environment with a matching
 TensorFlow wheel for the full assignment; the parent project currently
-targets Python 3.14.
+targets Python 3.14. A starter dependency file is available at
+`../../requirements-course2-tensorflow.txt`.
 
 The notebooks are sourced for personal study from the public reference
 repository [harishmuh/Machine-Learning-Specialization-Coursera](https://github.com/harishmuh/Machine-Learning-Specialization-Coursera).
 The course structure was verified against the official
 [Advanced Learning Algorithms course page](https://www.coursera.org/learn/advanced-learning-algorithms).
+
+The practice-lab notebook contains completed exercise solutions from a public
+reference mirror. Use it for personal study and do not submit the completed
+solutions as your own coursework.

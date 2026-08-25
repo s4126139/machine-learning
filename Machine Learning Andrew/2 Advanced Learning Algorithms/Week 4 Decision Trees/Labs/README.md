@@ -25,3 +25,7 @@ The notebooks are sourced for personal study from the public reference
 repository [harishmuh/Machine-Learning-Specialization-Coursera](https://github.com/harishmuh/Machine-Learning-Specialization-Coursera).
 The course structure was checked against the official
 [Advanced Learning Algorithms course page](https://www.coursera.org/learn/advanced-learning-algorithms).
+
+The practice-lab notebook contains completed exercise solutions from a public
+reference mirror. Use it for personal study and do not submit the completed
+solutions as your own coursework.
