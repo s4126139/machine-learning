@@ -1,0 +1,11 @@
+# TensorFlow companion environment for the Week 1–3 notebooks that use Keras.
+# Create this environment with Python 3.10–3.13; the main project targets
+# Python 3.14 and is intentionally kept separate from TensorFlow.
+tensorflow>=2.20,<2.21
+jupyterlab>=4.4
+ipykernel>=7
+ipympl>=0.10
+ipywidgets>=8.1
+matplotlib>=3.10
+pandas>=2.2
+scikit-learn>=1.5

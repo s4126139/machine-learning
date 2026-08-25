@@ -23,13 +23,19 @@ python -m jupyter lab
 
 The notebooks use TensorFlow/Keras. Use a Python 3.10–3.13 environment with a
 matching TensorFlow wheel; the parent project is currently pinned to Python
-3.14, for which the standard Windows TensorFlow wheel is not available.
+3.14, for which the standard Windows TensorFlow wheel is not available. A
+starter dependency file is available at
+`../../requirements-course2-tensorflow.txt`.
 
 The notebooks are sourced for personal study from the public reference
 repository [harishmuh/Machine-Learning-Specialization-Coursera](https://github.com/harishmuh/Machine-Learning-Specialization-Coursera).
 The Week 2 practice-lab test helper is included from the corresponding public
 `greyhatguy007` course mirror because the first reference mirror does not
 ship that helper alongside `C2_W2_Assignment.ipynb`.
+
+The practice-lab notebook contains completed exercise solutions from a public
+reference mirror. Use it for personal study and do not submit the completed
+solutions as your own coursework.
 
 The course outline and the requested lecture are available at the official
 [Advanced Learning Algorithms course page](https://www.coursera.org/learn/advanced-learning-algorithms)
