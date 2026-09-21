@@ -35,6 +35,11 @@ site/
 .vscode/
 .idea/
 
+# Dataset folders
+ASM2/A2_FashionDataset/
+
 # OS files
 .DS_Store
 Thumbs.db
+__MACOSX/
+._*
