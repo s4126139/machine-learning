@@ -8,7 +8,7 @@
 
 **Deep learning (DL)** is a subset of ML based on multi-layer neural networks. Deep learning is especially valuable for large, complex, unstructured data such as images, audio, video, and text because networks can learn useful representations automatically.
 
-![AI contains machine learning, which contains deep learning](assets/01_ai_ml_deep_learning_relationship.png)
+![AI contains machine learning, which contains deep learning](../assets/01_ai_ml_deep_learning_relationship.png)
 
 The nesting is important:
 
@@ -32,7 +32,7 @@ Training searches for model parameters that capture useful relationships in the 
 
 ## 3. Learning paradigms
 
-![Four learning paradigms](assets/02_types_of_machine_learning.png)
+![Four learning paradigms](../assets/02_types_of_machine_learning.png)
 
 ### Supervised learning
 
@@ -77,7 +77,7 @@ Do not select an algorithm merely because it is popular. First identify the deci
 
 ### Core techniques
 
-![Classification, regression, clustering, and association](assets/03_choosing_ml_technique_a.png)
+![Classification, regression, clustering, and association](../assets/03_choosing_ml_technique_a.png)
 
 | Technique | Output | Learning setting | Typical question | Example |
 |---|---|---|---|---|
@@ -86,7 +86,7 @@ Do not select an algorithm merely because it is popular. First identify the deci
 | Clustering | Group membership or cluster structure | Unsupervised | Which observations are similar? | Customer segments |
 | Association | Co-occurring items or events | Usually unsupervised | What commonly appears together? | Market-basket patterns |
 
-![Anomaly detection, sequence mining, dimensionality reduction, and recommendation](assets/04_choosing_ml_technique_b.png)
+![Anomaly detection, sequence mining, dimensionality reduction, and recommendation](../assets/04_choosing_ml_technique_b.png)
 
 | Technique | Purpose | Example |
 |---|---|---|

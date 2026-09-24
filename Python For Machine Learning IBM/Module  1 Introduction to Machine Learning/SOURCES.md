@@ -32,19 +32,19 @@
 
 | File | Source context | Used in |
 |---|---|---|
-| `00_ibm_ai_engineering_curriculum.png` | IBM AI Engineering PC progression | `01_course_orientation.md` |
-| `01_ai_ml_deep_learning_relationship.png` | AI/ML/deep-learning hierarchy | `02_machine_learning_foundations.md` |
-| `02_types_of_machine_learning.png` | Learning paradigms | `02_machine_learning_foundations.md` |
-| `03_choosing_ml_technique_a.png` | Classification, regression, clustering, association | `02_machine_learning_foundations.md` |
-| `04_choosing_ml_technique_b.png` | Anomaly detection, sequence mining, dimensionality reduction, recommendation | `02_machine_learning_foundations.md` |
-| `05_machine_learning_lifecycle.png` | Five-stage lifecycle | `03_model_lifecycle_and_case_study.md` |
-| `06_scikit_learn_pipeline.png` | Pipeline tasks implemented in Scikit-learn | `05_tools_and_scikit_learn.md` |
+| `../assets/00_ibm_ai_engineering_curriculum.png` | IBM AI Engineering PC progression | `01_course_orientation.md` |
+| `../assets/01_ai_ml_deep_learning_relationship.png` | AI/ML/deep-learning hierarchy | `02_machine_learning_foundations.md` |
+| `../assets/02_types_of_machine_learning.png` | Learning paradigms | `02_machine_learning_foundations.md` |
+| `../assets/03_choosing_ml_technique_a.png` | Classification, regression, clustering, association | `02_machine_learning_foundations.md` |
+| `../assets/04_choosing_ml_technique_b.png` | Anomaly detection, sequence mining, dimensionality reduction, recommendation | `02_machine_learning_foundations.md` |
+| `../assets/05_machine_learning_lifecycle.png` | Five-stage lifecycle | `03_model_lifecycle_and_case_study.md` |
+| `../assets/06_scikit_learn_pipeline.png` | Pipeline tasks implemented in Scikit-learn | `05_tools_and_scikit_learn.md` |
 
 ## Editorial approach
 
 - Repeated ideas across pages were consolidated rather than copied several times.
 - Course and certificate promotion was condensed while prerequisites, learning outcomes, and curriculum context were retained.
 - Examples and assessment-oriented distinctions were preserved.
-- Notion's temporary signed image URLs were replaced by stable local relative paths.
+- Notion's temporary signed image URLs were replaced by stable local relative paths in the shared `../assets/` folder.
 - The Scikit-learn lesson's original sequence was documented, followed by a leakage-safe Pipeline version for practical use.
 - Additional practical cautions are clearly framed as study guidance rather than quotations from the source pages.

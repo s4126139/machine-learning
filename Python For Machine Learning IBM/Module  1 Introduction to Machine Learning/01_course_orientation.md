@@ -126,7 +126,7 @@ The AI engineering path expands from classical ML into:
 - Retrieval-augmented generation, prompt engineering, and LangChain.
 - Applied systems using vector databases, document loaders, QA bots, and user interfaces.
 
-![IBM AI Engineering curriculum progression](assets/00_ibm_ai_engineering_curriculum.png)
+![IBM AI Engineering curriculum progression](../assets/00_ibm_ai_engineering_curriculum.png)
 
 The recommended progression is therefore:
 
