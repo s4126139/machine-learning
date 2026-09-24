@@ -1,15 +1,65 @@
-Transcript
-en
+# Cross-Validation and Advanced Model Validation
 
-Interactive Transcript - Enable basic transcript mode by pressing the escape key
-You may navigate through the transcript using tab. To save a note for a section of text press CTRL + S. To expand your selection you may use CTRL + arrow key. You may contract your selection using shift + CTRL + arrow key. For screen readers that are incompatible with using arrow keys for shortcuts, you can replace them with the H J K L keys. Some screen readers may require using CTRL in conjunction with the alt key
-Welcome to Cross-Validation and Advanced Model Validation Techniques. After watching this video, you will be able to define model validation. You will also be able to explain what data snooping is and how to avoid it. Finally, you will be able to discuss key strategies for model validation. Model validation is all about doing your best to optimize your model without jeopardizing its ability to predict well on unseen data. It helps you prevent overfitting when selecting the best model configuration by tuning hyperparameters. Consider the basic train or test-split evaluation method, where the data set is split into two parts.
-A training set is used to train the model, and a test set is used to evaluate or estimate the model's ability to predict outcomes from unseen data. Most machine learning models have optional parameter settings, called model hyperparameters, that affect how well the model fits the data used to train it. What if you tried different hyperparameters for your model, and then chose the one that performed best on the testing data? Wouldn't you effectively fit the model to the testing data, not the training data? This would result in overfitting. Your model likely wouldn't generalize well to unseen data, invalidating it. Checking performance on the test data before you are done optimizing your model is called data snooping, a form of what's known as data leakage.
-What can you do to validate your model to ensure it doesn't overfit itself to your test data? You need to decouple model tuning from the final evaluation. Validation means tuning your model on the training data, but only testing it on unseen test data once you are satisfied that it is well trained. There is no snooping involved. Here is a model validation strategy that involves segmenting your data into at least three parts. A training set, which is used to train the model, including optimizing its hyperparameters. One or more validation sets or subsets of the training data used during the model optimization process to evaluate a machine learning model's performance.
-A test set that is held back, unseen data used for final evaluation after model training and validation. Cross-validation enables hyperparameter tuning. Here is the cross-validation algorithm for model tuning and validation. Split your data into training data and testing data. Further split your training data into a training set and a validation set. Optimize your model's hyperparameters by repeatedly training it on the training set and measuring its performance on the validation set. Choose your best set of hyperparameters and evaluate your resulting best model on your completely unseen testing data.
-You now have a validated model and an estimate of how well it will generalize on new unseen data. Some potential validation problems reside in selecting a single, specific validation set. Your model could be overfitting to this specific data set. If your model needs a lot of data to train on, you may not have enough data left over for validation and testing purposes. This means your training and validation data might not be representative of the sample population. Your model may not be learning details, like noise on this particular set. Your model's performance may not be stable across different validation sets.
-A solution to avoid overfitting your test data while trying to optimize the model's hyperparameters consists of a few key steps. Divide your data into K equal-sized folds to be used as validation subsets. For each trial model or set of hyperparameters, and for each fold, train a model on the remaining K minus 1 folds. Test the model on the selected fold and store this model's score. Compute an aggregated score of overall folds. Select the set of hyperparameters that led to the best model. Notice that every data point is used both for training and validation, greatly increasing the utilization of the data you have on hand.
-K-fold cross-validation, typically 5- to 10-fold, provides a more robust technique for estimating your model's generalizability to unseen real-world data. Varying the validation set has several benefits. It greatly increases the data on which the model trains and tests. It reduces overfitting because it smooths out unwanted details that are particular to a chosen training subset. Consequently, it improves your ability to evaluate how well your model will generalize to unseen data. In classification problems, you might have many observations in one class and very few in another. It means you are dealing with an imbalanced classification problem.
-Stratified cross-validation ensures that the class distribution is preserved in each validation fold, preventing bias in the evaluation process. The analog to imbalanced data in regression problems is when your target is highly skewed. Many models assume your target is normally distributed. Fortunately, you can transform your target variable using methods like log- or box-cox transforms to reduce the skewness and fit your model to the transformed target. Consider an example of a skewed target variable, as depicted by the histogram on the left. Lower target values have a much higher frequency than higher values. The other two histograms illustrate the distributions of box-cox and logarithmic transforms of the target data.
-Both transforms significantly reduce the skewness. Observe how well linear regression can fit each of these representations of the target variable. In this video, you learned: that model validation helps you prevent overfitting when selecting the best model configuration by tuning hyperparameters. Checking performance on the test data before you are done optimizing your model is called data snooping. Model validation involves dividing data into training set, validation set, and test set. Cross-validation enables hyperparameter tuning. A solution to avoid overfitting your test data while trying to optimize the model's hyperparameters is K-fold cross-validation.
-Stratified cross-validation ensures that the class distribution is preserved in each validation fold, preventing bias.
+![Validation workflow and metric-selection quick guide](../../assets/module-5-evaluation-and-validation-workflow.svg)
+
+## Keep tuning separate from final evaluation
+
+A test set estimates performance after model choices are complete. If you repeatedly compare settings against test scores, you indirectly tune to the test set—data snooping—and the score becomes optimistic.
+
+Use training data for fitting, validation data or cross-validation for choices, and a held-out test set for a final check. When data is limited, cross-validation lets each part of the training set serve as validation in turn.
+
+## K-fold cross-validation
+
+1. Split the training portion into K folds.
+2. For each hyperparameter setting and each fold, fit on K−1 folds and score on the held-out fold.
+3. Aggregate the K scores (mean plus variation) and select settings using the validation results.
+4. Refit the selected pipeline on all available training data.
+5. Evaluate once on a separate test set, if one was reserved.
+
+Five- or ten-fold CV is common, but the right choice depends on data size and dependence structure. CV reduces dependence on one arbitrary split; it does not guarantee independence if observations are related or the split design is wrong.
+
+## Match the split to the data
+
+- **StratifiedKFold:** classification where each fold should preserve class proportions, especially with imbalance.
+- **GroupKFold / GroupShuffleSplit:** repeated observations from the same person, household, device, or site must stay in one side of a split.
+- **TimeSeriesSplit:** training observations precede validation observations. Do not shuffle ordered time series or let future data enter past features.
+- For very small datasets, consider nested cross-validation when you need an estimate of the entire model-selection process without a large untouched test set. Inner folds tune; outer folds estimate the selected process.
+
+A skewed regression target may benefit from log or Box–Cox transformation, but the transform must be fit within each training fold. A transformed-scale score answers a different question from error measured in original target units.
+
+## Put preprocessing inside the fold
+
+Any learned operation—imputation, scaling, feature selection, PCA, target encoding, or resampling—must be fit only on that fold’s training rows. A scikit-learn Pipeline helps enforce this boundary.
+
+    from sklearn.decomposition import PCA
+    from sklearn.model_selection import GridSearchCV, StratifiedKFold
+    from sklearn.neighbors import KNeighborsClassifier
+    from sklearn.pipeline import Pipeline
+    from sklearn.preprocessing import StandardScaler
+
+    pipe = Pipeline([
+        ("scale", StandardScaler()),
+        ("pca", PCA()),
+        ("model", KNeighborsClassifier()),
+    ])
+    cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+    search = GridSearchCV(
+        pipe,
+        {"pca__n_components": [2, 3], "model__n_neighbors": [3, 5, 9]},
+        cv=cv, scoring="f1_macro",
+    )
+    search.fit(X_train, y_train)
+    test_predictions = search.best_estimator_.predict(X_test)
+
+Choose scoring based on the task’s error costs, not convenience. GridSearchCV refits the best pipeline on all rows passed to fit; the test rows must not be passed there.
+
+## Report uncertainty, not just a winner
+
+Report the metric, split strategy, fold mean and spread, final test score, and class or group breakdowns when relevant. A small mean-score difference with high fold variation may not justify a more complex model.
+
+## Recall questions
+
+1. Why is choosing hyperparameters on the test set a form of leakage?
+2. When is stratification useful? When is it insufficient?
+3. Which steps must be inside each CV fold?
+4. When should the training data precede validation data?

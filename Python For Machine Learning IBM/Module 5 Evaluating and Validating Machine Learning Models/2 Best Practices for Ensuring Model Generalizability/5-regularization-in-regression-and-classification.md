@@ -1,14 +1,50 @@
-Transcript
-en
+# Regularization in Regression and Classification
 
-Interactive Transcript - Enable basic transcript mode by pressing the escape key
-You may navigate through the transcript using tab. To save a note for a section of text press CTRL + S. To expand your selection you may use CTRL + arrow key. You may contract your selection using shift + CTRL + arrow key. For screen readers that are incompatible with using arrow keys for shortcuts, you can replace them with the H J K L keys. Some screen readers may require using CTRL in conjunction with the alt key
-Welcome to Regularization in Linear Regression. After watching this video, you will be able to define regularization for linear regression and compare linear, ridge, and lasso regression methods. Regularization is a regression technique to prevent overfitting. It constrains the model during training, discouraging it from overfitting to the training data. Regularization achieves this goal by suppressing the size of its coefficients. With regularization, a modified cost function is used to optimize the linear regression model, which has the general form, regularized cost function equals mean squared error plus lambda times penalty term. Here, lambda is a parameter that controls the influence of the penalty term, and the penalty measures the size of the coefficients.
-Common regularized regression methods like ridge and lasso regularization use specific penalty terms. Linear regression models the relationship between two or more variables by fitting a straight line to the given data set. In ordinary linear regression, predictions are a linear combination of features, and the goal is to minimize the loss function, usually measured as the mean squared error – MSE – between the predicted and actual target values. Mathematically, the linear regression model is defined by a linear combination of the form y-hat equals theta-zero plus theta-one x-one plus theta-two x-two plus theta-n x-n, where the x-i are the feature vectors that can be represented as a matrix X that includes a constant value of 1 in the first entry to account for the bias, or intercept term, theta-zero, and the thetas are the unknown weights, which can be represented as a matrix theta. The weights are commonly referred to as the coefficients of the linear regression model. Ridge and lasso are regularized forms of linear regression that differ only in their cost functions. Regular linear regression has no penalty term, while ridge regression uses an L2 or sum-of-squares penalty on its coefficients, which helps to shrink them.
-Lasso regression uses an L1 or sum-of-absolute-values penalty on its coefficients. This penalty can shrink some coefficients to exactly zero. Lasso regression responds well to feature sparsity, making it useful for feature selection and data compression tasks. In machine learning, sparse coefficients mean that only a small number of variables significantly contribute to a dataset, while the remaining have little or no impact. The plot here shows a simulated set of sparse coefficients, labeled as black dots, with a high signal-to-noise ratio, SNR. The simulation displays coefficient values for each of the 100 features. It has 5 non-sparse coefficients, with a high SNR meaning they stand out strongly.
-As you can see, all three regression methods predict the non-zero coefficients very well. Lasso finds the zero coefficients exactly, while linear and ridge have some difficulty predicting the zero coefficients, with linear regression doing slightly better than ridge regression. In this plot, we have a simulated set of sparse coefficients labeled as black dots, with a low SNR. Evidently, linear regression performs very poorly in this case, as it tends to greatly overestimate the ideal coefficients, overshoot most of the zero coefficients, and assign large negative coefficients when they should be zero. This illustrates the fact that ordinary linear regression is sensitive to noisy data. As you can also see, ridge and lasso have similar abilities in predicting the non-zero coefficients, but lasso is much better than ridge at finding the zero coefficients. Even in this low SNR environment, lasso is a great feature selector.
-This plot shows non-sparse coefficients with a high SNR. As you can see, all three regression methods predict the non-zero coefficients very well, with the ridge erring slightly more than the others. Lasso finds all of the zero coefficients, while linear and ridge have some difficulty the zero coefficients, with linear regression doing slightly better than ridge regression. In this plot, we have non-sparse coefficients with a low SNR. Evidently, linear regression performs very poorly in this case, as it tends to overestimate the ideal coefficients, overshoot most of the zero coefficients, and assign large negative coefficients even though all coefficients here are positive. This illustrates that ordinary linear regression is sensitive to noisy data. As you can also see, ridge regression slightly outperforms lasso when it comes to predicting the non-zero coefficients, but lasso is better at finding the zero coefficients.
-Even in this low SNR environment, lasso is a great feature selector. This chart displays the results of training lasso, ridge, and regular linear regression for a moderately noisy target variable. The results show the predictions made on the test data after each model was trained on 70% of the dataset. The top row shows three scatter plots, comparing test predictions against the actual lasso, ridge, and regular regression test values. The result for lasso is much more concentrated around the ideal 45-degree line than the other two results. The bottom row of plots illustrates the exact comparisons instead of two superimposed plots of the regression predictions and actual values. Again, you can see that lasso outperformed both ridge and regular regression because its predictions track well with the actual values.
-In addition, the MSEs are displayed for all three models. The MSE for lasso is about 30 times less than the MSEs for ridge and regular linear regression. This table summarizes the relative performances of linear, ridge, and lasso regression methods in high and low SNR environments for sparse and non-sparse coefficients. In all scenarios, lasso performs the best out of the three methods. Regular linear regression performs well in high SNR environments and poorly in low SNR environments. The methods rank similarly whether the SNR is high or low, with the ridge holding its rating in all cases. For low SNR, lasso and ridge are clear winners.
-In this video, you learned Regularization is a regression technique to prevent overfitting. It constrains the model during training, discouraging it from overfitting to the training data. In ordinary linear regression, predictions are a linear combination of features, and the goal is to minimize the loss function. Ridge and lasso are regularized forms of linear regression that differ only in their cost functions. Regular linear regression has no penalty term, while ridge regression uses an L2, or sum of squares penalty, on its coefficients, which helps to shrink them. Lasso regressions use an L1, or sum of absolute values penalty on its coefficients. Linear regression suffers from overfitting in the presence of noise because it is highly sensitive to outliers.
-You can use regularization techniques in conjunction with linear regression to mitigate such errors.
+## Why regularize?
+
+An overly flexible model can fit random fluctuations in training data and perform poorly on new data. Regularization adds a penalty for large coefficients to the training objective. It trades some training fit for a simpler, more stable model.
+
+For linear regression with coefficient vector beta, a common objective is:
+
+    mean_squared_error(y, X beta) + lambda * penalty(beta)
+
+The intercept is normally not penalized. The strength lambda is selected using validation or cross-validation.
+
+## Ridge and Lasso
+
+- **Ordinary least squares:** minimizes squared error with no coefficient penalty. It can have high variance when features are numerous, correlated, or noisy.
+- **Ridge (L2):** adds lambda × sum(beta_j squared). It shrinks coefficients toward zero, usually without making them exactly zero. It is useful when many features contribute small or shared effects and often behaves well with correlated predictors.
+- **Lasso (L1):** adds lambda × sum(abs(beta_j)). It can set coefficients exactly to zero, producing a sparse model and acting as a form of feature selection. With strongly correlated features, which member survives can be unstable.
+- **Elastic Net:** combines L1 and L2 penalties; useful when sparsity is wanted but correlated predictors should be treated more stably.
+
+The course simulation compared sparse and non-sparse coefficients under high and low signal-to-noise conditions. Lasso recovered zero coefficients in sparse cases more readily; ridge often retained groups of smaller correlated effects. With low signal-to-noise ratio, ordinary least squares could overreact to noise. These are tendencies, not guarantees that Lasso always wins.
+
+## Scaling and tuning
+
+Regularization penalizes coefficient magnitudes, so feature units affect the penalty. Standardize numeric predictors inside the training fold, then tune alpha / lambda using a validation set or cross-validation. Larger penalties shrink more and can underfit; smaller penalties approach unregularized fitting.
+
+For scikit-learn’s Ridge and Lasso estimators, alpha is the penalty strength: larger alpha means stronger regularization. In LogisticRegression, C has the inverse relationship: smaller C means stronger regularization. Check the estimator’s solver and supported penalty for the installed scikit-learn version.
+
+## scikit-learn patterns
+
+    from sklearn.linear_model import Lasso, Ridge
+    from sklearn.pipeline import make_pipeline
+    from sklearn.preprocessing import StandardScaler
+
+    ridge = make_pipeline(StandardScaler(), Ridge(alpha=1.0))
+    lasso = make_pipeline(StandardScaler(), Lasso(alpha=0.05, max_iter=10000))
+    ridge.fit(X_train, y_train)
+    lasso.fit(X_train, y_train)
+
+For classification, LogisticRegression applies regularization to a classification loss. Compare candidate C values through cross-validation rather than choosing them from final test performance.
+
+## Strengths, limits, and interpretation
+
+Regularization reduces coefficient size and can improve generalization; L1 can yield a compact model. It does not remove the need for sound feature design or validation. L1 selection among correlated features may be unstable, and a zero coefficient is not evidence that a feature has no causal effect. Standardize in a pipeline and inspect validation performance, coefficient stability, and residual or classification errors.
+
+## Recall questions
+
+1. How do L1 and L2 penalties differ?
+2. Why should features be scaled before coefficient regularization?
+3. How does alpha in Ridge differ from C in LogisticRegression?
+4. When might Elastic Net be preferable to pure Lasso?

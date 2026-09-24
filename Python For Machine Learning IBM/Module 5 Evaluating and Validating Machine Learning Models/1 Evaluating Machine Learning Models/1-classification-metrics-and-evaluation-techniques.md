@@ -1,15 +1,60 @@
-Transcript
-en
+# Classification Metrics and Evaluation Techniques
 
-Interactive Transcript - Enable basic transcript mode by pressing the escape key
-You may navigate through the transcript using tab. To save a note for a section of text press CTRL + S. To expand your selection you may use CTRL + arrow key. You may contract your selection using shift + CTRL + arrow key. For screen readers that are incompatible with using arrow keys for shortcuts, you can replace them with the H J K L keys. Some screen readers may require using CTRL in conjunction with the alt key
-Welcome to Classification Metrics and Evaluation Techniques. After watching this video, you will be able to define the train-test-split technique, describe confusion matrix, accuracy, precision, recall, and F1 score metrics, and illustrate examples of each. Let's begin by understanding what supervised learning evaluation is. Supervised learning evaluation establishes how well a machine learning model can predict the outcome for unseen data. It is essential for understanding model effectiveness and involves comparing model predictions to ground truth labels. During training, the model tries to optimize predictions based on one or more evaluation metrics. After training, the model is again evaluated to estimate how well it can generalize to unseen data.
-Supervised learning evaluation is essential in both the training and testing phases. When you're training a machine learning model to predict an outcome, you don't want to feed all the data from the dataset to the model. The train-test-split technique is used to estimate the performance of machine learning algorithms when they're used to make predictions. In the train-test-split technique, the dataset is split into two parts – the training set and the test set. The training subset comprises around 70 to 80 percent of the data and is used to train the model. The test subset is used to evaluate how well the model generalizes to new unseen data. In classification tasks, the model predicts categorical labels to assess how well these predictions align with the actual labels.
-We'll explore some common metrics for evaluating classification models. Accuracy is the ratio of correctly predicted instances to the total number of instances in the dataset. A confusion matrix is a table that breaks down the number of ground truth instances of a specific class against the number of predicted class instances. Precision measures how many of the predicted positive instances are actually positive. Recall measures how many of the actual positive instances are correctly predicted. F1 score combines precision and recall to represent a model's accuracy. To calculate accuracy, consider a will-I-pass-or-fail-my-biology-test example.
-Assume your model has been trained and has some predictions on the test set. You represent pass with green squares and fail with red. You can calculate accuracy by taking the number of correctly classified observations and dividing it by the number of observations. The misclassified points are highlighted in grey. That'll give you 70%. Displayed here is a confusion matrix commonly used for evaluating classification performance. On the y-axis, you have the true labels, and on the x-axis, you have the predicted labels.
-The numbers in the boxes are the counts of true positives, true negatives, false positives, and false negatives. True positive means you predicted pass, and it was pass. True negative means you predicted fail, and it was fail. False positives mean you predicted pass, but it is actually fail. False negative means you predicted fail, and it is actually pass. Shown here is the decision boundary for a KNN classifier trained to predict iris types based on the iris flower dataset in Scikit-learn. Accuracy is high at 93%.
-As you can see from the background colors, which distinguish the three prediction types, as compared with the dots colored by their actual types, there are very few misclassified colors. Here, you see a heat map displaying the confusion matrix for the KNN classifier, colored on a scale ranging from purple at the lowest and yellow at the highest values. The colors represent the number of predictions made for each class that fall within each actual class. For example, for predictions classified as setosa, the entries show the counts of how many of those predictions should have been setosa, versicolor, or virginica. The diagonal entries are the predictions the classifier got right. The diagonal is hot in this case, which is good. When evaluating a classification model, a data scientist also considers other metrics.
-Let's look at the pass or fail example. In the pass class, precision is the fraction of true positives among all the examples that were predicted to be positives. Precision is the number of true positives divided by the number of positive predictions. An example where precision may be more important than accuracy is a movie recommendation engine where it may cost more to promote a certain movie to a user. If the movie was a false positive, meaning that the user isn't interested in the movie that was recommended, then that would be an additional cost with no benefit. Now let's take a look at recall. Recall is the fraction of true positives among all the examples that were actually positive.
-Consider the number of pass observations the model got right out of the total true pass observations. That is 4 out of 7, or 57.1%. It is the number of true positives divided by the sum of true positives and false negatives. When opportunity cost is more important, recall may be a more important metric. An example of this is in the medical field. It's important to account for false negatives, especially regarding patient health. Finally, let's look at the F1 score.
-Imagine that you are in the medical field and have incorrectly classified patients as having an illness. You could be treating the wrong diagnosis. In cases such as this, where precision and recall are equally important, you can't try to optimize one or the other. The F1 score, which is defined as the harmonic or balanced mean of precision and recall, is useful. It is calculated as 2 multiplied by precision and recall divided by precision plus recall. Here is a table summarizing the precision, recall, and F1 scores for each of the actual classes – setosa, versicolor, and virginica. Setosa prediction scored perfectly at 1 for each metric.
-The weighted average of the metrics is weighted by the support of each class, or number of flowers in each class. In this video, you learned that supervised learning evaluation establishes how well a machine learning model can predict the outcome for unseen data. The train-test-split technique is used to estimate the prediction performance of machine learning algorithms for unseen data. Common metrics for evaluating classification models include accuracy, confusion matrix, precision, and recall. The F1 score is the harmonic or balanced mean of precision and recall.
+## What evaluation estimates
+
+A classifier predicts a category; evaluation compares predictions with known labels on observations that were not used to fit that model. Keep a final test set aside until all model, feature, and threshold choices are finished. For a basic independent-data task, use a stratified train/test split so each partition keeps approximately the same class proportions.
+
+## Confusion matrix
+
+For a binary classifier, define the positive class before interpreting the matrix:
+
+|  | Predicted positive | Predicted negative |
+| --- | ---: | ---: |
+| **Actually positive** | True positive (TP) | False negative (FN) |
+| **Actually negative** | False positive (FP) | True negative (TN) |
+
+Rows are actual classes and columns are predicted classes in scikit-learn’s confusion matrix. In multiclass classification, each diagonal cell is correct; off-diagonal cells show which classes are confused.
+
+## Metrics and what they trade off
+
+- **Accuracy** = (TP + TN) / (TP + TN + FP + FN). Fraction classified correctly. It can look excellent when a rare class is always missed.
+- **Precision** = TP / (TP + FP). Of positive predictions, how many are correct? Higher precision reduces false alarms. Useful when acting on a false positive is costly, such as an expensive recommendation.
+- **Recall / sensitivity** = TP / (TP + FN). Of actual positives, how many were found? Higher recall reduces missed positives. It matters in screening when a false negative is costly.
+- **F1** = 2 × precision × recall / (precision + recall). Harmonic mean that is high only when both precision and recall are high. It ignores true negatives and does not include business costs.
+- **Specificity** = TN / (TN + FP). Fraction of actual negatives correctly rejected. Consider it alongside recall when both types of error matter.
+
+A classifier’s probability threshold controls a trade-off: lowering it usually increases recall and false positives; raising it usually increases precision while missing more positives. Pick the threshold on validation data using the costs of each error, not on the final test set.
+
+For imbalanced classes, report per-class precision/recall/F1 and support. Macro average weights each class equally; weighted average weights by class count and can hide poor minority-class performance; micro average pools decisions across classes. Accuracy alone is rarely sufficient. If probability quality matters, also inspect calibration.
+
+## scikit-learn pattern
+
+    from sklearn.metrics import classification_report, confusion_matrix
+    from sklearn.model_selection import train_test_split
+    from sklearn.neighbors import KNeighborsClassifier
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=42, stratify=y
+    )
+    model = KNeighborsClassifier(n_neighbors=5).fit(X_train, y_train)
+    predictions = model.predict(X_test)
+    print(confusion_matrix(y_test, predictions))
+    print(classification_report(y_test, predictions, zero_division=0))
+
+If the model needs scaling, put the scaler and classifier in a pipeline and fit the pipeline only on training data. Do not choose K, features, or the decision threshold by repeatedly looking at the test scores.
+
+## Example and interpretation
+
+A disease screen can have high accuracy if most people are healthy, yet miss many sick patients. Recall exposes those false negatives; precision tells clinicians how many positive alerts are likely to be true. A movie recommender may instead prioritize precision if showing an unwanted recommendation has a cost. There is no universally best metric—the error consequences determine the choice.
+
+## Pitfalls and recall questions
+
+- Always state which label counts as positive.
+- Check the denominator: precision is about predicted positives; recall is about actual positives.
+- Metrics are estimates on a sample and vary with the split.
+- A high score does not establish causality or guarantee performance after deployment.
+
+1. Which metric answers “of the patients who are ill, how many did we detect”?
+2. Which confusion-matrix cell is a false alarm? Which is a miss?
+3. Why can weighted F1 conceal minority-class failure?
+4. Where should a probability threshold be selected?

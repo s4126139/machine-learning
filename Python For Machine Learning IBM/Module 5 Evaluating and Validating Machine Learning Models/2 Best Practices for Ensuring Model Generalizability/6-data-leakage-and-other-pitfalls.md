@@ -1,15 +1,76 @@
-Transcript
-en
+# Data Leakage and Other Modeling Pitfalls
 
-Interactive Transcript - Enable basic transcript mode by pressing the escape key
-You may navigate through the transcript using tab. To save a note for a section of text press CTRL + S. To expand your selection you may use CTRL + arrow key. You may contract your selection using shift + CTRL + arrow key. For screen readers that are incompatible with using arrow keys for shortcuts, you can replace them with the H J K L keys. Some screen readers may require using CTRL in conjunction with the alt key
-Welcome to Data Leakage and Other Pitfalls. After watching this video, you will be able to define data leakage and explain how to mitigate it. You will also be able to describe feature importance interpretation and other modeling pitfalls. Imagine you want to train a model to predict house prices. Along with historical data like square footage, you engineer a feature using the average of the actual home prices over the entire dataset. You are pleased to see how well your model performs on the test data. However, your model was taught using data that was leaked from the future and that it can't access in production.
-Without this access, deploying your model won't perform as well as you thought it would, given the test results. Data leakage occurs when your model's training data includes information that would not be available in the real world, such as unseen data after deployment. Data leakage deceives your model, leading it to perform misleadingly well during training and validation. Since your test dataset will also contain this leaked data, evaluation won't detect the poor generalizability until you implement your model into production. Data snooping happens when the training set contains information about the testing set or the model sees data it shouldn't have access to. This can occur when you include future information when predicting outcomes, such as tomorrow's stock price, to predict today's. It can also take place while engineering new features using the entire dataset.
-Data processing pipelines should be run independently on the training and testing data. To mitigate the data leakage risk, you must carefully select training and testing data. If any future data leaks into the training data, you have a problem. Let's look at what mitigation measures you can take. Avoid features like global averages or other statistics derived from the entire dataset. Ensure proper separation between your training, validation, and test sets, avoiding overlap or contamination. Ensure that none of your features contain unavailable information when making real-world predictions with your deployed model.
-Pay attention to how you implement cross-validation to ensure you aren't leaking data across different validation folds. This is particularly important when using time-dependent data. In this case, you should use a time-series split rather than the usual train-test split. To avoid leakage when using cross-validation to tune your model's hyperparameters, fit your pipeline separately to each training fold and apply the resultant fitted pipeline to its corresponding validation fold. Assuming you have imported the required libraries, loaded your data, and taken precautions to ensure you don't already have any data leakage, consider this Python code for training a classifier. First, you split your data into training and test data sets. For this example, assume this is a valid method for your dataset and no temporal or other leakage contamination will occur.
-Then, define a pipeline of three models, a scalar, PCA, and a KNN classifier. Next, a parameter grid consisting of a set of values is set up to try for a number of PCA components and the number of neighbors in KNN. Now, optimize your model by performing a grid search using cross-validation. It is important to notice here that the pipeline is input to the grid search. This ensures that the pipeline is applied separately to each training fold and its corresponding validation set. After finding the best parameters, you evaluate your final model on the first set you held back to get an unbiased estimate of your model's performance in the wild. If your data is temporal, where the order of your data points in time is crucial, you want to avoid randomly splitting it into training and test sets.
-Instead, you need to split your data into sequential training and testing sets, ensuring that the training set always precedes the test set. Modifying your code to implement time-series cross-validation is easy. Instead of using train-test-split, you would use time-series-split and specify that you want to use this cross-validation method during hyperparameter tuning by setting CV equals TSCV in grid-search-cv. In this example, Scikit-learn's time-series-split splits your data into four equal-sized folds, retaining their temporal order. Each split uses a portion of the data from the past for training and the remaining future data for validation. The training set expands to include more data with each split while the test set shrinks. Identifying some common pitfalls and assessing feature importances provided by a trained machine learning model is essential.
-Highly correlated or redundant features used in modeling result in shared importances, which lowers their apparent influence. Further, blindly selecting what seems to be the most important features to use in subsequent modeling can cause a significant feature to be selected to degrade your results. Some algorithms, like linear regression, don't naturally account for the scale of features so that unskilled data can distort importance rankings. Feature importance indicates correlation, not causation. Important features don't necessarily drive outcomes. Some models rank individual feature importance without accounting for interactions, potentially underestimating or overestimating their combined impact. For example, suppose you have two features that don't provide enough information for linear regression to perform well.
-Still, their interaction or product boosts the linear regression performance. Then, a nonlinear algorithm like random forest regression could implicitly detect this interaction, leading to good performance. For linear regression, the separate features would erroneously seem unimportant. At the same time, their importance would be shared for random forest, and you would have no idea that their product is the crucial explanatory variable. Here are some common modeling pitfalls to consider. Using raw data without appropriate feature selection or transformation prevents you from discovering your optimal model. Choosing the wrong evaluation metric or misinterpreting metrics can mislead your evaluation.
-Failing to address class imbalances and classification problems biases your predictions towards the majority classes. Automated machine learning tools can be powerful, but you still need to understand your data and the model the system creates for you. It is crucial to understand that if your model lacks features that have a causal impact on the target variable, then the what-if scenarios generated by the model may be invalid. Without causal relationships, your model's predictions based on hypothetical changes can be highly misleading or inaccurate. In this video, you learned that data leakage occurs when your model's training data includes information that would not be available in the real world or unseen data after deployment. You can mitigate data leakage by avoiding overlap or contamination between training, validation, and test sets, ensuring training features are available for real-world deployment, using cross-validation carefully, and hyperparameter tuning. Some common pitfalls in assessing feature importances provided by a trained machine learning model are feature redundancy, scale sensitivity, assuming causation, and overlooking feature interactions.
-Other modeling pitfalls include selecting inappropriate features, misinterpreting evaluation metrics, ignoring class imbalance, blind reliance on automation, and performing what-if scenarios based on non-causal data.
+![Validation workflow and leakage safeguards](../../assets/module-5-evaluation-and-validation-workflow.svg)
+
+## Data leakage
+
+Leakage occurs when training or model selection uses information that would not legitimately be available at prediction time. It can make validation scores look strong even though the deployed model cannot reproduce them.
+
+**Example:** predicting house prices with a feature computed as the average actual price over the entire dataset. If that average includes test homes or future sales, the model has indirect access to held-out outcomes.
+
+Other leakage sources include:
+
+- Features that encode the target or are recorded only after the outcome.
+- Global imputation, scaling, PCA, feature selection, or target encoding before splitting.
+- Duplicate people/devices appearing in both train and validation sets.
+- Future observations used to predict the past.
+- Repeatedly trying models or thresholds against the final test set.
+
+## Safe validation workflow
+
+1. Define the real prediction time and what information exists then.
+2. Split by the correct unit: stratified for independent imbalanced labels, by group for repeated entities, and chronologically for time-dependent data.
+3. Put learned preprocessing, feature selection, and the estimator in one pipeline so each CV training fold fits its own transformations.
+4. Use validation/CV for choices; reserve a test set for one final estimate.
+5. Before deployment, verify that production can compute every feature in the same way and at the same time.
+
+    from sklearn.model_selection import GridSearchCV, TimeSeriesSplit
+    from sklearn.pipeline import Pipeline
+    from sklearn.preprocessing import StandardScaler
+    from sklearn.decomposition import PCA
+    from sklearn.neighbors import KNeighborsClassifier
+
+    pipe = Pipeline([
+        ("scale", StandardScaler()),
+        ("pca", PCA()),
+        ("model", KNeighborsClassifier()),
+    ])
+    search = GridSearchCV(
+        pipe,
+        {"pca__n_components": [2, 3], "model__n_neighbors": [3, 5]},
+        cv=TimeSeriesSplit(n_splits=4),
+    )
+    search.fit(X_train, y_train)
+
+Use TimeSeriesSplit only when rows are in the intended chronological order and the feature construction also respects time. For grouped data, use a group-aware splitter. Pipeline protects learned transformations, but it cannot repair a feature that already contains future information.
+
+## Feature importance is not causality
+
+Importance scores describe how a fitted model uses information under a particular dataset, feature set, and method:
+
+- Correlated or redundant predictors may share importance or substitute for one another.
+- Linear coefficients depend on feature scaling and model assumptions.
+- Tree-based importance can favor variables with many possible split points.
+- Single-feature rankings may miss interactions.
+- A high importance score indicates predictive association, not that changing the feature causes the outcome.
+
+Use domain knowledge and validation to assess importance. Permutation importance on held-out data can estimate how much a model’s score depends on a feature, but correlated features may substitute for each other. Causal “what if” claims require a valid causal design, not only predictive importance.
+
+## Other common pitfalls
+
+- Choosing a metric that does not reflect the cost of errors.
+- Ignoring class imbalance, changing prevalence, or subgroup performance.
+- Selecting features on the full dataset before cross-validation.
+- Treating automated model selection as a substitute for understanding the data.
+- Making hypothetical intervention claims from a model trained only on associations.
+
+## Leakage checklist
+
+Before trusting a score, ask: Could this feature exist at prediction time? Was any transformation fit using validation/test rows? Can related samples cross a split? Did the test score affect a later choice? Would the production process reproduce the same feature values?
+
+## Recall questions
+
+1. Why can a test set fail to detect a global-average leakage feature?
+2. What work does a pipeline do inside cross-validation?
+3. Why is feature importance not a causal effect?
+4. Which split strategy fits temporal or repeated-entity data?
