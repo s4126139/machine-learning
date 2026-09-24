@@ -4,11 +4,17 @@ from tensorflow.keras.layers import Dense
 
 import numpy as np
 
+def _shape_as_list(tensor):
+    """Return a tensor shape as a list across TensorFlow/Keras versions."""
+    shape = tensor.shape
+    return shape.as_list() if hasattr(shape, "as_list") else list(shape)
+
 def test_c1(target):
     assert len(target.layers) == 3, \
         f"Wrong number of layers. Expected 3 but got {len(target.layers)}"
-    assert target.input.shape.as_list() == [None, 400], \
-        f"Wrong input shape. Expected [None,  400] but got {target.input.shape.as_list()}"
+    input_shape = _shape_as_list(target.inputs[0])
+    assert input_shape == [None, 400], \
+        f"Wrong input shape. Expected [None, 400] but got {input_shape}"
     i = 0
     expected = [[Dense, [None, 25], tf_keras_sigmoid],
                 [Dense, [None, 15], tf_keras_sigmoid],
@@ -17,8 +23,9 @@ def test_c1(target):
     for layer in target.layers:
         assert type(layer) == expected[i][0], \
             f"Wrong type in layer {i}. Expected {expected[i][0]} but got {type(layer)}"
-        assert layer.output.shape.as_list() == expected[i][1], \
-            f"Wrong number of units in layer {i}. Expected {expected[i][1]} but got {layer.output.shape.as_list()}"
+        output_shape = _shape_as_list(layer.output)
+        assert output_shape == expected[i][1], \
+            f"Wrong number of units in layer {i}. Expected {expected[i][1]} but got {output_shape}"
         assert layer.activation == expected[i][2], \
             f"Wrong activation in layer {i}. Expected {expected[i][2]} but got {layer.activation}"
         i = i + 1
