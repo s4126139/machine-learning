@@ -1,10 +1,63 @@
-​Welcome to Introduction to Polynomial and Nonlinear Regression. ​After watching this video, you will be able to ​Describe polynomial regression, describe nonlinear regression, ​and demonstrate applications of nonlinear regression. ​Nonlinear regression is a statistical method for modeling the relationship between a dependent ​variable and one or more independent variables, where the relationship is represented by a ​nonlinear equation. ​This equation could be polynomial, exponential, logarithmic, or any other function that does ​not use linear parameters. ​Nonlinear regression is useful when there is a complex relationship between variables ​that cannot be captured through a straight line. ​For instance, you would use nonlinear regression when you are using a dataset that follows ​an exponential growth pattern. ​Let's consider the two charts here. 
-​The red line through the data in the left chart is a reasonable fit. ​However, with real-world data, the relationship between your input and target variables is ​rarely linear. ​More commonly, your data has a background trend that follows a smoothed curve rather ​than a straight line. ​Like in the right chart, clearly a smooth nonlinear curve does a better job at approximating ​data than the straight line. ​The straight line underfits the data. ​You can use many kinds of nonlinear regression methods to model your dataset. ​Polynomial regression uses an ordinary linear regression to indirectly fit your data to ​polynomial expressions of the features, rather than the features themselves. 
-​Nonlinear regression follows the same idea, but bases its inputs on functions of the given ​features, such as the logarithm or exponential of the features. ​Nonlinear regression doesn't necessarily reduce to linear regression like polynomial ​regression does. ​In this chart, you can see linear, quadratic, and cubic regression curves that fit the patterns ​in the data quite well. ​And this approach can go on and on to polynomials of arbitrary degree. ​We can call all of these polynomial regression, where the relationship between the independent ​variable x and the dependent variable y is modeled as an nth degree polynomial in x. ​Consider this polynomial regression example where a good candidate for a fit is a cubic ​or third degree polynomial, given by ​y equals theta zero plus theta one x plus theta two x squared plus theta three x cubed. ​Here, the thetas are parameters to be estimated that best fit the underlying data, by introducing ​new variables as x underscore one equals x, x underscore two equals x to the power of ​two, and x underscore three equals x to the power of three. 
-​The model can now be expressed as a linear combination of the new variables as ​y equals theta zero plus theta one x one plus theta two x two plus theta three x three. ​Because the resulting model has been linearized, you can simply use ordinary multiple linear ​regression to find the best fit parameters. ​Given any finite sets of points, it's always possible to find a polynomial of sufficiently ​high degree that will pass through every point. ​Such a perfect fit amounts to overfitting as seen in this chart. ​The polynomial regression model memorizes everything including any random noise or ​large variations, rather than understanding the underlying patterns. ​It's important to pick a regression that fits the data well without overfitting. ​You don't need to capture every fine detail, just the trend. 
-​Polynomial regression is a special form of nonlinear regression. ​It expresses a nonlinear dependence on the input features, but it has a linear dependence ​on the regression coefficients because it can be transformed into a linear regression ​problem. ​It is often simply called linear regression. ​In contrast, there are many real-world complex nonlinear relationships that can't be modeled ​as polynomials. ​Such common examples of nonlinear regression include exponential or compound growth. ​For example, how investments grow with compound interest rates. ​Logarithmic. 
-​For example, law of diminishing returns, how incremental gains in productivity or profit ​can reduce as investment in a production factor, such as labor increases. ​Periodicity. ​For example, sinusoidal seasonal variations in a quantity, such as monthly rainfall or temperature. ​Let's consider this data corresponding to China's Gross Domestic Product, or GDP, ​from 1960 to 2014. ​Each row provides China's annual GDP in US dollars for the year. ​The scatter plot displays a strong dependence of GDP on time, but the relationship is nonlinear. ​As you can see, GDP increases over time, and the rate of this growth also increases. 
-​This increasing growth rate is characteristic of exponential growth. ​A reasonable regression model then uses an exponential function, like y-hat equals theta-zero ​plus theta-one, e-x. ​Consider the following simulated example involving human productivity as a function of the number ​of consecutive hours worked. ​Working more hours per day, on average, increases your productivity. ​However, after a reasonable limit, say 6 hours of work, each additional work hour generates ​less productivity per hour than the previous hour. ​This is an example of diminishing returns. ​The first 6 hours of the model show a linear increase in cumulative productivity, but then, ​the returns slow down and become logarithmic. 
-​There are many methods to determine what kind of regression model you need. ​One technique is to visually determine whether the relation is linear or nonlinear. ​Analyzing scatter plots of your target variable against each input variable can reveal patterns ​in the dependencies. ​Try to express these patterns as mathematical functions and determine if they're linear, ​exponential, logarithmic, or sinusoidal. ​Generate models and analyze your results. ​There is always a chance that your data might have no relationship with your target. ​You can visually interpret your model's errors by plotting its predictions against ​the actual target values. 
-​How can you find an optimal nonlinear model? ​If you have a mathematical expression for your proposed model, you can use an optimization ​technique like gradient descent to find optimal parameters. ​Otherwise, if you haven't decided on a specific regression model, you can select amongst many ​machine learning models. ​Some options include regression trees, random forests, neural networks, support vector machines, ​gradient boosting machines, k-nearest neighbors. ​Nonlinear regression uses polynomial, exponential, logarithmic equations to model data. ​It is used when the relationship between variables cannot be captured through a straight line. ​In this video, you learned how you can use polynomial regression to fit your data to ​polynomial expressions of the features. 
-​The polynomial regression model memorizes everything, including any random noise or ​large variations, rather than understanding the underlying patterns. ​There are many real-world complex nonlinear relationships that can't be modeled as polynomials. ​Some common examples of nonlinear regression include exponential or compound growth, logarithmic, ​and periodicity. ​There are many methods to determine what kind of regression model you need. ​You can analyze scatter plots of your target variable against each input variable to reveal ​patterns in the dependencies. ​To find an optimal nonlinear model, you can select amongst many machine learning models ​such as regression trees, random forests, and k-nearest neighbors. 
+# Polynomial and Nonlinear Regression
+
+## Intuition
+
+A straight line can miss a curved trend. Polynomial regression adds powers of a feature so a linear fitting method can trace a curve. More generally, regression can use transformed features or flexible models to represent nonlinear patterns such as growth, saturation, or seasonality.
+
+The word **linear** is used in two ways. A polynomial curve is nonlinear in *x*, but it is linear in its coefficients, so OLS can fit it after expanding the features. A model such as **y = a e^(b x)** is nonlinear in parameter *b* and generally requires nonlinear optimization (or a carefully justified transformation).
+
+## Core equations
+
+A quadratic model is
+
+$$\hat{y}=\theta_0+\theta_1x+\theta_2x^2,$$
+
+and a cubic model adds **θ₃x³**. By defining new predictors **x₁=x**, **x₂=x²**, and **x₃=x³**, these become ordinary multiple linear regression in the coefficients. A transformed model such as **ŷ = θ₀ + θ₁ log(1+x)** is also linear in its coefficients, even though it is curved as a function of *x*.
+
+Other patterns call for a suitable functional form or model:
+
+- **Exponential or compound growth:** for example, investment growth; a simple exponential model is **y = a e^(b x)**.
+- **Logarithmic diminishing returns:** early increases in an input can bring larger gains than later increases.
+- **Periodic behavior:** seasonal rainfall or temperature can be represented with sine/cosine terms or seasonal features.
+- **Flexible models:** trees, random forests, support-vector regression, nearest neighbors, boosting, or neural networks can capture patterns without specifying one polynomial curve.
+
+## When to use it
+
+Inspect a scatter plot of the target against each important feature and residual plots from a simple baseline. Try a low-degree polynomial or meaningful transformation when a smooth curve is visible and the relationship is plausible. Use a more flexible model when the shape is complex or involves interactions that a hand-specified equation cannot capture.
+
+## Concrete example
+
+Suppose productivity increases quickly with consecutive hours worked, then each additional hour contributes less. A line may underpredict the early gains and overpredict the later ones. A concave curve such as **ŷ = 20 + 15 log(1 + hours)** illustrates diminishing returns: its slope decreases as hours increase. The function is only a candidate; it must be checked against observed data and should not be extrapolated beyond the hours studied.
+
+## Scikit-learn pattern: polynomial features
+
+```python
+from sklearn.linear_model import LinearRegression
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import PolynomialFeatures, StandardScaler
+
+model = make_pipeline(
+    PolynomialFeatures(degree=2, include_bias=False),
+    StandardScaler(),
+    LinearRegression(),
+)
+model.fit(X_train, y_train)
+predictions = model.predict(X_test)
+```
+
+Keep feature generation inside a pipeline, and choose degree using cross-validation on the training set. PolynomialFeatures creates the powers and optional interactions. Standardization is especially useful for higher powers and optimization-based models.
+
+## Assumptions and common pitfalls
+
+- Polynomial regression is still linear in its coefficients, so it can be fit by linear regression after feature expansion.
+- A high-degree polynomial can pass close to every training point yet model noise rather than the underlying trend. Prefer the simplest degree that validates well.
+- Polynomial values can grow rapidly beyond the observed range; extrapolation is especially risky.
+- With multiple inputs, polynomial expansion creates many interaction terms and can quickly increase model complexity.
+- A curved residual pattern suggests the straight-line model is inadequate, but it does not identify which curve is correct. Compare candidates using held-out data.
+- Some relationships are not polynomial. Select a model that matches the problem and respect constraints such as nonnegative targets or saturation.
+
+## Active recall
+
+1. Why can a polynomial curve be fitted by ordinary linear regression?
+2. How does a high polynomial degree lead to overfitting and unreliable extrapolation?
+3. What pattern would make a logarithmic model plausible, and what data should you use to choose it?

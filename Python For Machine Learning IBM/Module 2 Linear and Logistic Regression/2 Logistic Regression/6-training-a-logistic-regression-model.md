@@ -1,15 +1,67 @@
-Transcript
-en
+# Training a Logistic Regression Model
 
-Interactive Transcript - Enable basic transcript mode by pressing the escape key
-You may navigate through the transcript using tab. To save a note for a section of text press CTRL + S. To expand your selection you may use CTRL + arrow key. You may contract your selection using shift + CTRL + arrow key. For screen readers that are incompatible with using arrow keys for shortcuts, you can replace them with the H J K L keys. Some screen readers may require using CTRL in conjunction with the alt key
-Welcome to training a logistic regression model. After watching this video, you will be able to describe how to train a logistic regression model. You will also be able to explain the features of the gradient descent and stochastic gradient descent method. In logistical regression training, you look for the best parameters that map the input features to the target outcomes. The objective is to predict classes with minimal error. The training process seeks to find a set of parameters, also known as theta, that minimizes the cost function. The process of training a logistical regression model comprises several steps.
-First, you have to choose a starting set of parameters called theta. This can be a random choice. You then predict the probability that the class is 1 for each observation of your data. The next step is to measure the error between the predicted classes and the actual classes. This error is called a cost function. You then determine a new theta that reduces the prediction error. Finally, you need to repeat the process until you reach a small enough value for the log loss or a specified maximum number of iterations.
-Next, let's understand optimal logistic regression. The process of creating a decision boundary by combining a linear model y-hat in terms of parameters theta with a sigmoid function yields a binary classification model or what might be called a preliminary logistic regression. The model is called preliminary because it's not necessarily the best logistic regression model. The best logistic regression model can only be achieved after the first pass. The model parameters, theta, need to be found. An optimization step finds the best parameters. To achieve optimization, you need a metric that determines the model's goodness of fit for a given set of parameters.
-The metric for optimizing logistic regression is a cost function called log loss, which needs to be minimized. Log loss is a cost function that measures how well the predicted probabilities, p-hat i, match the actual class's yi. Logistic regression seeks to minimize this cost function. Here, i refers to the ith observation of the data, which is n rows. Log loss is defined as minus the average over i of two terms. The actual class times the logarithm of the predicted probability that the class is 1 plus 1 minus the actual class times the log of the probability that the class is 0. The negative sign exists because the logarithm is negative for arguments between 0 and 1.
-Log loss favors confident classifications that are correct. For instance, when the predicted probability of class 1 is high and correct, p-hat i is close to 1 for an observation, and yi is equal to 1. You can convince yourself by inspecting the formula that the log loss is small. Indeed, the first term vanishes because the log term tends to 0 as the probability approaches 1, while the second term vanishes because the factor 1 minus yi is 0. In this way, log loss penalizes confident, incorrect predictions. When the predicted probability of class 0 is high and incorrect, that is, when p-hat is close to 1 for an observation, and the actual class is 0, the log loss is very large. There are various ways to stop iterations, but essentially, you stop training when your model's log loss is satisfactory.
-Different techniques can be used to change the values of theta, and one of the most popular methods is gradient descent. Gradient descent is a clever iterative approach to finding the minimum of a function. It adjusts the parameter values in the direction of the steepest descent using the derivative of the log loss function. Gradient descent depends on a specified learning rate, which controls how far it's allowed to step the parameters on each iteration. The main objective of gradient descent is to change the parameter values and find a path to the optimal parameters to minimize the cost function. Consider the plot, which simulates a parabolic log loss cost function of the trial parameters theta1, theta2. This surface represents the error for different values of parameters.
-The gradient of the surface points in the direction of the steepest ascent. Thus, the negative of the gradient points in the direction of the steepest descent, hence the name gradient descent. The steeper the slope, the greater the magnitude of the gradient, and thus, the greater the step toward the minimum. You can control the size of each step by scaling the gradient by a factor called the learning rate. As the lowest point is reached, the slope diminishes to zero. This lowest point of the path occurs at the optimum theta1, theta2. Let's explore some additional features of gradient descent.
-The gradient of the cost function is calculated over the entire data set on each iteration. When the data set is large, gradient descent becomes very slow. You could try speeding up the convergence by increasing the learning rate, but convergence becomes less likely as the steps might be too big to notice the minima. Instead of using the whole, the cost function gradient can be approximated by choosing a random subset of the data to calculate it on. A variation of the gradient descent algorithm is stochastic gradient descent, or SGD. It's faster, but can be less accurate. It uses a random subset of training data and scales well.
-SGD is more likely to overlook local minima and find global minima of the cost function. It converges quickly toward a global minimum, but can wander around it for some time. The convergence can be improved by slowing down as the algorithm gets closer to a global minimum. You can home in on the minimum by decreasing the learning rate as you get closer, or you can gradually increase the size of the random data sample used to calculate the gradient of the cost function. In this video, you learned that the objective of logistical regression training is to predict classes with minimal error. The training process consists of key steps created to find a set of parameters, or theta, that minimize the cost function. An optimization step is used to find the best parameters.
-The metric for optimizing logistic regression is a cost function called log loss, which needs to be minimized. Log loss favors confident classifications that are correct and penalizes confident, incorrect predictions. Gradient descent is a clever, iterative approach to finding the minimum of a function. Stochastic gradient descent is a scalable variation of the gradient descent algorithm, which uses a random subset of training data.
+## Training loop in plain language
+
+Training searches for coefficients **θ** that give high probabilities to the observed classes and low probabilities to the opposite classes. Conceptually, the process is:
+
+1. Start from an initial parameter vector.
+2. Compute a score and probability for each training row.
+3. Measure how well predicted probabilities match labels.
+4. Update the parameters to reduce that loss.
+5. Repeat until the optimizer converges or reaches its iteration limit.
+
+A first pass with arbitrary coefficients is not necessarily a good model. The optimization step is what finds useful parameters.
+
+## Log loss
+
+For binary labels **yᵢ ∈ {0,1}** and predicted probabilities **p̂ᵢ**, binary cross-entropy (log loss) is
+
+$$L(\theta)=-\frac{1}{n}\sum_{i=1}^{n}\left[y_i\log(\hat{p}_i)+(1-y_i)\log(1-\hat{p}_i)\right].$$
+
+A correct, confident prediction contributes little loss. A confident, incorrect prediction contributes a large penalty: for a true class 0, predicting p̂=0.8 costs **−log(0.2) ≈ 1.61**, while predicting p̂=0.2 costs **−log(0.8) ≈ 0.22**. Log loss evaluates probabilities; accuracy evaluates thresholded labels, so they answer different questions.
+
+## Gradient descent and stochastic updates
+
+Gradient descent moves parameters opposite the loss gradient:
+
+$$\theta \leftarrow \theta - \eta\nabla_\theta L,$$
+
+where **η** is the learning rate. A step that is too large can overshoot or diverge; one that is too small can make progress very slowly. In unregularized logistic regression the gradient has the form **Xᵀ(p̂ − y)/n** (with an intercept term handled consistently).
+
+- **Batch gradient descent** calculates each update from all training rows. The gradient is stable but each step can be expensive on a large data set.
+- **Stochastic gradient descent (SGD)** estimates an update from one randomly selected example; mini-batch methods use a small subset. These updates are cheaper and noisy, so loss may fluctuate around a minimum.
+- Reducing the learning rate or increasing the batch size can make later updates steadier. Do not increase the learning rate blindly to speed convergence.
+
+## Scikit-learn patterns
+
+For most small to medium tabular problems, start with LogisticRegression; scikit-learn optimizes its objective using the selected solver (the default solver is lbfgs, not the SGD algorithm):
+
+```python
+from sklearn.linear_model import LogisticRegression
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+
+model = make_pipeline(
+    StandardScaler(),
+    LogisticRegression(C=1.0, max_iter=1000, random_state=42),
+)
+model.fit(X_train, y_train)
+probabilities = model.predict_proba(X_test)[:, 1]
+```
+
+For an explicitly incremental stochastic method, SGDClassifier(loss="log_loss") supports logistic loss and partial_fit. Scale features, select the learning settings, and check convergence and validation performance. C in LogisticRegression is inverse regularization strength: smaller values mean stronger regularization.
+
+## Assumptions, stopping, and pitfalls
+
+- Scale numeric features when using gradient-based optimization, especially when units differ substantially; keep scaling in a pipeline to prevent leakage.
+- Check the convergence warning and increase max_iter or reconsider scaling/solver settings when needed. An iteration limit is not itself proof of convergence.
+- Regularization changes the objective by penalizing coefficient size; it helps control overfitting, but its strength should be validated.
+- SGD can be cheaper per update on large data but has noisier steps; it does not guarantee lower validation log loss, and its convergence depends on the step-size schedule and data scaling.
+- Class imbalance may require class weights, resampling within training folds, threshold selection, and metrics beyond accuracy.
+- Select hyperparameters and decision thresholds using training/validation data. Keep the test set for final evaluation.
+
+## Active recall
+
+1. Why does log loss penalize a confident wrong probability more than an uncertain one?
+2. What role does the learning rate play in gradient descent, and what happens if it is too large?
+3. How do batch gradient descent and SGD differ in the data used for each update?
