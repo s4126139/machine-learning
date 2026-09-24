@@ -1,14 +1,56 @@
-Transcript
-en
+# Regression Trees
 
-Interactive Transcript - Enable basic transcript mode by pressing the escape key
-You may navigate through the transcript using tab. To save a note for a section of text press CTRL + S. To expand your selection you may use CTRL + arrow key. You may contract your selection using shift + CTRL + arrow key. For screen readers that are incompatible with using arrow keys for shortcuts, you can replace them with the H J K L keys. Some screen readers may require using CTRL in conjunction with the alt key
-Welcome to Regression Trees. After watching this video, you will be able to describe a regression tree and recognize how it is different from classification. You will also be able to explain how to create a regression tree. A regression tree is analogous to a decision tree that predicts continuous values rather than discrete classes. The distinguishing feature between classification and regression is the characteristic of the target or labeled data. In classification, the target variable is categorical, such as true or false. In regression, the target is a continuous value, such as temperature or salary.
-When a decision tree is adapted to solve regression problems, it is called a regression tree. Let's compare classification trees with regression trees to understand how they're different. The target of a classification tree is to classify data into discrete sets, whereas a regression tree aims at predicting continuous target variables. Hence, the target variable for a classification tree is categorical but floating for a regression tree. The prediction at leaf nodes for a classification tree is a class-labeled majority vote, whereas for a regression tree, it is the average value of target values. Some used cases of classification trees are spam detection, image classification, medical diagnosis. Regression trees are used for predicting revenue, temperatures, and wildfire risk.
-Regression trees are created by recursively splitting the dataset into subsets to maximize information gained from data splitting. This process generates a tree-like structure and minimizes the randomness of the classes assigned to the split nodes. Let's consider this example. Given a continuous feature from a dataset and a trial threshold value, alpha, the data in a node is split into two subsets according to whether the data is greater than or less than alpha, and the corresponding points are assigned to the left and right nodes. If the feature is binary, consisting of two classes, then the split is according to the two classes. You make a prediction at each node based either on a class voting scheme as with decision trees or by using the average of the target values in the node. The predicted value, y-hat, for a given node is defined as the average of the actual target values, y, i of the data points in the node.
-You could use other statistics, like the median value, to assign the prediction. This would be preferable when your data is skewed. For normally distributed data, the median is comparable to the mean, but the median is more expensive to compute. Instead of using the entropy or information gained criteria to measure the quality of a split, as for decision trees, regression trees select features that minimize the error between the actual values, y, i in the resulting nodes, and the predicted value, y-hat. A natural criterion for measuring the split quality of a given feature uses the mean-squared error, or MSE. Notice that this amounts to measuring the variance of the target values within each node, which gauges how spread out the values are. The smaller the variance is, the more closely the values agree.
-To measure the quality of a split, the weighted average of the MSEs of each split node can be used. The weighted average is calculated as average MSE equals one over the number of observations in the two split nodes, times the sum of the number of observations in the left split times the MSE of the left split, and the number of observations in the right split times the MSE of the right split. The lower this value, the lower the variance, and thus, the higher the quality of the split. During training, the tree finds the feature and threshold that best splits each node. For each potential split of a feature, the tree calculates the MSE for the left and right subsets. The MSE of the split is a weighted average of the MSEs of the subsets. The split with the lowest-weighted MSE is chosen.
-This process minimizes the variance in the predicted values and improves the accuracy of the regression tree. For a binary feature, instead of using thresholds, the data is simply separated into its two classes, and the split quality is just the weighted average of the class MSEs. The weighted MSE has only one possible result, so it is already optimized. For a multi-class feature, you can use a strategy like one-versus-one or one-versus-all to generate a set of possible binary splits. Then, for each binary split, calculate the weighted average of the MSEs. Select the split that minimizes the weighted MSE, and thus, the lowest prediction variance. How can you choose a set of trial thresholds to split a continuous feature on?
-There are many ways. Here's one strategy. Start by sorting the feature's values so that Xi is less than or equal to Xj, for all indexes i less than j. Drop any duplicated values so that Xi is strictly less than Xj, for all i less than j. Define your candidate thresholds, αi as the midpoints between each pair of consecutive values, αi is half of Xi, plus Xi plus 1. Choose the threshold that minimizes the weighted MSE for its data split. This is an exhaustive search method that doesn't scale well to big data.
-For very large datasets, selecting a sparse subset of these thresholds can improve efficiency at the cost of accuracy. The method also assumes the target values, X, are uniformly distributed. For efficiency, you should consider the distribution when sampling the thresholds. In this video, you learned that a regression tree is analogous to a decision tree that predicts continuous values. In classification, the target variable is categorical, and in regression, the target is a continuous value. Regression trees are created by recursively splitting the dataset into subsets to maximize information gained from data splitting. MSE is a natural criterion for measuring the split quality of a given feature.
-The regression tree finds the feature and threshold that best splits each node during training. The feature can be binary or multi-class. Finally, you learned that you can choose continuous feature trial thresholds in multiple ways depending on data size.
+## Core idea
+
+A regression tree predicts a **continuous numeric target** by dividing feature space into regions. It uses the same rule-based structure as a classification tree, but it chooses splits based on numeric prediction error and returns a numeric summary at each leaf.
+
+## How it learns and predicts
+
+At each node, training considers candidate feature/threshold pairs. A candidate split sends rows to left and right child nodes. With the common squared-error criterion, the tree selects the split with the smallest weighted within-node squared error (equivalently, it seeks to reduce target variance). It continues recursively subject to its stopping rules.
+
+For squared error, a leaf predicts the **mean** target value of its training rows. With absolute-error loss, the leaf prediction is the **median**. Candidate thresholds for a numeric feature lie between observed values; practical tree implementations search efficiently rather than checking every possible partition naively.
+
+## Example: estimating monthly revenue
+
+Suppose a retailer predicts monthly store revenue using store size, promotion status, and local foot traffic. The tree might split first on foot traffic, then split high-traffic stores by promotion status. Every new store follows those tests to a leaf and receives that leaf's typical revenue. Because a tree partitions the feature space into regions with constant predictions, it does not naturally extrapolate a rising trend beyond the values seen in training.
+
+Other targets can include temperature, demand, salary, or a continuous risk estimate. If the task is to assign named risk bands (low/medium/high), that is classification instead.
+
+## Scikit-learn pattern
+
+```python
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.metrics import mean_absolute_error
+
+tree = DecisionTreeRegressor(
+    criterion="squared_error", max_depth=5,
+    min_samples_leaf=8, random_state=42
+)
+tree.fit(X_train, y_train)
+predictions = tree.predict(X_test)
+print(mean_absolute_error(y_test, predictions))
+```
+
+Common controls include `max_depth`, `min_samples_split`, `min_samples_leaf`, `max_leaf_nodes`, and `ccp_alpha`. Scikit-learn supports regression criteria including `squared_error`, `absolute_error`, and `poisson` (the last requires non-negative targets and is intended for count-like outcomes). Trees do not require feature scaling.
+
+## When it works well
+
+- The target changes at meaningful thresholds or depends on interactions among features.
+- A piecewise-constant prediction is plausible and easy to communicate.
+- The dataset is tabular and feature scales vary.
+- A transparent nonlinear baseline is needed before testing ensembles.
+
+## Assumptions, limitations, and pitfalls
+
+- Greedy splits optimize local reductions in error; the full tree is not guaranteed globally optimal.
+- Deep leaves with few observations fit noise. Use depth/leaf constraints and validation data.
+- Piecewise-constant predictions create abrupt jumps and cannot extrapolate smooth trends beyond training regions.
+- Squared error is sensitive to outliers; compare absolute error or transform a strongly skewed target when appropriate.
+- A single tree may change substantially when training rows change. Random forests or boosting can improve predictive stability.
+- Validate on data that reflects the future use case; random splitting can overstate performance for time-ordered or grouped observations.
+
+## Active recall
+
+1. How does a regression tree choose a split, and how does that differ from a classification tree?
+2. Why does the default squared-error tree return a mean at each leaf?
+3. What does it mean that a regression tree cannot extrapolate a trend naturally?
