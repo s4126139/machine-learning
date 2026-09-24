@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Clustering and dimensionality reduction decision map</title>
+  <desc id="desc">A study guide comparing centroid, density and hierarchical clustering, followed by PCA, t-SNE and UMAP dimensionality reduction and a safe workflow.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7f9ff"/>
+      <stop offset="1" stop-color="#edf5f4"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="7" stdDeviation="10" flood-color="#24324b" flood-opacity=".08"/>
+    </filter>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 Z" fill="#8292ad"/>
+    </marker>
+    <style>
+      text { font-family: "Segoe UI", Arial, sans-serif; fill: #1c2940; }
+      .title { font-size: 35px; font-weight: 700; letter-spacing: -.4px; }
+      .subtitle { font-size: 17px; fill: #60708a; }
+      .cardtitle { font-size: 21px; font-weight: 700; }
+      .body { font-size: 15px; fill: #43526a; }
+      .small { font-size: 13px; fill: #64738a; }
+      .label { font-size: 12px; font-weight: 700; letter-spacing: .8px; }
+      .step { font-size: 15px; font-weight: 700; }
+    </style>
+  </defs>
+  <rect width="1440" height="1000" rx="28" fill="url(#bg)"/>
+  <circle cx="1338" cy="70" r="116" fill="#dcece9" opacity=".55"/>
+  <circle cx="90" cy="920" r="135" fill="#e4e9fa" opacity=".55"/>
+  <text x="72" y="78" class="title">Clustering &amp; dimensionality reduction</text>
+  <text x="74" y="111" class="subtitle">Choose a method from the data geometry and the question you need to answer.</text>
+
+  <g filter="url(#shadow)">
+    <rect x="64" y="150" width="410" height="364" rx="20" fill="#ffffff"/>
+    <rect x="64" y="150" width="410" height="8" rx="4" fill="#5274d8"/>
+    <circle cx="103" cy="194" r="17" fill="#e8edff"/>
+    <circle cx="98" cy="191" r="4" fill="#5274d8"/><circle cx="109" cy="187" r="4" fill="#5274d8"/><circle cx="109" cy="198" r="4" fill="#5274d8"/>
+    <text x="132" y="201" class="cardtitle">Centroid-based</text>
+    <text x="88" y="239" class="label" fill="#5274d8">K-MEANS</text>
+    <text x="88" y="269" class="body">Assign points to the nearest center,</text>
+    <text x="88" y="292" class="body">then update centers to their means.</text>
+    <rect x="88" y="313" width="130" height="27" rx="13" fill="#edf1ff"/>
+    <text x="101" y="331" class="small" fill="#405db6">Choose K first</text>
+    <text x="88" y="374" class="body">Best fit: compact, convex groups with</text>
+    <text x="88" y="396" class="body">comparable scale and density.</text>
+    <text x="88" y="435" class="body">Scale numeric features; compare inertia</text>
+    <text x="88" y="457" class="body">and silhouette across candidate K values.</text>
+    <text x="88" y="490" class="small">Weak on outliers, curved shapes and very uneven groups.</text>
+
+    <rect x="515" y="150" width="410" height="364" rx="20" fill="#ffffff"/>
+    <rect x="515" y="150" width="410" height="8" rx="4" fill="#1a9a88"/>
+    <circle cx="554" cy="194" r="17" fill="#e2f6f1"/>
+    <circle cx="548" cy="193" r="3" fill="#1a9a88"/><circle cx="557" cy="187" r="3" fill="#1a9a88"/><circle cx="562" cy="197" r="3" fill="#1a9a88"/>
+    <text x="583" y="201" class="cardtitle">Density-based</text>
+    <text x="539" y="239" class="label" fill="#1a9a88">DBSCAN &amp; HDBSCAN</text>
+    <text x="539" y="269" class="body">DBSCAN grows connected dense regions</text>
+    <text x="539" y="292" class="body">from eps and min_samples; noise gets -1.</text>
+    <text x="539" y="330" class="body">HDBSCAN selects stable groups across</text>
+    <text x="539" y="353" class="body">density levels; set a meaningful minimum size.</text>
+    <rect x="539" y="374" width="196" height="27" rx="13" fill="#e6f7f3"/>
+    <text x="552" y="392" class="small" fill="#147967">K not required in advance</text>
+    <text x="539" y="435" class="body">Best fit: curved groups, varied shapes</text>
+    <text x="539" y="457" class="body">and observations that may be noise.</text>
+    <text x="539" y="490" class="small">DBSCAN needs a useful global density; scale matters.</text>
+
+    <rect x="966" y="150" width="410" height="364" rx="20" fill="#ffffff"/>
+    <rect x="966" y="150" width="410" height="8" rx="4" fill="#9b63c8"/>
+    <circle cx="1005" cy="194" r="17" fill="#f2eafd"/>
+    <path d="M996 187h18M1005 187v7M1000 194h10M1005 194v7M1000 201h10" fill="none" stroke="#8b51bd" stroke-width="2" stroke-linecap="round"/>
+    <text x="1034" y="201" class="cardtitle">Hierarchical</text>
+    <text x="990" y="239" class="label" fill="#8b51bd">AGGLOMERATIVE / DIVISIVE</text>
+    <text x="990" y="269" class="body">Agglomerative merges small groups upward.</text>
+    <text x="990" y="292" class="body">Divisive splits one large group downward.</text>
+    <rect x="990" y="313" width="142" height="27" rx="13" fill="#f3eafd"/>
+    <text x="1003" y="331" class="small" fill="#75439e">Read the dendrogram</text>
+    <text x="990" y="374" class="body">Linkage defines “closest”: single, complete,</text>
+    <text x="990" y="396" class="body">average or Ward yield different trees.</text>
+    <text x="990" y="435" class="body">Useful when nested relationships matter</text>
+    <text x="990" y="457" class="body">or K should be chosen after inspection.</text>
+    <text x="990" y="490" class="small">Can be expensive as the sample count grows.</text>
+  </g>
+
+  <text x="72" y="558" class="label" fill="#60708a">A SAFE PATH THROUGH THE FEATURE SPACE</text>
+  <g>
+    <rect x="64" y="578" width="304" height="66" rx="15" fill="#ffffff" stroke="#d9e1ed"/>
+    <circle cx="98" cy="611" r="16" fill="#eef2fa"/><text x="93" y="617" class="step">1</text>
+    <text x="126" y="606" class="step">Prepare features</text><text x="126" y="628" class="small">clean • encode • scale</text>
+    <path d="M376 611h36" stroke="#8292ad" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="423" y="578" width="304" height="66" rx="15" fill="#ffffff" stroke="#d9e1ed"/>
+    <circle cx="457" cy="611" r="16" fill="#eef2fa"/><text x="452" y="617" class="step">2</text>
+    <text x="485" y="606" class="step">Choose a family</text><text x="485" y="628" class="small">shape • density • noise</text>
+    <path d="M735 611h36" stroke="#8292ad" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="782" y="578" width="304" height="66" rx="15" fill="#ffffff" stroke="#d9e1ed"/>
+    <circle cx="816" cy="611" r="16" fill="#eef2fa"/><text x="811" y="617" class="step">3</text>
+    <text x="844" y="606" class="step">Inspect the result</text><text x="844" y="628" class="small">sizes • profiles • stability</text>
+    <path d="M1094 611h36" stroke="#8292ad" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="1141" y="578" width="235" height="66" rx="15" fill="#ffffff" stroke="#d9e1ed"/>
+    <circle cx="1175" cy="611" r="16" fill="#eef2fa"/><text x="1170" y="617" class="step">4</text>
+    <text x="1203" y="606" class="step">Validate</text><text x="1203" y="628" class="small">metrics + domain use</text>
+  </g>
+
+  <text x="72" y="699" class="label" fill="#60708a">REDUCTION CHANGES THE VIEW — IT DOES NOT ASSIGN CLUSTERS</text>
+  <g filter="url(#shadow)">
+    <rect x="64" y="720" width="410" height="202" rx="18" fill="#ffffff"/>
+    <rect x="64" y="720" width="8" height="202" rx="4" fill="#5274d8"/>
+    <text x="92" y="761" class="cardtitle">PCA</text>
+    <text x="92" y="794" class="body">Linear projection; keeps directions</text>
+    <text x="92" y="816" class="body">with the most variance.</text>
+    <text x="92" y="855" class="small">Use explained variance / reconstruction error.</text>
+    <text x="92" y="882" class="small">May miss nonlinear structure.</text>
+
+    <rect x="515" y="720" width="410" height="202" rx="18" fill="#ffffff"/>
+    <rect x="515" y="720" width="8" height="202" rx="4" fill="#e09a39"/>
+    <text x="543" y="761" class="cardtitle">t-SNE</text>
+    <text x="543" y="794" class="body">Emphasizes local neighbors in a</text>
+    <text x="543" y="816" class="body">low-dimensional visualization.</text>
+    <text x="543" y="855" class="small">Global spacing and island size mislead.</text>
+    <text x="543" y="882" class="small">Sensitive to parameters and random seed.</text>
+
+    <rect x="966" y="720" width="410" height="202" rx="18" fill="#ffffff"/>
+    <rect x="966" y="720" width="8" height="202" rx="4" fill="#1a9a88"/>
+    <text x="994" y="761" class="cardtitle">UMAP</text>
+    <text x="994" y="794" class="body">Builds a neighbor graph and projects</text>
+    <text x="994" y="816" class="body">its local relationships into fewer dimensions.</text>
+    <text x="994" y="855" class="small">Tune n_neighbors / min_dist with care.</text>
+    <text x="994" y="882" class="small">The embedding remains a distorted view.</text>
+  </g>
+  <text x="72" y="965" class="small">For predictive work, fit preprocessing and reduction on training folds only; never leak the held-out set.</text>
+</svg>

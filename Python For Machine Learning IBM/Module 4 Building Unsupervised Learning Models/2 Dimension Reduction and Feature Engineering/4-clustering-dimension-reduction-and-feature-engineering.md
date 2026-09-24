@@ -1,12 +1,50 @@
-Transcript
-en
+# Clustering, Dimensionality Reduction, and Feature Engineering
 
-Interactive Transcript - Enable basic transcript mode by pressing the escape key
-You may navigate through the transcript using tab. To save a note for a section of text press CTRL + S. To expand your selection you may use CTRL + arrow key. You may contract your selection using shift + CTRL + arrow key. For screen readers that are incompatible with using arrow keys for shortcuts, you can replace them with the H J K L keys. Some screen readers may require using CTRL in conjunction with the alt key
-Welcome to this video on Clustering, Dimension Reduction, and Feature Engineering. After watching this video, you will be able to explain clustering, dimension reduction, and feature engineering and how these techniques work together to enhance model performance. You will also learn about dimension reduction and its role in simplifying data structures and improving outcomes. Additionally, you'll analyze the application of dimension reduction in face recognition and explore how clustering can facilitate feature selection. Clustering, dimension reduction, and feature engineering are complementary techniques in machine learning and data science. They work well together to improve model performance, quality, and interpretability. Clustering helps with feature selection and creation while supporting dimension reduction to enhance computational efficiency and scalability.
-Dimension reduction simplifies the visualization of high-dimensional clustering, aiding feature engineering and improving model quality. It also reduces the number of features required for a data model. Dimension reduction is commonly used as a pre-processing step for clustering, simplifying data structure and improving outcomes. High-dimensional data poses challenges for distance-based clustering algorithms like k-means and DBSCAN. As dimensionality increases, volume expands rapidly, causing data points to become sparse and less similar. This leads to smaller clusters requiring more data to fill gaps. Techniques like PCA, t-SNE, and UMAP are employed to reduce dimensions before applying clustering algorithms, enhancing efficiency.
-This example uses eigenfaces as input features for supervised face recognition. PCA is performed on an unlabeled face dataset, extracting the top 150 eigenfaces from a total of 966 faces. These 150 eigenfaces form an orthonormal basis for the feature space defined by the face dataset. The input data is then projected onto this eigenface basis, and an SVM is trained to predict faces. Dimensionality reduction techniques preserve the key features for identifying faces while minimizing computational load. The facial recognition task accurately predicts 12 faces, as illustrated in this image. This chart illustrates the quantitative evaluation of the model's quality on the dataset.
-Clustering results cannot be visualized directly when working with feature spaces beyond three dimensions. However, advanced dimension reduction techniques can project these clustering outcomes into two or three dimensions, significantly improving visual interpretation. Methods such as PCA, t-SNE, and UMAP allow for meaningful projections of higher-dimensional clusters into two or three dimensions. This enables the creation of scatter plots that facilitate the visualization of clustering quality. Reducing the dimensionality of data often enhances cluster interoperability, making it easier to identify key patterns or relationships that may be obscured in higher dimensions. Clustering techniques can be applied to data observations and features. By clustering similar or correlated features, you can identify sets that provide redundant information.
-This enables feature selection by choosing a representative feature from each cluster, reducing the total number of features while preserving valuable information. Clustering can help with feature engineering decisions. For instance, if clusters indicate distinct subgroups in data, specific interactions between features or certain transformations could benefit predictive modeling. Here is a simple simulation using a clustering method like k-means to cluster features. Each of the five features plotted here was generated with a random normal distribution with three different mean values, 1, 5, and 10, and variances of 1, except for feature number 4, which has a variance of 2. As you can see visually, features 1 through 3 are statistically very similar, with the same mean and variance. Features 4 and 5 stand out.
-Indeed, running k-means on the features, not the data values, with k equals 3 correctly, clustering the features. Cluster 1 contains redundant features, so if you were to do any modeling with this dataset, you would want to select only one of them. This is an example of implementing feature selection, part of feature engineering. You can also view it as dimension reduction. In this video, you learned to explain clustering, dimension reduction, and feature engineering and how they work well together to improve model performance, quality, and interpretability. Explain dimension reduction and how it is used as a preprocessing step for clustering, simplifying data structure, and improving outcomes. Analyze how dimension reduction is used for face recognition with eigenfaces as input features.
-Analyze how clustering can be used for feature selection to identify sets that provide redundant information. And finally, analyze feature selection using k-means to cluster features.
+![A guide to clustering families and dimensionality-reduction methods](../../assets/module-4-clustering-and-dimensionality-roadmap.svg)
+
+## How the ideas fit together
+
+Clustering, dimensionality reduction, and feature engineering are related but solve different problems:
+
+- **Clustering** assigns observations to groups based on their features.
+- **Dimensionality reduction** constructs a smaller representation of those observations.
+- **Feature engineering** selects, transforms, or combines variables to make a task’s signal easier to use.
+
+A reduced representation can make distance calculations cheaper and may remove redundant or noisy directions. It can also discard useful information or distort geometry. “Fewer dimensions” is not automatically “better clustering.”
+
+## A safe workflow
+
+1. Define the observation and feature rows. Remove identifiers, target labels, and information unavailable at prediction time.
+2. Impute missing values and scale or encode features to suit the distance measure.
+3. Optionally fit PCA or another reduction method to training data. Choose dimension count using explained variance plus downstream validation, not a universal cutoff.
+4. Cluster the representation and compare with clustering the original, appropriately scaled features.
+5. Profile clusters back in original units. Check stability and whether domain experts can explain or use the differences.
+
+PCA is a linear projection that finds directions of maximum variance; it is not a clustering method. t-SNE and UMAP make nonlinear low-dimensional embeddings that are often useful for visualization, but their 2D maps can distort distances. Do not assume visual blobs are robust clusters or cluster the visualization by default.
+
+## Clustering features to identify redundancy
+
+Clustering usually groups **rows (observations)**. For feature selection, instead cluster **columns (features)** using a meaningful feature-to-feature similarity, such as absolute correlation or similarity between standardized feature profiles. Then inspect each feature group and choose representatives based on measurement quality, interpretability, cost, and missingness.
+
+This can reduce duplicated information, but correlated features are not necessarily interchangeable for every model or business use. If feature selection supports a supervised model, learn the groups and choose representatives using only each training fold. Otherwise the held-out data influences the chosen features.
+
+A simple conceptual example is five features whose distributions are simulated from three centers with similar variance. If features 1–3 have nearly identical profiles, clustering columns can reveal a redundant group; features 4 and 5 may stand apart. The analysis must use feature profiles (or a feature-similarity matrix), not blindly run K-Means on the original observation rows and call the result feature selection.
+
+## Case study: eigenfaces
+
+A face-recognition workflow can represent each image as a high-dimensional pixel vector. PCA learns a compact basis of “eigenfaces” from training images; projecting faces onto the leading components reduces the input dimension. In the course example, 150 components were retained from 966 faces, then an SVM used those component scores for supervised identity prediction. PCA provides the compact representation; the SVM performs classification. Accuracy still needs evaluation on faces held out from every PCA fitting step.
+
+## Benefits and cautions
+
+- Fewer dimensions can reduce storage and computation and simplify plots.
+- Removing redundant features may help distance-based methods.
+- Reduction can discard low-variance directions that carry important target or subgroup information.
+- A 2D plot is a diagnostic, not a substitute for quantitative evaluation.
+- Refit preprocessing inside training folds to prevent leakage.
+
+## Recall questions
+
+1. How does feature clustering differ from observation clustering?
+2. Why can PCA help K-Means, and what information might PCA remove?
+3. Why should a 2D t-SNE or UMAP plot not be treated as proof of a true cluster?
+4. At what stage should feature selection be fit in cross-validation?

@@ -1,15 +1,59 @@
-Transcript
-en
+# DBSCAN and HDBSCAN
 
-Interactive Transcript - Enable basic transcript mode by pressing the escape key
-You may navigate through the transcript using tab. To save a note for a section of text press CTRL + S. To expand your selection you may use CTRL + arrow key. You may contract your selection using shift + CTRL + arrow key. For screen readers that are incompatible with using arrow keys for shortcuts, you can replace them with the H J K L keys. Some screen readers may require using CTRL in conjunction with the alt key
-Welcome to DBSCAN and HDBSCAN Clustering. After watching this video, you will be able to describe DBSCAN, or density-based spatial clustering of applications with noise clustering, and explain how it works. You will also be able to describe HDBSCAN, or hierarchical density-based spatial clustering of applications with noise cluttering, and explain how it works. DBSCAN is a density-based spatial clustering algorithm that creates clusters with a density value provided by the user. The density value is positioned around a spatial centroid. The area immediately around the centroid is referred to as a neighborhood, and DBSCAN attempts to define neighborhoods of clusters with a specified density. DBSCAN can discover clusters of any shape, size, or density in your data.
-It can also distinguish between data points that are part of a cluster and those that should be labeled as noise. Density-based clustering is especially useful when working with data sets with noise or outliers, or when the number of clusters in the data set is unknown. Centroid-based clustering algorithms, such as k-means and hierarchical clustering, produce spherical or convex shapes, and can work well for data sets that exhibit such patterns. Centroid-based clustering assigns every point to a cluster, even when it doesn't properly fit into one, like the black outlier assigned to the blue cluster. Unfortunately, real-world data is rarely that simple. Real patterns can have arbitrary shapes, shapes within shapes, and noise. Density-based clustering addresses these complexities by identifying connected regions of relatively high density.
-Let's look at how the DBSCAN algorithm works. Given a data set of points, you first select two parameters, a desired minimum number of points, n, you want in a neighborhood, and the radius, epsilon, of each neighborhood. Next, working through every point in the data set, you label it as one of the following types. A core point, which is a focal point within a cluster, if it has at least n points, including itself, within its neighborhood or radius epsilon. A border point, if the point falls within the neighborhood of a core point, but doesn't have enough neighbors to be a core point, or a noise point, if it is isolated from all core point neighborhoods. Clusters are grown from core points by including their neighbors. Although border points are assigned to the same cluster as their associated core points, they are not as densely connected.
-Here, you can see a simulation of how DBSCAN labels points. The data consists of two noisy sets of points created with the half-moons function from scikit-learn. Consider the following. Core points are labeled in blue, and each has at least n equals 4 neighbors with its epsilon radius. Border points, labeled in orange, are points that belong to the neighborhood of their nearest core point, but don't have enough nearby points to qualify as core points. Border points exist in the outer reaches of the core neighborhoods. DBSCAN is not iterative.
-It grows clusters in one pass without updating them once they are labeled. Any unassigned points remaining are regarded as noise. Illustrated here is a simulation of the steps DBSCAN uses to cluster points. The data consists of two noisy sets of points created with the half-moons function from scikit-learn. The sequence of plots shows how the clusters expand and how noise points are left unlabeled at each step. At first, all points are labeled in black and treated as outliers or noise. In step 2, the algorithm identifies most of one of the half-moons as the blue points, treating the remaining points as possible noise.
-In step 3, DBSCAN labels most of the other half-moons as the orange points, with a few black points left over as potential noise. Finally, DBSCAN finds a third cluster in green, which is quite isolated from it, as you can see from the enveloping neighborhood. DBSCAN has done a good job of clustering the data and identifying the outlying noisy points. HDBSCAN is a variant of DBSCAN that doesn't require any parameters to be set, making it even more flexible than the original. HDBSCAN is also less sensitive to noise and outliers. It uses cluster stability, which refers to a cluster's ability to not change much when the neighboring size is adjusted within a reasonable range of radii. HDBSCAN measures cluster stability to find locally optimal neighborhood radii.
-This results in more robust and meaningful clusters. The technical implementation details of HDBSCAN are somewhat complex. It is a combination of agglomerative and density-based clustering. HDBSCAN starts by identifying each point as its own cluster, effectively noise, then progressively agglomerates clusters into a hierarchy by incrementally lowering the density threshold. In this way, a hierarchical tree is constructed, which gets simplified into a condensed tree where only the most stable clusters across different density levels are kept. Illustrated here is the result of running DBSCAN on a portion of the data set from Statistics Canada that contains the latitudes and longitudes of Canadian museums. The DBSCAN parameters chosen were minimum samples in a neighborhood equals 3, with a neighborhood radius of 0.15 scaled units.
-DBSCAN found around 10 clusters that seem appropriate to the human eye. However, the population density is much higher within the red ellipse, and most of the region has been lumped into a single cluster. HDBSCAN has an advantage over DBSCAN in that it adaptively adjusts the neighborhood size to reflect changes in the local densities of the points. Here, HDBSCAN was run with a minimum number of samples equals 10, and a minimum cluster size of 3 points. Notice how the HDBSCAN result identified more distinct clusters than DBSCAN. Interestingly, in addition to finding larger connected regions of varying density, HDBSCAN tracked and distinguished connected sets of points that lie on curves. The result looks more coherent and less noisy.
-Of note is the level of detail provided in the relatively dense region in the east. DBSCAN didn't provide the adaptive detail that HDBSCAN did here. By tuning the parameters, you can strike a balance between mitigating outliers, capturing the level of detail, and controlling the overall number of clusters found. In this video, you learned that DBSCAN is a density-based spatial clustering algorithm that creates clusters with a density value provided by the user. Density-based clustering works well with natural patterns by identifying regions of relatively high density. DBSCAN is not iterative. HDBSCAN is a variant of DBSCAN that doesn't require any parameters to be set and uses cluster stability.
-Cluster stability is defined as the persistence of a cluster over a range of distant thresholds.
+## Core idea
+
+Density-based clustering connects regions with many nearby observations. Unlike K-Means, it does not require a cluster count in advance, can find non-convex shapes such as two interlocking moons, and can leave isolated observations as noise.
+
+DBSCAN labels points by local density:
+
+- A **core point** has at least min_samples observations, including itself in scikit-learn, within distance eps.
+- A **border point** is within the eps neighborhood of a core point but does not meet the density threshold itself.
+- A **noise point** is not density-connected to a cluster. scikit-learn labels noise -1.
+
+Clusters grow by following connected neighborhoods from core points. Border points do not expand the cluster. DBSCAN does not update centroids; its cluster shapes come from reachability through dense regions.
+
+## Parameters and practical tuning
+
+- eps is the neighborhood radius for the chosen distance metric. Too small: many points become noise or clusters fragment. Too large: separate regions merge.
+- min_samples is the minimum local density. Larger values demand denser evidence and can classify more points as noise.
+- Scale features before using Euclidean neighborhoods when units differ. For geographic coordinates, raw degree distance may be inappropriate over a large area; choose a distance metric and coordinate representation that match the problem.
+- A k-distance plot can help suggest an eps range, but it is a diagnostic, not an automatic answer. Validate cluster sizes and domain meaning.
+
+DBSCAN works best when clusters have reasonably similar density. One global eps can merge dense neighborhoods while fragmenting sparse ones.
+
+## HDBSCAN: density across scales
+
+HDBSCAN builds a hierarchy over varying density thresholds and selects persistent, stable groups. It can adapt better than DBSCAN when meaningful clusters have different densities. It still has parameters: min_cluster_size sets the smallest group worth retaining, while min_samples controls how conservative the density estimate is. Higher min_samples generally treats more borderline observations as noise.
+
+The phrase “no eps required” is more accurate than “no parameters required.” HDBSCAN is still sensitive to feature scaling and to what minimum group size is meaningful. In scikit-learn, sklearn.cluster.HDBSCAN is available from version 1.3; older environments can use the separately installed hdbscan package, whose API and parameter conventions may differ.
+
+## Example and strengths / limitations
+
+For interlocking half-moons with a few stray points, K-Means imposes center-based boundaries; DBSCAN can follow each curved dense band and label strays as noise. If a sparse, valid moon is thinner than the chosen density threshold, DBSCAN can incorrectly fragment it. HDBSCAN may recover meaningful groups across a range of density levels, but it can still mark small valid groups as noise if the minimum group size is too high.
+
+**Strengths:** arbitrary shapes, no preset K, explicit noise labeling, intuitive density parameters.
+
+**Limitations:** distance scale is critical; DBSCAN assumes a useful global density threshold; HDBSCAN parameter meaning still requires judgment; high-dimensional distance can become uninformative; and neighborhood search can be memory intensive on dense data.
+
+## scikit-learn patterns
+
+    from sklearn.cluster import DBSCAN
+    from sklearn.preprocessing import StandardScaler
+
+    X_scaled = StandardScaler().fit_transform(X)
+    dbscan = DBSCAN(eps=0.4, min_samples=6)
+    labels = dbscan.fit_predict(X_scaled)
+
+    # Available in scikit-learn 1.3+
+    from sklearn.cluster import HDBSCAN
+    hdbscan = HDBSCAN(min_cluster_size=8, min_samples=5)
+    labels_hdbscan = hdbscan.fit_predict(X_scaled)
+
+For validation, report the number of non-noise clusters, noise fraction, cluster sizes, stability, and domain examples. See the official [scikit-learn DBSCAN](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.DBSCAN.html) and [HDBSCAN](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.HDBSCAN.html) API references for version-specific details. Silhouette scores can be misleading when noise is included as an ordinary cluster; document how noise was handled.
+
+## Recall questions
+
+1. How do core, border, and noise points differ?
+2. What failure pattern suggests eps is too small? Too large?
+3. How does HDBSCAN help when cluster densities vary?
+4. Why should the unit and scale of distance be written down?
