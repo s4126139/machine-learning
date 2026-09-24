@@ -1,14 +1,56 @@
-Transcript
-en
+# Evaluating Unsupervised Learning Models
 
-Interactive Transcript - Enable basic transcript mode by pressing the escape key
-You may navigate through the transcript using tab. To save a note for a section of text press CTRL + S. To expand your selection you may use CTRL + arrow key. You may contract your selection using shift + CTRL + arrow key. For screen readers that are incompatible with using arrow keys for shortcuts, you can replace them with the H J K L keys. Some screen readers may require using CTRL in conjunction with the alt key
-Welcome to this video on Evaluating Unsupervised Learning Models: Heuristics and Techniques. After watching this video, you will be able to explain the evaluation of unsupervised learning models and their role in assessing the quality of patterns and models. You will also be able to differentiate between the different types of heuristics and how they evaluate cluster quality. You will then analyze different internal and external clustering evaluation metrics to assess clustering results. Finally, you will evaluate dimensionality reduction to measure how well-reduced data retains important information. Evaluating unsupervised learning models poses unique challenges compared to supervised models, as there are no predefined labels or ground truths for training. Unsupervised techniques, like clustering and dimensionality reduction, aim to discover hidden patterns and structures in data.
-Therefore, evaluation methods assess the quality of these patterns and how effectively the model groups similar data points. Unsupervised learning results are often subjective, requiring careful evaluation for consistency. Stability is crucial in assessing model reliability, ensuring the model performs similarly across varied data subsets or perturbations. For example, a stable clustering model produces similar clusters despite changes in the dataset. There is no one-size-fits-all approach to evaluating unsupervised learning models. A combination of methods is essential. Effective evaluation often combines heuristics, domain expertise, metrics, ground truth comparisons, and visualization tools to assess the quality of learned patterns.
-In clustering, the goal is to group similar data points into clusters. Unsupervised learning lacks predefined labels, so various heuristics are used to evaluate cluster quality, including: Internal evaluation metrics, which rely on input data. External evaluation metrics, which use ground truth labels when available. Generalizability or stability evaluation, assessing cluster consistency across data variations. Dimensionality reduction techniques for visualizing clustering outcomes, such as scatter plots. Cluster-assisted learning, refining clusters through supervised learning evaluations. Domain expertise is also invaluable for providing feedback and interpreting clustering results.
-Internal clustering evaluation metrics assess clustering quality based on the input data. Here are some commonly used metrics. Silhouette score compares cohesion within each cluster to separation from others, ranging from -1 to 1, with higher values indicating better-defined clusters. The Davies-Bouldin index measures the average ratio of a cluster's compactness to its separation from the nearest cluster, with lower values indicating more distinct and compact clusters. Inertia in k-means clustering calculates the sum of variances within each cluster. Lower values suggest more compact clusters, but increasing the number of clusters reduces variance, creating a tradeoff. These are clustering results from applying k-means to simulated blobs, where the clusters are distinctly separated and dense.
-The silhouette plot on the right shows the identified clusters in different colors. Each bar represents the silhouette coefficients for points within each cluster, combining the distance to the nearest neighboring cluster and the average distance to other points in the same cluster. The vertical red dashed line indicates a high average silhouette score of 0.84. The Davies-Bouldin index is low at 0.22. Both metrics suggest excellent clustering quality. These are clustering results from k-means on simulated blobs, where the clusters are distinct but somewhat dispersed. The silhouette plot shows coefficients decreasing rapidly as clusters spread out, with a few negative values indicating potential misassignments to clusters.
-The silhouette score is moderately high at 0.58. And the Davies-Bouldin index is 0.6, both suggesting reasonable clustering results. External clustering metrics used labeled or ground-truth data to evaluate clustering quality by comparing cluster labels with known classes. Adjusted Rand index measures the similarity between true labels and clustering outcomes, ranging from -1 to 1. A score of 1 indicates perfect alignment, 0 indicates random clustering, and negative values suggest worse than random performance. Normalized mutual information quantifies shared information in between predicted cluster assignments and true labels on a scale from 0 to 1, where 1 indicates perfect agreement and 0 indicates no shared information. Fowlkes-Mallows index is the geometric mean of precision and recall based on clustering and label assignments, with a higher score indicating better clustering performance.
-When using dimensionality reduction techniques like PCA, t-SNE, or UMAP, it's crucial to evaluate how well the reduced data retains important information. Explained variance ratio in PCA measures the variance captured by principal components, helping determine how many are needed for acceptable cumulative explained variance. Reconstruction error assesses how accurately the original data can be reconstructed from the reduced representation. Lower values indicate better information preservation. Neighborhood preservation evaluates how well relationships between data points in high-dimensional space are maintained in lower dimensions, especially for manifold learning algorithms like t-SNE and UMAP. This scatter plot shows the first two principal components, PC1 and PC2, from the PCA analysis of the iris flower datasets, with points color-coded by species: setosa, versicolor, or virginica. PC1 is dominant, nearly separating the clusters as indicated by vertical lines.
-With four features in the iris dataset, direct visualization of classes is challenging. PCA allows for indirect visualization using just two dimensions. This bar plot shows the explained variance for each principal component in descending order. The red dashed line indicates the cumulative explained variance. The first two components account for most of the variance, while additional components don't add much. Effective model evaluation requires diverse metrics and domain expertise to assess patterns. Subjective analysis and visual tools, like scatter plots, dendrograms, and projection methods such as PCA, t-SNE, and UMAP are essential for interpreting unsupervised learning results.
-In this video, you learned to explain the evaluation of unsupervised learning models and their role in assessing the quality of patterns and models. Explain unsupervised learning results and how stability ensures that models perform consistently. Differentiate between the different types of heuristics and how they evaluate cluster quality. Analyze different internal clustering evaluation metrics, such as silhouette score, Davies-Bouldin index, and inertia. Evaluate internal clustering by applying K-means to simulated blobs. Analyze external clustering evaluation metrics with the adjusted Rand index, normalized mutual information, and Fowlkes-Mallows index. Evaluate dimensionality reduction with explained variance ratio, reconstruction error, and neighborhood preservation.
+## Why evaluation is different
+
+Clustering and dimensionality reduction usually have no target labels to compare with. Evaluation therefore asks whether a discovered structure is compact, separated, stable, useful, and consistent with domain knowledge. No single score proves that clusters are real. Combine metrics, repeated fits, visual inspection, and expert review.
+
+## Internal clustering measures
+
+These use features and assignments, not known class labels.
+
+- **Silhouette coefficient:** for each point, compares average distance to its own cluster (a) with average distance to the nearest other cluster (b): (b − a) / max(a, b). Values range from -1 to 1; higher suggests better separation and cohesion. Negative values suggest questionable assignments. It is most meaningful with distance geometry that supports compact, separated groups and requires at least two clusters.
+- **Davies–Bouldin index:** average similarity of each cluster to its most similar other cluster based on within-cluster spread and between-cluster distance. Lower is better.
+- **Inertia:** K-Means within-cluster sum of squared distances. Lower means more compact under that objective, but increasing K always lowers it; compare across K rather than minimizing it blindly.
+
+These metrics favor particular geometries. A high silhouette may reward compact, well-separated groups while undervaluing valid curved or varying-density clusters. For DBSCAN/HDBSCAN, explain whether and how noise points were excluded or treated; a noise label should not automatically be interpreted as one ordinary cluster.
+
+## External measures when reference labels exist
+
+Keep known labels out of fitting, then compare clusters to labels only for evaluation:
+
+- **Adjusted Rand index (ARI):** pairwise agreement adjusted for chance. 1 is perfect agreement, about 0 is chance-level, and negative values are worse than chance.
+- **Normalized mutual information (NMI):** shared information between assignments and reference labels, normalized to 0–1; higher means stronger association.
+- **Fowlkes–Mallows score:** geometric mean of pairwise precision and recall; higher means more pairwise agreement.
+
+Reference labels may not match the structure that matters for the task, so external metrics are evidence, not the final definition of usefulness.
+
+## Stability and domain checks
+
+Refit after changing the random seed, sampling a subset, or making small defensible preprocessing changes. Compare assignments or co-clustering rates; large changes mean the result is fragile. Inspect group sizes, representative examples, feature profiles, and whether a domain expert can explain what each group is used for. For customer segments, ask whether the segments are distinct and actionable—not merely colorful.
+
+## Evaluating dimensionality reduction
+
+- **PCA:** cumulative explained variance indicates variance retained; reconstruction error measures information lost when mapping down and reconstructing.
+- **t-SNE / UMAP:** evaluate neighborhood preservation, stability across settings/seeds, and whether the intended visualization remains readable. Do not use apparent island spacing as a global distance measure.
+- For downstream prediction or clustering, assess the full downstream task on held-out data. A low reconstruction error or attractive plot alone does not establish usefulness.
+
+## scikit-learn examples
+
+    from sklearn.metrics import (
+        adjusted_rand_score, davies_bouldin_score,
+        normalized_mutual_info_score, silhouette_score,
+    )
+
+    silhouette = silhouette_score(X_scaled, cluster_labels)
+    db_index = davies_bouldin_score(X_scaled, cluster_labels)
+    ari = adjusted_rand_score(reference_labels, cluster_labels)
+    nmi = normalized_mutual_info_score(reference_labels, cluster_labels)
+
+Use ARI/NMI only after fitting clusters without reference labels. Internal metrics require multiple clusters; remove or separately account for noise where appropriate. Scores are conditional on the chosen feature space and distance.
+
+## Recall questions
+
+1. Which metrics need reference labels and which do not?
+2. Why does low K-Means inertia not identify the right K?
+3. How would you check that a clustering is stable?
+4. Why is a domain profile still useful when silhouette is high?
