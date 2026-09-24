@@ -136,13 +136,8 @@ def plt_output_unit(W,b):
     y_ = np.linspace(0., 1., steps)
     z_ = np.linspace(0., 1., steps)
     x, y, z = np.meshgrid(x_, y_, z_, indexing='ij')
-    d = np.zeros((steps,steps,steps))
     cmap = plt.get_cmap('Blues')
-    for i in range(steps):
-        for j in range(steps):
-            for k in range(steps):
-                v = np.array([x[i,j,k],y[i,j,k],z[i,j,k]])
-                d[i,j,k] = sigmoid(np.dot(v,W[:,0])+b)
+    d = sigmoid(W[0, 0] * x + W[1, 0] * y + W[2, 0] * z + np.asarray(b).squeeze())
     pcm = ax.scatter(x, y, z, c=d, cmap=cmap, alpha = 1 )
     ax.set_xlabel("unit 0"); 
     ax.set_ylabel("unit 1"); 
