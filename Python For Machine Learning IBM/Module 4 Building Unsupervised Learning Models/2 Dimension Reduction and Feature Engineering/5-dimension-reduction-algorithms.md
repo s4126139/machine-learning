@@ -1,11 +1,85 @@
-Transcript
-en
+# Dimensionality Reduction Algorithms: PCA, t-SNE, and UMAP
 
-Interactive Transcript - Enable basic transcript mode by pressing the escape key
-You may navigate through the transcript using tab. To save a note for a section of text press CTRL + S. To expand your selection you may use CTRL + arrow key. You may contract your selection using shift + CTRL + arrow key. For screen readers that are incompatible with using arrow keys for shortcuts, you can replace them with the H J K L keys. Some screen readers may require using CTRL in conjunction with the alt key
-Welcome to Dimension Reduction Algorithms. After watching this video, you will be able to explain what Dimension Reduction Algorithms are. You will also be able to describe the different types of Dimension Reduction Algorithms, namely PCA, t-SNE, and UMAP. Dimensionality Reduction Algorithms reduce the number of dataset features without sacrificing critical dataset information. High-dimensional data is often very difficult to analyze and visualize. Dimensionality Reduction Algorithms simplify the dataset for machine learning models. The Principal Component Analysis (or PCA), T-Distributed Stochastic Neighbor Embedding (or t-SNE), and Uniform Manifold Approximation and Projection (or UMAP) algorithms transform original dimensions to create new features.
-Principal Component Analysis, or PCA, is a linear dimensionality reduction algorithm that assumes dataset features are linearly correlated. It simplifies data, reduces dimensionality, and reduces noise while minimizing information loss. PCA can transform features into a new set of uncorrelated variables called principal components while retaining as much variance as possible. These principal components are orthogonal to each other and define a new coordinate system for the feature space. The principal components are organized in decreasing order of importance, or how much of the feature space variance they explain. The first few components often contain most of the information, while the rest tend to represent noise. T-Distributed Stochastic Neighbor Embedding, or t-SNE, maps high-dimensional data points to a lower-dimensional space.
-It is good at finding clusters in complex, high-dimensional data that can be visualized in two or three dimensions and works well with data like images and text. t-SNE focuses on preserving the similarity of points that are close together and less so on distant points. Similarity is measured as proximity, using the distance between pairs of points. Unfortunately, t-SNE doesn't scale well and can be difficult to tune, as it is sensitive to its hyperparameters. Uniform Manifold Approximation and Projection, or UMAP, is also a nonlinear dimensionality reduction algorithm, often used as an alternative to t-SNE. It constructs a high-dimensional graph representation of the data based on manifold theory, which assumes that the data lies on a lower-dimensional manifold embedded in higher-dimensional space. UMAP then optimizes a low-dimensional graph structure that best preserves the relationships between points in the original data. UMAP scales better than t-SNE and, in addition to the lower structure of the data, preserves the global structure, often providing higher clustering performance than t-SNE.
-Consider the 3D plots showing simulated data using the MakeBlobs function in Scikit-Learn. The plots show the same 3D data from two different perspectives. There is a little bit of overlap between the yellow and purple clusters, while the other two blobs are distinctly separated from all blobs. Let's apply the PCA, t-SNE, and UMAP dimension reduction algorithms to project this dataset onto two dimensions and compare the results. PCA has separated the blobs effectively. The blobs are all normally distributed, and the only differences between them are in their means and variances. This means the blobs are linearly correlated, so it is expected that PCA will perform well on the simulated data. t-SNE has clustered the data into four clusters and mostly separated the blobs well.
-The algorithm identified four very distinct clusters, with several mislabeled points within the purple cluster from the green and yellow clusters. This mixing is expected, as two of the clusters had a slight overlap. Although UMAP didn't perfectly identify some of the blob points in the blobs, you can see that three of the clusters did not fully separate. In particular, the yellow and green clusters have a slight overlap with the purple cluster. This should be the case for the yellow and purple clusters because these two clusters were not fully separated to begin with in the 3D input data. UMAP performed slightly better than t-SNE in this regard, since t-SNE identified four very distinct clusters. In this video, you learned that dimensionality reduction algorithms reduce the number of dataset features without sacrificing critical dataset information.
-There are different types of dimensionality reduction algorithms, namely, PCA, t-SNE, and UMAP. PCA is a linear dimensionality reduction algorithm that simplifies data, reduces dimensionality, and reduces noise while minimizing information loss. t-SNE maps high-dimensional data points to a lower-dimensional space. UMAP creates a low-dimensional representation of data by approximating the manifold on which the data lies.
+## Purpose
+
+Dimensionality reduction maps data with many features into fewer coordinates. The new coordinates may support compression, denoising, faster modeling, or visualization. Every method trades off information: inspect what it preserves and what it distorts.
+
+![How to read and use common dimensionality-reduction methods](../../assets/module-4-clustering-and-dimensionality-roadmap.svg)
+
+## PCA: linear variance compression
+
+Principal Component Analysis (PCA) finds orthogonal directions that capture the largest variance. The first component captures the most variance, the next captures the most remaining variance subject to orthogonality, and so on. Keeping the first few components yields a compact linear projection.
+
+- **Objective:** retain as much total variance as possible in a lower-dimensional linear subspace.
+- **Assumption / fit:** useful when important structure is approximately linear. PCA is unsupervised and does not know which directions predict a target.
+- **Scale:** standardize features when units or ranges should contribute comparably. If variance magnitude is meaningful and units are comparable, scaling may change the intended analysis.
+- **Choose dimension:** inspect individual and cumulative explained_variance_ratio_; validate the downstream task and reconstruction quality.
+- **Strengths:** often fast, compresses correlated features, and offers interpretable variance accounting. Full SVD is deterministic; randomized SVD uses randomness, so set `random_state` when repeatability matters.
+- **Limitations:** only linear projections; maximum variance may not equal maximum task relevance; components are combinations of original variables.
+
+    from sklearn.decomposition import PCA
+    from sklearn.preprocessing import StandardScaler
+
+    X_scaled = StandardScaler().fit_transform(X)
+    pca = PCA(n_components=0.95, svd_solver="full")
+    X_pca = pca.fit_transform(X_scaled)
+    print(pca.explained_variance_ratio_.sum())
+
+## t-SNE: local-neighborhood visualization
+
+t-distributed Stochastic Neighbor Embedding (t-SNE) maps nearby high-dimensional samples to nearby points in a small space, commonly 2D. It emphasizes local neighborhoods and is often useful for exploring images, text embeddings, or other complex data.
+
+- perplexity, initialization, learning rate, and random seed affect the result; compare multiple plausible settings.
+- Global distances, apparent cluster sizes, and gaps between separate islands are not reliable measures of original-space distances.
+- It is relatively expensive and sensitive to tuning. Standard scikit-learn t-SNE is primarily a visualization tool and does not provide a general out-of-sample transform for new points.
+
+    from sklearn.manifold import TSNE
+
+    embedding = TSNE(
+        n_components=2, perplexity=30, init="pca",
+        learning_rate="auto", random_state=42
+    ).fit_transform(X_scaled)
+
+## UMAP: graph-based manifold embedding
+
+Uniform Manifold Approximation and Projection (UMAP) constructs a weighted graph of neighboring observations and seeks a lower-dimensional graph with similar local relationships. It often preserves local neighborhoods and some broader structure while scaling well in many practical settings.
+
+- n_neighbors controls the neighborhood scale: smaller values emphasize local structure; larger values consider broader neighborhoods.
+- min_dist controls how tightly points can pack in the embedding; it changes visual compactness, not proof of cluster separation.
+- Results depend on preprocessing and parameters. Use the same feature representation when comparing embeddings. UMAP is commonly provided by the separate umap-learn package (import umap), not by scikit-learn itself.
+
+    import umap
+
+    embedding = umap.UMAP(
+        n_components=2, n_neighbors=15, min_dist=0.1, random_state=42
+    ).fit_transform(X_scaled)
+
+## Choosing among them
+
+| Need | A reasonable first choice | Why / caveat |
+| --- | --- | --- |
+| Linear compression, denoising, variance accounting | PCA | Records explained variance; can miss nonlinear manifolds. |
+| Inspect local neighborhoods in 2D | t-SNE | Strong local emphasis; global map geometry is unreliable. |
+| Explore local structure at scale and broader arrangement | UMAP | Flexible graph embedding; visual distances still need care. |
+
+A simulated blob dataset may separate well under PCA when its main differences are linear mean shifts. t-SNE can make nearby groups look like separated islands, while UMAP may preserve more of their connected arrangement. Such a plot compares embeddings, not the discovery of known labels. Color by known labels only after keeping those labels out of the unsupervised fit.
+
+## Official references
+
+- [scikit-learn PCA API](https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html)
+- [scikit-learn t-SNE API](https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html)
+- [UMAP parameter guide](https://umap-learn.readthedocs.io/en/latest/parameters.html)
+
+## Evaluation and pitfalls
+
+- For PCA, report cumulative explained variance or reconstruction error.
+- For t-SNE / UMAP, assess neighborhood preservation, stability across seeds/settings, and usefulness for the intended visualization.
+- If clustering is the goal, compare clustering in the original scaled space and in the reduced space; validate the resulting groups independently.
+- Fit the reducer on training data only in a predictive workflow. Do not fit on the whole dataset before splitting.
+
+## Recall questions
+
+1. Which information does PCA optimize, and what does it ignore?
+2. Why can’t the distance between t-SNE islands be interpreted like the original distance?
+3. What do UMAP n_neighbors and min_dist influence?
+4. Which evaluation would you use to decide how many PCA components to keep?

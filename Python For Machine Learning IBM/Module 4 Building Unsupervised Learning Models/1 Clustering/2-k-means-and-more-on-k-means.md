@@ -1,17 +1,65 @@
-Transcript
-en
+# K-Means and Choosing K
 
-Interactive Transcript - Enable basic transcript mode by pressing the escape key
-You may navigate through the transcript using tab. To save a note for a section of text press CTRL + S. To expand your selection you may use CTRL + arrow key. You may contract your selection using shift + CTRL + arrow key. For screen readers that are incompatible with using arrow keys for shortcuts, you can replace them with the H J K L keys. Some screen readers may require using CTRL in conjunction with the alt key
-Welcome to K-Means Clustering. After watching this video, you will be able to describe K-Means Clustering and explain how the K-Means algorithm works. You will also be able to discuss how to determine K. K-Means is an iterative, centroid-based clustering algorithm that partitions a dataset into similar groups based on the distance between their centroids. K-Means divides data into k non-overlapping clusters, where k is a chosen parameter. The k clusters are constructed to have minimal variances around their centroids and maximum dissimilarity between clusters. Let's understand this definition with the help of this chart showing a cluster of data points.
-At the center of the cluster is the centroid marked with a red X. This is the average position of all points in the cluster. Data points nearest to a centroid are grouped within the same category. A higher k value, or the number of clusters, signifies smaller clusters with greater detail, while a lower k value results in larger clusters with less detail. Let's look at how to use K-Means. First, initialize the algorithm. Choose the number of clusters that you would like to partition the feature space into and randomly select k starting centroid locations.
-These initial centroids can be data points or other points from the feature space. Next, assign centroids. Iteratively assign points to clusters and update their centroids. First, compute the distance matrix consisting of the distances from each point to each centroid. Then, assign each data point to the cluster with the nearest centroid. Update each cluster centroid as the mean of the cluster's data points. Repeat until the centroid positions stabilize or you reach maximum iterations.
-The algorithm converges once the centroids stop moving. Here is an experiment demonstrating how K-Means updates centroids and cluster points with each iteration. The demo starts with two unknown classes comprising circular clusters of points in red and blue and two randomly selected initial centroids in gold, each represented by an X and the plus symbol. With each iteration, you can see the centroids getting closer to their final destinations. Iterations 3 and 4 are identical. Thus, K-Means have already converged by iteration 3. Although the final clustering contains a few mislabeled points, K-Means does a good job of separating them.
-However, K-Means doesn't perform very well on imbalanced clusters. In this experiment, the unknown classes, indicated by the pair of circular clusters of points in red and blue, differ in their number of points. The red cluster has 200 points and the blue one has 10. Interestingly, the result in the first iteration is quite good. The centroid updates for the larger cluster stabilize very quickly. However, the smaller cluster centroid drifts closer to the larger cluster centroid and its cluster consumes more and more of the larger cluster's points. K-Means assumes that clusters are convex, meaning that any line drawn between two points remains within the cluster.
-The figure here shows a non-convex set of points colored blue. The boundary defined by the blue line segments approximates the boundary of the set of points. The red lines outline what is called the convex hull of the points. The algorithm also assumes that the clusters contain approximately the same number of points. Because statistical variance is sensitive to outliers, K-Means can perform poorly in the presence of noise. As a partition-based algorithm, K-Means is efficient and scales well to big data. The goal of K-Means is to minimize the within-cluster variance for all clusters simultaneously.
-Mathematically, this means a double sum over each cluster, i, and each point, x, within each cluster. Ci of the square distance between x and this cluster's centroid, mu i. Here are the results from three experiments to illustrate how well K-Means performs under different conditions. The three scatter plots on the left are from data generated with Scikit-learn's make blob function. The three blobs represent three different clusters. The difference between the three datasets is the standard deviation of each blob, increasing from 1 to 4 to 15. Higher values disperse the blobs and they become visually less distinguishable.
-On the right, are each experiment's K-Means clustering results for k equals 3. The red Xs indicate the K-Means cluster centroids. K-Means does not know the classes or colors assigned to the blobs in the input data. The goal of these experiments is for K-Means to uncover these three classes. As you can see, K-Means has distinguished the blobs quite well for standard deviations of 1 and 4. Where the blobs overlap, the resulting clusters have errors. It would be unreasonable to expect any clustering algorithm to untangle blobs where the standard deviation is 15.
-However, K-Means did what was instructed to do and generated three clusters anyway. Intuitively, you might expect at most two clusters to be found, the core and outlying points If the input data had three class labels, as depicted, the two features would be incapable of separating them. More features would be needed to accomplish this separation. Observe that, as the standard deviation of the blobs increases, the cluster centroids that K-Means finds get closer together. What if K differs from the unknown number of classes in the input data? Here, the experiment is run with k equals 2 clusters for K-Means to determine, and three blobs with three unknown classes are given. For a standard deviation of 1, K-Means correctly identifies one blob and merges the other two into one cluster, with its centroid between the two blobs.
-Similarly, for a standard deviation of 4, K-Means identifies one blob and merges most of the other two blobs into one cluster, with its centroid between the two blobs. When the standard deviation is 15, K-Means is left with no option and must impose the two clusters onto what looks like indistinguishable data. As the standard deviation of the blobs increases, the cluster centroids that K-Means finds get closer together. The two blobs gradually merge into one, and a blob can have only one centroid. When K is too large, K-Means returns unacceptable results. How do you find the best value for K when you don't know much about your data? Choosing K is difficult for complex data.
-When the data is separable, choosing the suitable K is feasible. How do you know whether the data is separable? While obvious in two or three dimensions, you can't visualize the patterns easily for higher-dimensional feature spaces. You can gain some insight by considering scatter plots between pairs of your variables to see whether any of these demonstrate separability. Some heuristic techniques for gauging K-Means' performance for a given K include silhouette analysis, which measures how similar a data point is to its cluster, known as cohesion, compared to other clusters, known as separation. The Elbow method is a plot of the K-Means objective function for different numbers of clusters, and the Davies-Bouldin index measures each cluster's average similarity ratio, with the cluster most similar. In this video, you learned that K-Means is an iterative, centroid-based clustering algorithm that partitions a dataset into similar groups based on the distance between their centroids.
-The K-Means clustering algorithm categorizes data points into clusters using a mathematical distance measure from the cluster center. K-Means doesn't perform very well on imbalanced clusters and assumes that clusters are convex. The objective of K-Means is to minimize the within-cluster variance for all clusters simultaneously. Some heuristic techniques for gauging K-Means' performance for a given K include silhouette analysis, the elbow method, and the Davies-Bouldin index.
+## Intuition and objective
+
+K-Means partitions observations into K non-overlapping clusters. Each point is assigned to its nearest centroid, and each centroid is the arithmetic mean of its assigned points. The algorithm tries to minimize the **within-cluster sum of squared distances**:
+
+    J = sum over clusters k, then points x in cluster k, of ||x - centroid_k||^2
+
+A centroid is a mean vector; it need not be an observed data point. K must be chosen before fitting.
+
+## Algorithm
+
+1. Choose K and initialize K centroids (K-Means++ is the common robust initialization).
+2. Assign every observation to its nearest centroid under the selected distance.
+3. Recompute each centroid as the mean of assigned observations.
+4. Repeat assignment and update until assignments/centroids stop changing or the iteration limit is reached.
+5. Because the objective can reach different local minima, run multiple initializations and compare their inertia.
+
+Each iteration lowers or preserves the objective, but the final answer is not guaranteed to be the globally best partition.
+
+## Assumptions, scaling, and failure cases
+
+K-Means works best when groups are compact, roughly convex, and separated under Euclidean distance. It favors partitions around centers and is sensitive to outliers because squared distances give far-away points large influence. It struggles with interlocking or strongly non-convex shapes, unequal cluster sizes or densities, and features measured on very different scales.
+
+Scale numeric features before fitting when units should contribute comparably. Do not scale identifiers or encode arbitrary categories as numeric distances. High-dimensional sparse data can make Euclidean distances less informative. If scaling, PCA, or feature selection is part of a predictive workflow, fit it inside each training fold.
+
+## Choosing K
+
+No metric can tell you the “true” K without task assumptions. Use several forms of evidence:
+
+- **Elbow / inertia:** plot within-cluster sum of squares against K. Inertia always decreases as K increases; look for a useful bend, not the absolute minimum.
+- **Silhouette:** compares a point’s average distance to its own cluster with its distance to the nearest other cluster. Values range from -1 to 1; higher is better separated on average. A negative value can indicate a poor assignment.
+- **Davies–Bouldin index:** compares within-cluster spread with separation from other clusters; lower is better.
+- Also check cluster sizes, stability across seeds or samples, and whether groups make practical sense.
+
+A blob example illustrates the model’s geometry. With three compact, separated blobs and K=3, K-Means can recover the groups. If two blobs overlap heavily, increasing K cannot recover class information that the features do not contain. If K=2 for three blobs, one pair must be merged; if K is too large, a genuine group is split into smaller partitions.
+
+## scikit-learn pattern
+
+    from sklearn.cluster import KMeans
+    from sklearn.pipeline import make_pipeline
+    from sklearn.preprocessing import StandardScaler
+
+    model = make_pipeline(
+        StandardScaler(),
+        KMeans(n_clusters=3, init="k-means++", n_init=10, random_state=42),
+    )
+    labels = model.fit_predict(X)
+
+n_init runs independent initializations and keeps the best objective. random_state makes initialization reproducible. Select K by comparing candidates on training data or in a validation process; do not tune it against the final test set.
+
+## Strengths and limitations
+
+**Strengths:** simple objective, fast iterations, easy assignment to centers, useful for compact segments, and scalable to many samples.
+
+**Limitations:** K is required; outliers and scale can dominate; the result depends on initialization; it forces every point into a cluster; and the geometry is poorly suited to curved or variable-density groups.
+
+## Pitfalls and recall
+
+Do not interpret cluster numbers as ordered categories. Do not compare raw inertia across datasets or different preprocessing. A lower inertia alone favors larger K.
+
+1. What is the difference between a centroid and a medoid?
+2. Why does inertia always improve when K increases?
+3. How would scaling change a distance-based partition?
+4. Which observed shape would make you try DBSCAN instead?
