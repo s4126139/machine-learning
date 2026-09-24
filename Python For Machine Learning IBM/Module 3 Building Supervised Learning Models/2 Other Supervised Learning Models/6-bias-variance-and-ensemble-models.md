@@ -1,16 +1,71 @@
-Transcript
-en
+# Bias, Variance, and Ensemble Models
 
-Interactive Transcript - Enable basic transcript mode by pressing the escape key
-You may navigate through the transcript using tab. To save a note for a section of text press CTRL + S. To expand your selection you may use CTRL + arrow key. You may contract your selection using shift + CTRL + arrow key. For screen readers that are incompatible with using arrow keys for shortcuts, you can replace them with the H J K L keys. Some screen readers may require using CTRL in conjunction with the alt key
-[MUSIC] Welcome to Bias, Variance, and Ensemble Models. After watching this video, you'll be able to analyze the impact of bias and variance on accuracy and precision. You'll also be able to explain the bias-variance tradeoff in model complexity, evaluate techniques to mitigate bias and variance, and analyze the outcomes of bagging and boosting methods. Let's understand bias and variance with the four dart boards shown in the image. Closely grouping the darts near the center of the board indicates high accuracy and low bias. The top two boards demonstrate low bias, meaning they are more accurate, while the bottom two show higher bias, making them less accurate. Think of bias as how on-target or off-target the darts are.
-Variance measures how spread out the darts are, representing precision. The dart boards on the right display higher variance, meaning the darts are more spread out, while the boards on the left show lower variance, with the darts grouped closer together. As shown on the top left board, achieving a high score requires both low bias for accuracy and low variance for precision. Prediction bias refers to how precise a model's predictions are. It's measured by the average difference between what the model predicts and the actual target values in the data. A perfect predictor has zero bias. This chart illustrates prediction bias.
-The blue line represents the linear ordinary least squares fit for the blue data points. It has a bias of 0.22. The red line depicts the same model shifted down by 4 units. It has a much higher bias of 4.22. Prediction variance measures how much a model's predictions fluctuate when trained on different subsets of the same data set. When a model exhibits high prediction variance, it becomes extremely sensitive to changes in the selected training data. High variance causes the model to overfit the training data and track noise or outliers present in the training data.
-In contrast, models that generalize well to unseen data are necessarily less sensitive to noise. They have low prediction variance. This chart displays orange data points that follow a nonlinear pattern. Each model is fitted using a randomly sampled training data set. The curves would align almost perfectly if the prediction variance were near zero. However, you can observe differences between the curves, especially at the beginning and end of the data. This variation indicates some prediction variance, reflecting instability in the model's predictions.
-This plot illustrates how bias and variance change as your model becomes more complex and better at predicting the data it's trained on. As model complexity increases, bias, represented by the blue curve, tends to decline while variance, shown by the green curve, rises. When model complexity is low, bias is high, leading to poor predictions even on training data. This is known as underfitting. Conversely, high model complexity results in high variance, meaning the model becomes overly sensitive to the training data and performs poorly on unseen data, resulting in overfitting. However, there's a crossover point marked by the vertical dashed line where the model's complexity is just right. As the plot indicates, there will always be some generalization error that cannot be eliminated, such as random noise in the data.
-A weak learner is a supervised machine learning model that performs only slightly better than random guessing. These models are characterized by high bias and low variance, which often leads to underfitting. In contrast, strong learners exhibit low bias and high variance, resulting in a tendency to overfit the data. Bagging and boosting are well-known ensemble methods that effectively balance bias and variance. Decision or regression trees are commonly chosen as base learners in ensemble learning because their bias and variance can be easily adjusted by altering their depth. The model predictions shown here utilize the same modeling algorithm, repeatedly trained on bootstrapped subsets of data. You can observe the variance at both ends of the family of curves.
-Now, imagine if you were to perform this process multiple times and then average the predictions. This technique is known as bagging or bootstrap aggregating. As illustrated by the dashed curve, averaging the models across numerous iterations significantly reduces prediction variance while also lowering the risk of overfitting. Random forests is a bagging method that trains multiple decision trees on bootstrapped data sets. These trees don't need to be very deep. Instead, the focus should be on minimizing prediction bias. Shallow trees have high prediction variance, and aggregation significantly reduces this variance while only slightly increasing bias.
-Boosting is an ensemble modeling technique that builds a series of weak learners, each aimed at correcting the errors of the previous one. By systematically reducing prediction error, boosting helps lower prediction bias. The final model is formed as a weighted sum of these weak learners. In each iteration of the process, the weights of misclassified data from the previous model are increased, while the weights of correctly classified data are decreased. This reweighting helps the algorithm focus on correcting the mistakes. The model's weights are updated based on the performance of each weak learner. Popular boosting algorithms include Gradient Boosting, XGBoost, and AdaBoost.
-This graph demonstrates how bagging and boosting can help mitigate the bias-variance tradeoff by strategically adjusting model complexity. Boosting increases model complexity and decreases bias. In contrast, bagging reduces variance. This table illustrates how ensemble methods can be used to address common issues in machine learning. Bagging aims to mitigate overfitting by combining multiple base learnings that are high variance and low bias. These base learners are trained in parallel on bootstrapped data samples. Bagging helps reduce variance.
-Boosting aims to mitigate underfitting by sequentially training base learners that are low variance and high bias. Each subsequent base learner builds on the previous result, gradually reducing bias. In this video, you learned to analyze bias and variance and how they impact accuracy and precision. Explain prediction bias and how it measures the accuracy of predictions. Analyze prediction variance to measure how much a model's predictions fluctuate. Explain the bias-variance tradeoff and how bias and variance change as your model becomes more complex. Explain mitigating bias and variance and the concept of weak and strong learners.
-Analyze bagging or bootstrap aggregating to observe variance at both ends of a family of curves. Explain random forests to train multiple decision trees on bootstrap data sets. And finally, analyze bagging and boosting outcomes to manage bias and variance. [MUSIC]
+## The bias–variance picture
+
+**Bias** is systematic error from a model that is too simple or makes restrictive assumptions. A high-bias model misses real structure and tends to underfit. **Variance** is sensitivity to the particular training sample: a high-variance model changes substantially when trained on another sample and tends to overfit. The dartboard intuition is useful: bias is distance from the center on average; variance is the spread of repeated results.
+
+As model flexibility increases, training error usually falls. Validation error often falls at first, then rises when extra flexibility starts fitting noise. The best practical complexity is the region with good performance on unseen data, not necessarily the lowest training error. Some error is irreducible because observations contain noise or missing information.
+
+![Model selection starting points for classification and regression](../../assets/module-3-model-selection.svg)
+
+## Ensembles: combine learners to improve generalization
+
+### Bagging and random forests
+
+**Bootstrap aggregating (bagging)** trains multiple models on bootstrap samples (samples drawn with replacement) and averages numeric predictions or votes on classes. Training members can happen in parallel. Averaging diverse, high-variance learners—especially decision trees—usually reduces variance without dramatically increasing bias.
+
+**Random forests** add random feature subsets to the bootstrap variation: at each split, a tree considers only a subset of features. This decorrelates trees, so their errors are less alike and averaging helps more. Trees can grow fairly deep; useful controls include `n_estimators`, `max_features`, `max_depth`, and `min_samples_leaf`. More trees reduce Monte Carlo noise but eventually add little benefit, while tree depth and leaf size affect fit and cost.
+
+### Boosting
+
+**Boosting** adds weak learners sequentially. Each stage concentrates on the current model's residual errors or loss gradient, and the final prediction is an additive combination. AdaBoost reweights difficult examples; gradient boosting follows the loss gradient. Boosting often reduces bias by building a richer predictor, though too many complex stages can overfit noisy data.
+
+Useful controls include `n_estimators` (number of stages), `learning_rate` (contribution of each stage), and base learner complexity such as `max_depth` or `max_leaf_nodes`. A lower learning rate usually needs more stages. Tune these together with validation; “more estimators” is not always better.
+
+## Scikit-learn pattern
+
+```python
+from sklearn.ensemble import RandomForestClassifier
+
+forest = RandomForestClassifier(
+    n_estimators=300,
+    max_features="sqrt",
+    min_samples_leaf=2,
+    class_weight="balanced",
+    random_state=42,
+    n_jobs=-1,
+)
+forest.fit(X_train, y_train)
+predictions = forest.predict(X_test)
+```
+
+Use `RandomForestRegressor` for continuous targets. For boosting, scikit-learn provides estimators such as `HistGradientBoostingClassifier` and `HistGradientBoostingRegressor`; gradient boosting implementations and exact controls differ. Include all preprocessing and tuning inside cross-validation so validation data does not influence training transforms.
+
+## Example: choosing a remedy
+
+Imagine a deep tree that scores almost perfectly on training rows but performs much worse on held-out rows. The gap suggests overfitting/high variance: limit tree depth, increase minimum leaf size, or replace it with a random forest. If both training and validation scores are poor, the model may have high bias or the features may not contain enough signal; improve useful inputs, permit more complexity, or test a boosting model. Confirm every adjustment with the same validation scheme.
+
+## When each approach helps
+
+| Symptom or need | Reasonable next experiment |
+| --- | --- |
+| Training and validation performance are both weak | Check labels/features and underfitting; test a more expressive model or informative features. |
+| Training is strong but validation is weak | Reduce complexity, add regularization, gather data, or compare a bagged ensemble. |
+| A single tree is unstable but nonlinear interactions matter | Try a random forest and inspect held-out performance. |
+| A stronger additive fit is needed and tuning capacity is available | Try gradient boosting with a controlled learning rate and validation-based stopping/tuning. |
+
+These are diagnostic hints, not guarantees. Bias and variance are properties of model plus data and evaluation setup, not labels permanently attached to an algorithm.
+
+## Common pitfalls
+
+- A “weak learner” is a learner only modestly better than a baseline under the relevant loss; weak does not automatically mean safe or unbiased.
+- Bagging primarily reduces variance when the base models are diverse. Identical, highly correlated learners gain little from averaging.
+- Boosting can focus excessively on mislabeled points or outliers; use robust losses, restrained learners, and validation.
+- Ensemble feature importance describes predictive association, not causal influence.
+- Do not tune complexity against the final test set. Use cross-validation or a validation split, and evaluate once on an untouched test set.
+
+## Active recall
+
+1. How do bias and variance show up in training versus validation performance?
+2. Why does averaging bootstrap-trained trees help a random forest generalize?
+3. How do `learning_rate` and `n_estimators` interact in boosting?

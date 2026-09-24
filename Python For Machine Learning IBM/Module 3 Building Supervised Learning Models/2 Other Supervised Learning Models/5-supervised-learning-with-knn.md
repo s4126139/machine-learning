@@ -1,14 +1,61 @@
-Transcript
-en
+# K-Nearest Neighbors (KNN)
 
-Interactive Transcript - Enable basic transcript mode by pressing the escape key
-You may navigate through the transcript using tab. To save a note for a section of text press CTRL + S. To expand your selection you may use CTRL + arrow key. You may contract your selection using shift + CTRL + arrow key. For screen readers that are incompatible with using arrow keys for shortcuts, you can replace them with the H J K L keys. Some screen readers may require using CTRL in conjunction with the alt key
-Welcome to Supervised Learning with KNN. After watching this video, you'll be able to explain what K-Nearest Neighbors, or KNN, is, describe how a K-NN algorithm works, and discuss how K affects the outcome of the K-NN algorithm K-Nearest Neighbors, or KNN, is a supervised machine learning algorithm that takes a group of labeled data points and then uses them to learn to label other data points. K-NN is used for both classification and regression. In K-NN, data points near each other are said to be neighbors based on the paradigm. Points close to each other should have similar features, and therefore, tend to be like each other Let's consider this chart. Here, for each queried data point, K-NN finds its nearest data points and makes a prediction based on the known target labels of the queried point's neighbors. You also need to define mathematically what is meant by a neighbor.
-Let's understand how K-NN works. In a classification problem, K-NN works as follows. First, pick a value for k. Then, calculate the distance from each unlabeled query point to all labeled cases in the training data. Search for the k observations in the training data that are nearest to the query point. Predict the value of the given data point using the most popular class value from the k-nearest neighbors. In the case of regression, you would predict using the average or median of target values.
-Let's see how you can calculate the similarity between two data points in classification. Let's consider this dataset comprising 50 samples each from the three species of iris – Iris setosa, Iris virginica, and Iris versicolor. Each row in the dataset contains four features listed in centimeters – sepal length, sepal width, petal length, and petal width. We want to use this dataset to train K-NN to classify the four iris types. Here is a scatterplot of the iris flower data between two features – sepal length and petal length. The points are the sepal-petal length pairs labeled with their actual iris type – setosa, versicolor, or virginica. Now, consider the region bound by the box and the point at the center of the red circle.
-Its three nearest neighbors are indicated by the line segments connecting to them. Using a majority vote, K-NN would correctly classify this point as blue, or virginica. Looking at another point, showing its nearest three neighbors, you can see that the majority class is green, or versicolor. Thus, K-NN would incorrectly classify this iris. Illustrated here is the decision boundary for the K-NN classification result using K equals 3 nearest neighbors and two input features – sepal length and petal length. The model was generated with the K-Neighbors classifier from Scikit-Learn. The three different colored regions indicate which of the three classes or types of irises K-NN predicted for each pair of sepal and petal lengths.
-The points are the sepal-petal length pairs labeled with their actual iris type – setosa, versicolor, or virginica. As you can see, K-NN correctly classified most of the irises with an accuracy of 93%. To find an optimal value for K, you can test a range of values using a labeled test dataset and measure accuracy. Once you've done so, choose K equals 1, use the training part for modeling, and calculate the prediction accuracy using all samples in your test set. Repeat this process, increasing the K, and see which K is best for your model. For example, K equals 4 will give you the best accuracy in this case. The K-NN algorithm is a lazy learner, so it doesn't learn in the sense that other machine learning models do.
-It stores the training data and makes predictions for each query point based on its distances to all points in the training data. Thus, it is still a supervised model because it must calculate all distances from each query point to the training points, then sort the observations by increasing distance, and finally, select the top K observations. Now, how does K affect the outcome of the K-NN algorithm? If K is small, the values assigned to unlabeled observations will tend to fluctuate, causing overfitting. If K is large, then K-N will smooth out the finer details and cause underfitting. Somewhere in between, there will be a happy medium value for K. In classification, the majority voting algorithm becomes unreliable when the class distribution is skewed.
-More frequent classes tend to dominate the prediction of the new example because they are more prevalent among the nearest neighbors owing to their higher number. To overcome this challenge, you can weigh the classification by considering the distance from the test point to each of its K-NN. When features have large values, they will dominate the distance measure and the predictions. Artificially more important features can cause biased or low-accuracy predictions. Features need to be scaled to remove this effect, and the simplest way is standardization. Including an irrelevant feature is like adding noise. Noisy data requires a higher value of K to avoid overfitting, which in turn drives up computational cost and diminishes accuracy.
-Keeping only relevant features lowers the optimal K and improves both accuracy and computational efficiency. Features must be relevant to the problem. Redundant features add computational cost with no expected improvement in accuracy. Being able to identify relevant features comes from domain knowledge. To check whether an independent feature is important, you can tune K with and without the feature and evaluate the change in model performance. In this video, you learned that K-NN is a supervised machine learning algorithm that uses labeled points to learn how to label other points. K-NN is used for classification and regression.
-To find an optimal value for K, you can test a range of values using a labeled test dataset and measure accuracy. When the class distribution is skewed, there is a disadvantage in the basic majority voting classification. A possible resolution can be to weigh the classification or by abstraction in data representation. Keeping only relevant features lowers the optimal K and improves both accuracy and computational efficiency. To check whether an independent feature is important, you can tune K with and without the feature and evaluate the change in model performance.
+## Core idea
+
+KNN predicts from nearby labeled examples: if two examples are close in feature space, the algorithm assumes they are likely to have similar targets. It can perform **classification** (neighbor vote) or **regression** (neighbor target average or median). KNN is a **lazy learner**: fitting mostly stores the training examples; most work happens when a prediction is requested.
+
+## How it predicts
+
+1. Choose the number of neighbors, `k`, and a distance metric.
+2. Measure the query point's distance to training points and select the `k` closest.
+3. For classification, return the most common neighbor class. For regression, aggregate neighbor targets. Distance weighting gives closer examples more influence.
+
+A small `k` follows local details and is sensitive to noise; a large `k` smooths boundaries but can wash away small groups. The useful value depends on the data and should be selected using validation, not the test set.
+
+## Scikit-learn pattern
+
+Distance depends on scale, so scale numeric features inside a pipeline. `n_neighbors` is `k`; `weights="distance"` gives closer observations more voting influence; `metric` selects a distance calculation (the default Minkowski metric uses `p=2`, Euclidean distance).
+
+```python
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsClassifier
+
+model = make_pipeline(
+    StandardScaler(),
+    KNeighborsClassifier(n_neighbors=5, weights="distance")
+)
+model.fit(X_train, y_train)
+predictions = model.predict(X_test)
+```
+
+Replace `KNeighborsClassifier` with `KNeighborsRegressor` for a numeric target. Use one-hot or other meaningful encodings for categorical variables: arbitrary integer codes imply a distance and order that may not exist.
+
+## Example: classifying iris species
+
+Represent each flower by measurements such as sepal length and petal width. A query flower is assigned the majority species among its nearest training flowers. With a small `k`, one unusual measurement may change the vote; with a larger `k`, the boundary becomes smoother. Scaling matters because measurements with larger numeric ranges would otherwise dominate the distance.
+
+KNN is also useful as a simple local baseline when similar cases should have similar outcomes and the dataset is small enough that storing and searching the examples is practical.
+
+## When it works well
+
+- There are few to moderate numbers of informative, consistently scaled features.
+- Nearby examples genuinely tend to share labels or numeric outcomes.
+- The training set is small or moderate and prediction latency/memory are acceptable.
+- A simple nonparametric baseline is useful for comparing against more structured models.
+
+## Assumptions and common pitfalls
+
+- Distance is meaningful only with sensible feature representations and scaling.
+- Irrelevant or duplicated features distort neighborhoods; in high dimensions, distances become less informative (the curse of dimensionality).
+- With imbalanced classes, majority voting can favor the common class; inspect class-wise metrics and consider distance weighting or class-aware approaches.
+- A large `k` can underfit; a very small `k` can overfit. Tune it within cross-validation.
+- Basic KNN may be expensive at prediction time because queries are compared with stored data; memory grows with training-set size.
+- Missing values and categorical fields need preprocessing before distances can be computed.
+- Do not choose `k` by repeatedly checking the held-out test score; use validation or cross-validation.
+
+## Active recall
+
+1. Why is KNN described as a lazy learner, and when does most of its computation happen?
+2. How do small and large `k` values change the bias/variance behavior?
+3. Why can one unscaled or irrelevant feature distort a neighborhood?

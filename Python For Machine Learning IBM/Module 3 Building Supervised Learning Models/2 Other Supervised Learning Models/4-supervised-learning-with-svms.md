@@ -1,16 +1,61 @@
-Transcript
-en
+# Support Vector Machines (SVMs)
 
-Interactive Transcript - Enable basic transcript mode by pressing the escape key
-You may navigate through the transcript using tab. To save a note for a section of text press CTRL + S. To expand your selection you may use CTRL + arrow key. You may contract your selection using shift + CTRL + arrow key. For screen readers that are incompatible with using arrow keys for shortcuts, you can replace them with the H J K L keys. Some screen readers may require using CTRL in conjunction with the alt key
-Welcome to Supervised Learning with SVMs. Support Vector Machines, or SVMs, are used for classification. After watching this video, you will be able to describe SVM, identify Python tools for SVM, and discuss SVM applications. Support Vector Machines, or SVM, is a supervised learning technique for building classification and regression models. It maps each data instance as a point in multidimensional space where the input features are represented as a value for a specific coordinate. SVM classifies input data by identifying the hyperplane, which distinctly differentiates two classes. Thus, these points are fundamental to the dataset.
-In a classification task comprising two features, the hyperplane is a linear line that segregates and classifies the dataset. Every time new inputs are added to the task, their classification depends on which side of the hyperplane they land. The primary goal of SVM is to create a hyperplane that segregates a dataset into two parts and finds the largest margin. In this example, the dataset comprises a collection of two classes, red triangle and blue square. The larger the margin, the better the model's accuracy on new, unseen data. Data is often noisy and overlapping in real-world scenarios, making perfect separation impossible. SVM can incorporate a soft margin, which allows it to tolerate misclassifications while maximizing the margin.
-The balance between maximizing the margin and minimizing the number of misclassifications is controlled by a parameter, c. A smaller c allows more misclassifications, softer margin, while a larger c forces a stricter separation, harder margin. Binary SVMs are binary classification machine learning algorithms. Binary SVMs assume that two classes are linearly separable. However, SVMs can also be adapted to solve regression problems. SVMs try to divide data into two classes by finding a decision boundary. For example, this chart shows two classes as red and blue data points based on two features.
-The decision boundary is a hyperplane that maximizes the margin. In a two-dimensional feature space, the decision boundary is a line. The margin is the distance from the hyperplane to the closest points from each class. These nearest point representatives from each class are support vectors. Without getting into the details of the mathematics involved in the derivation of the optimization problem, consider this 2D example. Using the training data and assuming the data has been normalized, the objective is to find a weight vector and a value b, called the bias term, such that a, the inner product of w with itself is minimized, which amounts to minimizing the length of w, and b, for every observation, or data point, x, and target value y, the product of y and w transported x plus b is greater than or equal to 1. Therefore, the algorithm's output is the line's values, w and b.
-You can make classifications using this estimated line. Adding input values into the line equation lets you calculate whether an unknown point is above or below the line. If the equation returns a value greater than zero, the point belongs to the first class, which is above the line and vice versa. Consider a 2D object of a non-linearly separable pair of classes. As you can see from the 2D chart, there are two non-overlapping classes with concentrically circular shapes. You can imagine these points as analogous to map contours, representing their heights. Clearly, these classes are not linearly separable.
-Let's transform the features of the 2D object so that it takes on a parabolic shape. Let's create a new 3D object by adding the new feature as the z-axis. It's a bit difficult to interpret 3D objects, but as you can imagine, the two classes are now clearly separated by a horizontal plane. You can use this plane to classify new cases according to whether they lie above or below the plane. Mapping data into a higher-dimensional space like this is called kerneling, where the kernel is a quadratic polynomial in this case. With real-world data, there is no straightforward way to know which kernel function performs best. Scikit-learn provides you with a choice of kernel functions to use with SVM.
-A linear kernel is the default and corresponds to the usual SVM model. Parabolic embedding is implemented by choosing the polynomial option. Radial basis functions, or RBFs, which score high for points close to each other and an exponentially decreasing score as points become more distant. The sigmoid is the same function used for logistic regression. To see how support vector machines work for regression, consider this chart. It'll help you build some intuition without going into mathematics. The synthetic data depicted by the orange data points represents a noisy, nonlinear, continuous target variable as a function of an input feature.
-The blue curve displays the support vector regression, or SVR model prediction using a radial basis function, or RBF kernel. The shaded light blue region represents the epsilon tube around the prediction. Points falling within the epsilon tube are shaded yellow. Epsilon is a parameter of the SVR learning algorithm that you can select to define a margin around the prediction curve. Points falling outside the margin are interpreted as noise, and points inside as signal. In the first case, epsilon is 0.2, and in the second, epsilon is 0.4. SVM has many advantages.
-For example, it's effective in high-dimensional spaces, it's robust to overfitting, it excels on linear separable data, and it works with weakly separable data using weak margin option. SVM also has some limitations. For example, it's slow for training on large datasets, it's sensitive to noise and overlapping classes, and it's sensitive to the choice of kernel and regularization parameters, which are non-trivial to determine. When should you use SVM? SVM is good for image analysis tasks, such as image classification and handwritten digit recognition. It's also highly effective for parsing, spam detection, and sentiment analysis. SVM can be used for machine learning problems, such as speech recognition, anomaly detection, and noise filtering.
-In this video, you learned that Support Vector Machines, or SVM, is a supervised learning technique for building classification and regression models. SVMs try to divide data into two classes by finding a decision boundary, which is a hyperplane that maximizes the margin. Scikit-learn provides many kernel functions, such as linear, polynomial, RBF, and sigmoid for using with SVM. SVM has many advantages. It's effective in high-dimensional spaces and robust to overfitting. However, it also has some limitations. It's slow for training on large datasets, and sensitive to noise and overlapping classes.
-You should use SVM for image recognition, spam detection, and machine learning problems.
+## Core idea
+
+An SVM separates classes by choosing a decision boundary with a wide margin. The **support vectors** are the training points closest to that boundary; they determine where it sits. A wider margin can improve generalization, but real data may overlap, so a useful classifier usually allows some training violations.
+
+SVMs also support regression. Support Vector Regression (SVR) fits a function while treating errors inside an **epsilon tube** around that function as negligible; points outside the tube contribute to the loss.
+
+## How it learns
+
+For a linear classifier, the model learns a hyperplane in the original feature space. The penalty parameter `C` controls the balance between a wide margin and training errors:
+
+- Smaller `C`: stronger regularization and a softer margin; more violations may be accepted.
+- Larger `C`: stricter fit to training points; the boundary can become more sensitive to noise.
+
+If a straight boundary is insufficient, a **kernel** computes similarities that let the SVM form a nonlinear boundary without explicitly constructing every higher-dimensional feature. Common choices are linear, polynomial, and radial basis function (RBF). For the RBF kernel, `gamma` controls how local each training point's influence is: high values can produce intricate boundaries; low values produce smoother ones. In SVR, `epsilon` sets the tube width.
+
+## Scikit-learn pattern
+
+SVMs depend on feature scale, so scale numeric features inside a pipeline to prevent data leakage. In scikit-learn, `SVC` defaults to an RBF kernel (`kernel="rbf"`), while `LinearSVC` is a separate linear estimator.
+
+```python
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.svm import SVC
+
+model = make_pipeline(
+    StandardScaler(),
+    SVC(kernel="rbf", C=1.0, gamma="scale")
+)
+model.fit(X_train, y_train)
+predictions = model.predict(X_test)
+```
+
+For regression, use `SVR(kernel="rbf", C=1.0, epsilon=0.1)` in the same kind of pipeline. SVMs can classify multiple classes too; scikit-learn's `SVC` handles multiclass classification by combining pairwise classifiers. Setting `probability=True` enables probability estimates through additional calibration work and can increase fitting time.
+
+## Example: handwriting recognition
+
+Represent each handwritten image as a vector of pixel intensities. A linear SVM can work well when there are many input features and classes are separated by a useful margin. If shapes overlap in a curved pattern, an RBF kernel can model a nonlinear boundary. Compare kernels and `C`/`gamma` with cross-validation rather than assuming the more flexible option is better.
+
+## When it works well
+
+- There are many features relative to the number of examples, especially with a linear boundary.
+- A margin-based classifier is suitable, including text, image, and handwriting tasks.
+- A nonlinear boundary is needed and dataset size is moderate enough for a kernel SVM.
+- For SVR, a tolerance band around predictions is meaningful and small deviations should be ignored.
+
+## Assumptions and common pitfalls
+
+- Features should be scaled; scale within the training fold, not before cross-validation.
+- Kernel choice and `C`/`gamma` interact. Tune them systematically; high `C` plus high RBF `gamma` can overfit.
+- Kernel SVM training and prediction can be expensive as the number of rows grows; linear estimators are often more practical for large sparse text data.
+- Overlapping classes and mislabeled outliers can strongly affect the boundary.
+- SVM scores are not automatically calibrated probabilities. If risk probabilities matter, calibrate and evaluate them separately.
+- Multiclass `SVC` entails multiple pairwise models, so fit and inference cost can grow with the number of classes.
+
+## Active recall
+
+1. What are support vectors, and why do they matter to the boundary?
+2. What tradeoff does `C` control? How does RBF `gamma` affect boundary complexity?
+3. Why should scaling occur inside a cross-validation pipeline?
