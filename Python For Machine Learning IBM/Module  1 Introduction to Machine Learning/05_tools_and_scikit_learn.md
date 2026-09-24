@@ -150,7 +150,7 @@ It supports:
 - Metrics and evaluation.
 - Pipelines and model composition.
 
-![Tasks implemented in Scikit-learn](assets/06_scikit_learn_pipeline.png)
+![Tasks implemented in Scikit-learn](../assets/06_scikit_learn_pipeline.png)
 
 ## 7. Motivating example: music streaming
 

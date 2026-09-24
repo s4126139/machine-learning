@@ -4,7 +4,7 @@
 
 An ML product is created through a lifecycle, not a single training command.
 
-![Machine learning process lifecycle](assets/05_machine_learning_lifecycle.png)
+![Machine learning process lifecycle](../assets/05_machine_learning_lifecycle.png)
 
 The five high-level stages are:
 
