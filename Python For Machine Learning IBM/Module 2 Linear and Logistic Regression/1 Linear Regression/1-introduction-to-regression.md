@@ -1,7 +1,73 @@
-​Welcome to Introduction to Regression. ​After watching this video, you will be able to ​Define regression, Compare simple and multiple regression ​Explain applications of regression ​Regression is a type of supervised learning model. ​It models a relationship between a continuous target variable and explanatory features. ​Consider this dataset related to CO2 emissions from different cars. ​The features in this dataset include engine size, number of cylinders, fuel consumption, ​and CO2 emissions from various automobile models. ​Given this dataset, is it possible to predict the CO2 emission of a new car from the listed ​features? ​The answer is yes. 
-​Using potentially predictive features, you can use regression to predict a continuous ​value, such as CO2 emissions. ​Let's consider the previous dataset comprising some features in past cars. ​Then, from that data, a model can be trained to estimate the CO2 emissions of each car. ​Let's use regression to build such a predictive model. ​Then, the model is used to predict the expected CO2 emission for a new or hypothetical car. ​There are several types of regression. ​Deciding which one to use depends on the data you have for the dependent variable and the ​type of model that provides the best fit. 
-​In this video, we'll discuss the following two types of regression models, simple regression ​and multiple regression. ​Simple regression is when a single independent variable estimates a dependent variable. ​Simple regression can be linear or nonlinear. ​For example, predicting CO2 emission using the variable engine size. ​Simple linear regression imposes a linear relationship between the dependent and independent ​variables. ​Similarly, nonlinear regression creates a nonlinear relationship between those variables. ​When more than one independent variable is present, the process is called multiple regression. 
-​The distinctions between linear and nonlinear relationships apply to simple and multiple ​regression. ​For example, predicting CO2 emission using engine size and the number of cylinders in ​any given car. ​Again, depending on the relation between dependent and independent variables, it can be either ​linear or nonlinear regression. ​Let's examine some sample applications of regression. ​Essentially, we use regression when we want to estimate a continuous value. ​For instance, one of the applications of regression analysis could be in the area of sales forecasting. ​You can predict a salesperson's yearly sales from independent variables, such as ​customers, number of leads, and order history. 
-​Regression analysis can predict the price of a house in an area based on its size, number ​of bedrooms, and so on. ​You can use regression analysis to predict when an automobile or an industrial machine ​will require maintenance rather than waiting for it to fail. ​You can even use it to predict employment income from independent variables, such as ​hours of work, education, occupation, sex, age, years of experience, and so on. ​Indeed, you can find many examples of the usefulness of regression analysis in these ​and many other fields or domains, such as finance, healthcare, and retail. ​Let's examine additional sample applications of regression. ​You can use regression to estimate the rainfall in a region based on meteorological factors, ​such as temperature, humidity, wind speed, and air pressure. ​It can also be used in the field of environmental protection, for example, to determine the ​probability and severity of wildfires. 
-​In public health, you can use regression analysis to predict the spread of infectious diseases. ​You can even use it to estimate the likelihood of developing diseases, such as diabetes, ​heart disease, or cancer, based on patient data. ​There are many regression algorithms. ​Each algorithm is important in the appropriate context and suited to specific conditions. ​Linear and polynomial regression are classical statistical modeling methods, while random ​forest and XGBoost are modern machine learning regression models. ​Other modern regression algorithms include k-nearest neighbors, support vector machines, ​and neural networks. ​In this video, you learned regression is a machine-learning technique that models a relationship ​between a continuous target variable and explanatory features. 
-​Simple regression is when a single independent variable estimates a dependent variable. ​This regression can be linear or nonlinear. ​When more than one independent variable is present, the process is called multiple regression. ​There are many applications of regression. ​You can use it to forecast sales, predict maintenance expenses, estimate rainfall, ​and spread of infectious disease. 
+# Introduction to Regression
+
+## Learning goals
+
+- Recognize regression as supervised learning for a **numeric, continuous target**.
+- Distinguish the number of predictors from the shape of their relationship with the target.
+- Select a sensible first model and identify where it may fail.
+
+## The core idea
+
+A regression model learns a rule from examples whose outcomes are known. Each row has explanatory features, **X**, and a response or target, **y**. After fitting, the model estimates a target for a new row, written **ŷ**. For example, car engine size, cylinder count, and fuel use can help estimate CO₂ emissions.
+
+A regression prediction is a numerical estimate; it is not automatically a causal explanation. A strong association in historical data does not prove that changing one feature will cause the outcome to change.
+
+## Core model
+
+For training row *i*, write **yᵢ = f(xᵢ) + εᵢ**; after fitting, the model predicts **ŷ = f(x)** for a new feature vector. A linear model is **ŷ = θ₀ + Σⱼ θⱼxⱼ**. Ordinary least squares (OLS) commonly fits its coefficients by minimizing **MSE = (1/n) Σᵢ(yᵢ − ŷᵢ)²**.
+
+## Choose by target, predictors, and relationship
+
+“Simple” versus “multiple” describes the **number of input features**. “Linear” versus “nonlinear” describes the **form of the modeled relationship**. These are separate choices.
+
+| Family | Inputs and shape | Useful when |
+| --- | --- | --- |
+| Simple linear regression | One predictor; straight-line change in the expected target | A single feature has an approximately linear trend |
+| Multiple linear regression | Several predictors; additive linear combination of features | Several measured factors jointly help explain or predict the target |
+| Polynomial regression | Powers/interactions of features; curved trend, while coefficients remain linear | A smooth curve is needed and a low-degree polynomial is adequate |
+| Other nonlinear or flexible regressors | Curves or interactions learned through a chosen function/model | The pattern is not well represented by a straight line or a modest polynomial |
+
+The same ideas appear in applications such as house-price estimation, sales forecasting, rainfall prediction, equipment-maintenance planning, and estimating emissions. The target type and the costs of errors should guide model and metric choice.
+
+![Decision flow for choosing a regression family](../../assets/module-2-regression-decision-flow.svg)
+
+*Start with the target type, then check whether the relationship looks approximately straight or curved. Validate choices on held-out data.*
+
+## Small example
+
+Suppose past cars have engine sizes 1.6, 2.0, and 2.4 L and recorded emissions 170, 190, and 205 g/km. A fitted regression can estimate emissions for an unobserved 2.2 L car. The estimate is useful only to the extent that this car resembles the training data and the relationship remains stable.
+
+## Scikit-learn pattern
+
+For a continuous target, split examples before fitting so evaluation uses unseen rows:
+
+```python
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+
+X = cars[["ENGINESIZE"]]
+y = cars["CO2EMISSIONS"]
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+model = LinearRegression().fit(X_train, y_train)
+prediction = model.predict(X_test)
+```
+
+For a first evaluation, compare mean absolute error (MAE) or root mean squared error (RMSE) with a simple baseline such as predicting the training-set mean.
+
+## Assumptions and common pitfalls
+
+- The target is quantitative. A binary class such as churn is usually handled as classification, even though its labels may be encoded 0 and 1.
+- Assumptions depend on the model family. For classical OLS coefficient inference, a linear conditional mean and independent errors with roughly constant variance are common assumptions; normal residuals support small-sample tests. Violations affect inference and may also reveal predictive problems.
+- The relationship need not be causal just because a predictor is useful.
+- A line can underfit a curved pattern; a very flexible model can overfit noise.
+- Training error alone is not evidence of useful generalization. Keep a test set or use cross-validation for model selection.
+- Predictions far outside the feature range are extrapolations and may be unreliable.
+- Avoid target leakage: information unavailable at prediction time must not enter the features.
+
+## Active recall
+
+1. What does the target type tell you about whether regression is appropriate?
+2. How are “multiple” and “nonlinear” different descriptions of a model?
+3. Why can a model with low training error still make poor predictions for new cases?

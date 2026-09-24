@@ -1,3 +1,68 @@
-​Welcome to this video on Introduction to Multiple Linear Regression. ​After watching this video, you will be able to ​Describe Multiple Linear Regression Compare Multiple Linear Regression and Simple ​Linear Regression and ​List the Pitfalls of Multiple Linear Regression ​Multiple Linear Regression is an extension of the Simple Linear Regression model. ​It uses two or more independent variables to estimate a dependent variable. ​Mathematically, the multiple regression model is a linear combination of the form ​y hat equals theta zero plus theta one x one, where the x one are the feature vectors that ​can be represented as a matrix x that includes a constant value of one in the first entry ​to account for the bias or intercept term theta underscore zero, and the thetas are ​the unknown weights, which can be represented as matrix theta. ​Let's consider the data set in this table. Multiple linear regression can be used to ​measure the strength of each independent variable's effect on a dependent variable. ​You can predict the CO2 emission of a motor car from features like engine size, number ​of cylinders, and fuel consumption by forming a linear combination of the features using ​trained weights, theta i. You can use the trained model to predict the expected CO2 ​emission of an unknown case, such as record number 9. Multiple linear regression results ​in a better model than using a simple linear regression. However, adding too many variables ​can cause your model to overfit or essentially memorize the training data, making it a poor ​predictor for unseen observations. To improve prediction, categorical independent variables ​can be incorporated into a regression model by converting them into numerical variables. 
-​For example, given a binary variable such as car type, the code zero for manual and ​one for automatic cars can be substituted to make it numerical. For a categorical variable ​with more than two classes, you can opt to transform it into new Boolean features, one ​for each class. Multiple linear regression has applications ​in every industry. It is widely used in the education sector to predict outcomes and explain ​relationships between variables. For example, do revision time, test anxiety, lecture attendance, ​and gender affect student exam performance? Multiple linear regression can also be used ​to predict the impact of changes in what-if scenarios. What-if scenarios involve hypothetical ​changes to one or more of your model's input features to see the predicted outcome. For ​example, suppose you were reviewing a person's health data. In that case, multiple linear ​regression might be able to tell you how much that person's blood pressure would rise or ​fall for every change in a patient's body mass index, BMI. The what-if scenario can ​sometimes provide inaccurate findings in the following situations. You might consider impossible ​scenarios for your model to obtain predictions. You might extrapolate scenarios that are too ​distant from the realm of data it was trained on. Your model might depend on more than one ​variable amongst a group of correlated or collinear variables. When two variables are ​correlated, they are no longer independent variables because they are predictors of each ​other. They are collinear. You can perform a what-if scenario with a linear regression ​model by changing a single variable while holding all other variables constant. However, ​if the variable is correlated with another feature, then this is not feasible because ​the other variable must also change realistically. The solution for avoiding pitfalls from correlated ​variables is to remove any redundant variables from the regression analyses. To build your ​multiple regression model, you must select your variables using a balanced approach considering ​uncorrelated variables, which are most understood, controllable, and most correlated with the ​target. Multiple linear regression assigns a relative importance to each feature. Imagine ​you are predicting CO2 emission, or Y, from other variables for the automobile in record ​number 9. Once you find the parameters, you can plug them into the linear model equation ​model. For example, let's use theta0 equals 62.43, theta1 equals 9.19, theta2 equals 8.70, ​and so on. If we map these values to our dataset, we can rewrite the linear model as CO2 emission ​equals 62.43 plus 9.19 multiplied by engine size plus 8.70 multiplied by cylinder and ​so on. Now, let's plug in the 9th row of R and calculate the CO2 emissions for a car ​with a 2.4 liter engine. So, CO2 emission equals 62.43 plus 9.19 times 2.4 plus 8.70 ​times 4, and so on. We can predict that the CO2 emission for this specific car will be ​208.34. For a simple linear regression, where there ​is only one feature vector, the regression in the equation defines a line. For multiple ​linear regression using two features, the solution describes a plane. Beyond two dimensions, ​it describes a hyperplane. Like with simple linear regression, the values in the weight ​vector theta can be determined by minimizing the mean square prediction error. Given a ​set of parameters, consider a linear model based on the linear combination of the parameters ​with the features. You can measure the residual error for each car in the dataset as the difference ​between its true CO2 emission value and the value predicted by the model. For example, ​if the model predicts 140 as the value for the first car in the dataset, using the actual ​value of 196, you can see the residual error is 196 minus 140, or 56. The average of all ​the residual errors indicates how poorly the model predicts the actual values. This ​information is called the mean squared error, or MSE. MSE is not the only way to expose ​the error of a linear model. However, it is the most popular. With this metric, the best ​model for the dataset is the one with the least squared error. The factor of 1 slash ​n in the MSE equation isn't necessary to include to minimize the error, so this method ​is called least squares linear regression. So, multiple linear regression aims to minimize ​the MSE equation by finding the best parameters. There are many ways to estimate the value ​of these coefficients. However, ordinary least squares and an optimization approach are the ​most common methods. Ordinary least squares estimate the values of the coefficients by ​minimizing the mean squared error. This approach uses the data as a matrix and uses linear ​algebra operations to calculate the optimal values for theta. Another option is to use ​an optimization algorithm to find the best parameters. That is, you can use a process ​of optimizing the coefficients by iteratively minimizing the model's error on your training ​data. For example, you can use the gradient descent method, which starts the optimization ​with random values for each coefficient. Gradient descent is a good approach if you have a large ​dataset. Multiple linear regression is an extension of the simple linear regression ​model. It uses two or more independent variables to estimate a dependent variable. It is widely ​used in the education sector to predict outcomes and explain relationships between variables. 
-​Multiple linear regression can also be used to predict the impact of changes in what-if ​scenarios. Adding too many variables can cause your model to overfit or essentially memorize ​the training data, making it a poor predictor for unseen observations. To build your multiple ​regression model, you must select your variables using a balanced approach, considering ​uncorrelated variables, which are most understood, controllable, and most correlated with the ​target. There are many ways to estimate the parameters for multiple linear regression. ​However, ordinary least squares and an optimization with random values approach are the most common ​methods. In this video, you learned how multiple linear regression results in a better model ​than using a simple linear regression. 
+# Introduction to Multiple Linear Regression
+
+## Intuition
+
+Multiple linear regression extends the one-feature line to use several predictors. It estimates each feature's contribution while holding the other modeled features fixed. With one feature the fit is a line; with two it is a plane; with more it is a hyperplane.
+
+## Model and objective
+
+For *p* predictors,
+
+$$\hat{y}=\theta_0+\theta_1x_1+\theta_2x_2+\cdots+\theta_px_p=\theta_0+\mathbf{x}^{\mathsf T}\boldsymbol{\theta}.$$
+
+The intercept is **θ₀**; **θⱼ** is the predicted change in *y* for a one-unit increase in feature *xⱼ*, holding the other included features fixed. OLS estimates coefficients by minimizing
+
+$$\mathrm{MSE}=\frac{1}{n}\sum_{i=1}^{n}(y_i-\hat{y}_i)^2.$$
+
+In matrix form, predictions are **ŷ = Xθ**, where the intercept can be represented by a column of ones. Inference about coefficients needs more care than this equation suggests: scaling, omitted variables, and correlated predictors affect interpretation.
+
+## When to use it
+
+Use it when several measured features plausibly contribute to a continuous outcome and you want an additive, interpretable baseline. For example, car emissions may depend on engine size, cylinders, and fuel consumption; a student score may depend on study time, attendance, and other factors.
+
+A “what-if” prediction changes one or more inputs and evaluates the fitted equation. Such a scenario is credible only when the input combination is plausible and represented by the training data. If predictors move together in reality, holding one fixed while changing another may describe an impossible case.
+
+## Concrete example
+
+Consider a toy house-price model (price in thousands of dollars):
+
+$$\widehat{price}=40+0.18\,area+12\,bedrooms.$$
+
+For a 100 m² house with 3 bedrooms, the estimate is **40 + 0.18 × 100 + 12 × 3 = 94** (thousand dollars). This is an example of substitution into a model, not a claim that each additional bedroom causes a fixed price increase in every market.
+
+## Scikit-learn pattern
+
+For mixed numeric and categorical data, encode categories using a preprocessing pipeline so the same transformation is applied at fit and prediction time:
+
+```python
+from sklearn.compose import ColumnTransformer
+from sklearn.linear_model import LinearRegression
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import OneHotEncoder
+
+preprocess = ColumnTransformer(
+    [("transmission", OneHotEncoder(handle_unknown="ignore"), ["TRANSMISSION"])],
+    remainder="passthrough",
+)
+model = make_pipeline(preprocess, LinearRegression())
+model.fit(X_train, y_train)
+predictions = model.predict(X_test)
+```
+
+A binary category can be represented by 0/1. For a category with more than two values, one-hot encoding is a safe default. For inference and explanation, define the reference category and interpret coefficients relative to it.
+
+## Assumptions and common pitfalls
+
+- The expected target is linear in the coefficients; predictors may be transformed, but the coefficient relationship must match the chosen model.
+- For standard coefficient inference, errors should be independent with roughly constant variance; normality matters for classical finite-sample tests.
+- **Multicollinearity:** strongly correlated predictors can make individual coefficients unstable and difficult to interpret. Predictions may still be reasonable, but “importance” from coefficient magnitude becomes unreliable.
+- Too many predictors, interactions, or polynomial terms can overfit. Evaluate on held-out data and use regularization or feature selection when appropriate.
+- Encode categorical predictors; do not assign arbitrary numeric order to nominal categories.
+- A coefficient is conditional on the other included features and their units. Standardize before comparing coefficient magnitudes across differently scaled features, and do not treat those magnitudes as causal importance.
+- Do not build a what-if scenario that combines feature values in ways absent or impossible in the data.
+
+## Active recall
+
+1. What does a multiple-regression coefficient mean when other predictors are held fixed?
+2. Why can collinearity make a “what-if” scenario or coefficient interpretation unreliable?
+3. How should a three-category nominal feature be represented for a typical scikit-learn model?

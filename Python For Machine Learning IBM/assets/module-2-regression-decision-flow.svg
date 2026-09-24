@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="780" viewBox="0 0 1200 780" role="img" aria-labelledby="title desc">
+  <title id="title">Choosing a regression family</title>
+  <desc id="desc">First identify whether the target is continuous or binary. For a continuous target, model choice depends on both the number of predictors and whether the trend is straight or curved. For a binary target, logistic regression estimates a probability that is converted to a class using a chosen threshold.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#101c33"/><stop offset="1" stop-color="#142846"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#48d6c8"/><stop offset="1" stop-color="#71a7ff"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#06101f" flood-opacity=".38"/></filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#8ca6c6"/></marker>
+    <style>
+      .title{font:700 30px 'Segoe UI',Arial,sans-serif;fill:#f5f8ff}
+      .subtitle{font:400 15px 'Segoe UI',Arial,sans-serif;fill:#aabbd2}
+      .label{font:700 13px 'Segoe UI',Arial,sans-serif;letter-spacing:1px;fill:#a9bbd4}
+      .cardTitle{font:700 18px 'Segoe UI',Arial,sans-serif;fill:#f4f7fc}
+      .body{font:400 14px 'Segoe UI',Arial,sans-serif;fill:#c4d1e2}
+      .small{font:600 12px 'Segoe UI',Arial,sans-serif;fill:#c0cde0}
+      .line{stroke:#8ca6c6;stroke-width:2.5;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1200" height="780" rx="28" fill="url(#bg)"/>
+  <circle cx="1080" cy="105" r="180" fill="#345b91" opacity=".12"/>
+  <circle cx="65" cy="720" r="200" fill="#32c9b8" opacity=".06"/>
+
+  <text x="56" y="62" class="title">Choose a model family from the target and pattern</text>
+  <text x="56" y="91" class="subtitle">Start with what you predict, then use held-out data to check whether the model generalizes.</text>
+
+  <g filter="url(#shadow)">
+    <rect x="415" y="118" width="370" height="88" rx="20" fill="#223b5c" stroke="#5f82b0" stroke-width="1.5"/>
+    <rect x="415" y="118" width="8" height="88" rx="4" fill="url(#accent)"/>
+  </g>
+  <text x="600" y="153" text-anchor="middle" class="label">FIRST QUESTION</text>
+  <text x="600" y="182" text-anchor="middle" class="cardTitle">What kind of target is it?</text>
+
+  <path d="M515 206 C485 230 390 230 390 260" class="line"/>
+  <path d="M685 206 C715 230 950 230 950 260" class="line"/>
+  <text x="365" y="237" class="small">Numeric / continuous</text>
+  <text x="860" y="237" class="small">Binary class</text>
+
+  <g filter="url(#shadow)">
+    <rect x="50" y="266" width="700" height="440" rx="22" fill="#142d46" stroke="#3a9e9f" stroke-width="1.5"/>
+    <rect x="780" y="266" width="370" height="440" rx="22" fill="#242442" stroke="#7770d8" stroke-width="1.5"/>
+  </g>
+
+  <text x="78" y="304" class="label" fill="#65e1d3">CONTINUOUS TARGET | REGRESSION</text>
+  <text x="78" y="330" class="body">Relationship shape and feature count are separate choices.</text>
+
+  <text x="218" y="367" class="label">ONE FEATURE</text>
+  <text x="483" y="367" class="label">SEVERAL FEATURES</text>
+
+  <g>
+    <rect x="75" y="381" width="125" height="104" rx="15" fill="#203854"/>
+    <text x="137" y="421" text-anchor="middle" class="label">STRAIGHT</text>
+    <text x="137" y="445" text-anchor="middle" class="body">trend</text>
+
+    <rect x="212" y="381" width="245" height="104" rx="15" fill="#183b4d" stroke="#3a9e9f"/>
+    <text x="232" y="417" class="cardTitle">Simple linear</text>
+    <text x="232" y="444" class="body">One predictor x</text>
+    <text x="232" y="468" class="small">ŷ = θ₀ + θ₁x</text>
+
+    <rect x="469" y="381" width="256" height="104" rx="15" fill="#183b4d" stroke="#3a9e9f"/>
+    <text x="489" y="417" class="cardTitle">Multiple linear</text>
+    <text x="489" y="444" class="body">Several predictors</text>
+    <text x="489" y="468" class="small">ŷ = θ₀ + Σⱼ θⱼxⱼ</text>
+
+    <rect x="75" y="501" width="125" height="150" rx="15" fill="#3b3323"/>
+    <text x="137" y="562" text-anchor="middle" class="label" fill="#f2c66d">CURVED</text>
+    <text x="137" y="586" text-anchor="middle" class="body">trend</text>
+
+    <rect x="212" y="501" width="245" height="150" rx="15" fill="#45351f" stroke="#c49a4c"/>
+    <text x="232" y="538" class="cardTitle">Polynomial</text>
+    <text x="232" y="566" class="body">Add powers such as x²</text>
+    <text x="232" y="590" class="body">or meaningful transforms.</text>
+    <text x="232" y="625" class="small">Still linear in coefficients.</text>
+
+    <rect x="469" y="501" width="256" height="150" rx="15" fill="#45351f" stroke="#c49a4c"/>
+    <text x="489" y="538" class="cardTitle">Flexible regression</text>
+    <text x="489" y="566" class="body">Transform features, add</text>
+    <text x="489" y="590" class="body">interactions, or try a</text>
+    <text x="489" y="614" class="body">nonlinear estimator.</text>
+    <text x="489" y="638" class="small">Validate complexity and range.</text>
+  </g>
+
+  <text x="808" y="304" class="label" fill="#aaa5ff">BINARY TARGET | CLASSIFICATION</text>
+  <text x="808" y="347" class="cardTitle">Logistic regression</text>
+  <text x="808" y="379" class="body">Linear score: z = θ₀ + xᵀθ</text>
+  <g>
+    <rect x="808" y="402" width="314" height="82" rx="15" fill="#302f55" stroke="#625caf"/>
+    <text x="965" y="435" text-anchor="middle" class="label">PROBABILITY</text>
+    <text x="965" y="465" text-anchor="middle" class="cardTitle">p̂ = 1 / (1 + e⁻ᶻ)</text>
+  </g>
+  <path d="M965 484 L965 516" class="line"/>
+  <g>
+    <rect x="808" y="522" width="314" height="80" rx="15" fill="#302f55" stroke="#625caf"/>
+    <text x="965" y="552" text-anchor="middle" class="label">CHOOSE THRESHOLD t</text>
+    <text x="965" y="580" text-anchor="middle" class="body">Predict class 1 when p̂ ≥ t</text>
+  </g>
+  <text x="808" y="631" class="body">Use when probabilities help the decision.</text>
+  <text x="808" y="657" class="small">Tune t using validation data and error costs.</text>
+  <text x="56" y="750" class="subtitle">These are starting points, not guarantees. Compare candidates on data they did not train on.</text>
+</svg>
