@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="560" viewBox="0 0 1120 560" role="img" aria-labelledby="title desc">
+  <title id="title">Safe workflow for the rainfall prediction project</title>
+  <desc id="desc">Prepare historical weather data, build a classifier for rain occurrence and a regressor for rainfall amount, compare models using validation data, evaluate the selected workflows once on held-out test data, and document the result.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#60758c"/>
+    </marker>
+  </defs>
+  <rect width="1120" height="560" rx="24" fill="#f4f7fb"/>
+  <text x="56" y="55" font-family="Segoe UI, Arial, sans-serif" font-size="27" font-weight="700" fill="#142c45">Rainfall project: compare fairly, test once</text>
+  <text x="56" y="84" font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#51677d">Keep preprocessing inside the model workflow so each validation fold learns only from its training rows.</text>
+
+  <rect x="56" y="132" width="230" height="132" rx="16" fill="#ffffff" stroke="#cbd8e5" stroke-width="2"/>
+  <circle cx="86" cy="162" r="18" fill="#d8eafe"/>
+  <text x="86" y="168" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="700" fill="#175a9c">1</text>
+  <text x="116" y="168" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="700" fill="#142c45">Prepare data</text>
+  <text x="78" y="202" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#425970">
+    <tspan x="78" dy="0">Check rows, missing values,</tspan>
+    <tspan x="78" dy="21">feature timing, and target</tspan>
+    <tspan x="78" dy="21">definitions before splitting.</tspan>
+  </text>
+
+  <rect x="350" y="126" width="294" height="156" rx="16" fill="#e7f4f1" stroke="#9acfc2" stroke-width="2"/>
+  <circle cx="382" cy="158" r="18" fill="#c9eadf"/>
+  <text x="382" y="164" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="700" fill="#1c725e">2</text>
+  <text x="412" y="164" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="700" fill="#164c43">Classification</text>
+  <text x="374" y="197" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#315b54">
+    <tspan x="374" dy="0">Target: rain / no rain</tspan>
+    <tspan x="374" dy="21">Compare requested classifiers.</tspan>
+    <tspan x="374" dy="21">Use F1, Jaccard, LogLoss,</tspan>
+    <tspan x="374" dy="21">and accuracy with care.</tspan>
+  </text>
+
+  <rect x="350" y="310" width="294" height="156" rx="16" fill="#fff1df" stroke="#e8c38f" stroke-width="2"/>
+  <circle cx="382" cy="342" r="18" fill="#ffe2bd"/>
+  <text x="382" y="348" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="700" fill="#9b5912">3</text>
+  <text x="412" y="348" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="700" fill="#68420f">Regression</text>
+  <text x="374" y="381" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#6c542f">
+    <tspan x="374" dy="0">Target: rainfall amount</tspan>
+    <tspan x="374" dy="21">Compare requested regressors.</tspan>
+    <tspan x="374" dy="21">Report MAE, MSE, and R²;</tspan>
+    <tspan x="374" dy="21">include target units.</tspan>
+  </text>
+
+  <path d="M286 198 H322 V204 H340" fill="none" stroke="#60758c" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M286 198 H322 V388 H340" fill="none" stroke="#60758c" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <path d="M650 204 H685 V295 H716" fill="none" stroke="#60758c" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M650 388 H685 V295 H716" fill="none" stroke="#60758c" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="730" y="218" width="172" height="154" rx="16" fill="#ffffff" stroke="#cbd8e5" stroke-width="2"/>
+  <circle cx="762" cy="250" r="18" fill="#e8defb"/>
+  <text x="762" y="256" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="700" fill="#62439a">4</text>
+  <text x="792" y="256" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="700" fill="#30234c">Validate</text>
+  <text x="752" y="290" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#51476a">
+    <tspan x="752" dy="0">Tune on training</tspan>
+    <tspan x="752" dy="21">folds; select with</tspan>
+    <tspan x="752" dy="21">validation metrics.</tspan>
+  </text>
+
+  <line x1="910" y1="295" x2="945" y2="295" stroke="#60758c" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="958" y="218" width="126" height="154" rx="16" fill="#e7edf5" stroke="#aebed0" stroke-width="2"/>
+  <circle cx="990" cy="250" r="18" fill="#d3ddea"/>
+  <text x="990" y="256" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="700" fill="#294c71">5</text>
+  <text x="1018" y="256" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="700" fill="#18334f">Test</text>
+  <text x="978" y="290" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#435a72">
+    <tspan x="978" dy="0">Evaluate the</tspan>
+    <tspan x="978" dy="20">chosen workflow</tspan>
+    <tspan x="978" dy="20">once; report it.</tspan>
+  </text>
+
+  <rect x="56" y="500" width="1028" height="34" rx="10" fill="#e8eef5"/>
+  <text x="76" y="522" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600" fill="#334b63">Do not let future weather information or the held-out test set influence feature design or model selection.</text>
+</svg>

@@ -1,14 +1,122 @@
-Transcript
-en
+# Course Wrap-Up: A Practical Review of Machine Learning
 
-Interactive Transcript - Enable basic transcript mode by pressing the escape key
-You may navigate through the transcript using tab. To save a note for a section of text press CTRL + S. To expand your selection you may use CTRL + arrow key. You may contract your selection using shift + CTRL + arrow key. For screen readers that are incompatible with using arrow keys for shortcuts, you can replace them with the H J K L keys. Some screen readers may require using CTRL in conjunction with the alt key
-Congratulations on completing the course. Now that you have explored the theoretical concepts and practical applications of machine learning, you will find plenty of opportunities to continue learning and applying your skills. Now let's review some key aspects of what you learned throughout the course. Machine learning, ML, is a subset of artificial intelligence, or AI, that involves using data and algorithms to allow computers to imitate how humans learn and make decisions, gradually improving their accuracy. ML has many applications in the modern world. In healthcare, doctors use machine learning to prescribe the correct medicine to their patients. Bankers use machine learning to decide whether to approve or reject a loan application.
-E-commerce businesses use machine learning to generate customer recommendations. Machine learning models learn using supervised, unsupervised, semi-supervised, and reinforcement Selecting a machine learning technique depends on several factors, such as the problem you're trying to solve, the type of data you have, the available resources, and the desired outcome. Machine learning tools provide functionalities for machine learning pipelines, which include modules for data preprocessing and building, evaluating, optimizing, and implementing machine learning models. These tools use algorithms to simplify complex tasks, such as handling big data, conducting statistical analyses, and making predictions. Regression is a type of supervised learning model. It models a relationship between a continuous target variable and explanatory features. Simple regression is when a single independent variable estimates a dependent variable.
-This regression can be linear or nonlinear. When more than one independent variable is present, the process is called multiple regression. Multiple linear regression is an extension of the simple linear regression model. It uses two or more independent variables to estimate a dependent variable. In logistical regression training, you look for the best parameters that map the input features to the target outcomes. The objective is to predict classes with minimal error. Classification is a supervised machine learning, or ML, method that uses fully trained models to predict labels on new data.
-The labels in classification form a categorical variable with discrete values. Classification has several applications in a wide variety of industries. It can be used to build applications for email filtering, speech-to-text, handwriting recognition, biometric identification, document classification, and much more. K-Nearest Neighbors, or KNN, is a supervised machine learning algorithm that takes a group of labeled data points and then uses them to learn to label other data points. KNN is used for both classification and regression. Support Vector Machines, or SVM, is a supervised learning technique for building classification and regression models. It maps each data instance as a point in multidimensional space where the input features are represented as a value for a specific coordinate.
-SVM is good for machine learning problems such as speech recognition, anomaly detection, and noise filtering. A decision tree is an algorithm for classifying data points. In a decision tree, each internal node corresponds to a test. Each branch corresponds to the result of the test, and each terminal, or leaf node, assigns its data to a class. Regression trees are built by considering the features of a dataset, one by one. A regression tree is analogous to a decision tree that predicts continuous values rather than discrete classes. The distinguishing feature between classification and regression is the characteristic of the target, or labeled data.
-Regression trees are created by recursively splitting the dataset into subsets to maximize information gained from data splitting. This process generates a tree-like structure and minimizes the randomness of the classes assigned to the split nodes. Clustering, dimension reduction, and feature engineering are complementary techniques in machine learning and data science. They work well together to improve model performance, quality, and interpretability. Clustering automatically groups data points into clusters based on similarities. It can be applied in various scenarios, such as identifying music genres, segmenting user groups, or analyzing market segments. Dimension reduction simplifies the visualization of high-dimensional clustering, aiding feature engineering and improving model quality.
-It also reduces the number of features required for a data model. Dimensionality reduction algorithms reduce the number of dataset features without sacrificing critical dataset information. High-dimensional data is often very difficult to analyze and visualize. Dimensionality reduction algorithms simplify the dataset for machine learning models. Reduced learning evaluation establishes how well a machine learning model can predict the outcome for unseen data. It is essential for understanding model effectiveness and involves comparing model predictions to ground-truth labels. Common metrics for evaluating classification models include accuracy, confusion matrix, precision, and recall.
-Regression models are not foolproof. They often make prediction errors. Evaluating a regression model involves determining how accurately the model can predict continuous numerical values, such as exam grades. Unsupervised techniques, such as clustering and dimensionality reduction, aim to discover hidden patterns and structures in data. Therefore, evaluation methods assess the quality of these patterns and how effectively the model groups similar data points. Model validation is a method to optimize your ML model without jeopardizing its ability to predict well on unseen data. It helps you prevent overfitting when selecting the best model configuration by tuning hyperparameters Checking performance on the test data before you are done optimizing your model is called data snooping, a form of data leakage.
-Validation means toning your model on the training data, but only testing it on unseen test data once you are satisfied that it is well trained. There is no snooping involved. Now that you have reviewed some of the fundamental ideas presented in this course, remember that each module has a summary you can use them to quickly reference much of what you have learned. To strengthen your learning from this course, actively participate in and complete the practice assessment at the end of each lesson and the graded assessment at the end of each module offered across the course. The course contains multiple hands-on labs and a final project to help you gain practical exposure to the tools and technologies you learned. Congratulations on completing this course and good luck on your journey with machine learning.
+## What this review is for
+
+Use this page to connect the course methods into one decision process. The goal is not to memorize every algorithm name; it is to identify the target, select a suitable model, evaluate it with a matching metric, and keep the final test data independent from model selection.
+
+## The course in one picture
+
+![Machine learning lifecycle](../../assets/05_machine_learning_lifecycle.png)
+
+A reliable project moves through these steps:
+
+1. **Frame the decision.** Define the prediction target, who will use it, when the prediction is needed, and what a useful result means.
+2. **Collect representative data.** Confirm that each row is an observation and that the data covers the conditions expected after deployment.
+3. **Prepare features.** Inspect types and missingness, encode categories, scale when required, and prevent future information from entering the feature set.
+4. **Train and compare candidates.** Start with a simple baseline, then fit models that match the target and data.
+5. **Validate and select.** Use validation or cross-validation for choices; reserve the test set for the final estimate.
+6. **Deploy and monitor.** Track data quality and performance after the model begins seeing new observations.
+
+## Match the target to the task
+
+| Question | Target | Common starting point | Example |
+| --- | --- | --- | --- |
+| Which category should this observation receive? | Discrete class | Logistic regression, KNN, decision tree, SVM | Will it rain tomorrow? |
+| What numeric amount should be predicted? | Continuous number | Linear regression or regression tree | How much rain is expected? |
+| Which observations form similar groups? | No supplied target | K-Means or density-based clustering | Which customers have similar behavior? |
+| How can many variables be summarized? | No supplied target | PCA for a linear low-dimensional representation | Can correlated measurements be represented with fewer components? |
+
+The dataset and the decision matter as much as the algorithm. Also consider sample size, class balance, nonlinear patterns, feature scales, interpretability, training cost, and the cost of different mistakes.
+
+## Connect the core model families
+
+| Method | What it learns | Useful when | Watch for |
+| --- | --- | --- | --- |
+| Linear regression | A weighted additive relationship for a numeric target | A transparent numeric baseline is valuable | Nonlinearity, outliers, correlated predictors |
+| Logistic regression | Class probabilities through a linear decision function | A fast, interpretable classification baseline is useful | Scaling, nonlinear boundaries, probability calibration |
+| KNN | Labels or values from nearby training examples | Similarity in a meaningful feature space predicts the outcome | Scaling, large datasets, irrelevant features |
+| Decision tree | A sequence of feature-based splits | Rules and nonlinear interactions are useful | Deep trees can memorize training data |
+| SVM | A maximum-margin boundary, optionally using a kernel | A high-dimensional boundary or a flexible nonlinear boundary is needed | Scaling and computational cost |
+| K-Means | Centroids that minimize within-cluster squared distance | Compact, roughly round groups are plausible | Initialization, scale, outliers, chosen cluster count |
+| DBSCAN / HDBSCAN | Dense regions separated by sparse regions | Clusters may have irregular shapes and noise points matter | Density settings and varying density |
+
+These are starting points, not universal rankings. Compare candidates with the same data split, preprocessing rules, and evaluation goal.
+
+## Choose an evaluation measure that matches the cost of errors
+
+### Classification
+
+A confusion matrix separates true positives, false positives, true negatives, and false negatives.
+
+- **Accuracy** is the fraction of correct predictions. It is easy to interpret but can hide poor minority-class performance.
+- **Precision** asks: among predicted positives, how many were positive? Use it when false alarms are costly.
+- **Recall** asks: among actual positives, how many were found? Use it when missed positives are costly.
+- **F1** balances precision and recall through their harmonic mean; it does not account for true negatives.
+- **Log loss** evaluates the quality of predicted probabilities and penalizes confident wrong predictions.
+- **Jaccard** measures overlap between predicted and actual positive sets; it can expose positive-class errors that accuracy masks when positives are rare.
+
+### Regression
+
+- **MAE** is the average absolute error in the target's units and is less sensitive to large errors than MSE.
+- **MSE** squares residuals, so large misses receive more weight; its units are squared.
+- **RMSE** is the square root of MSE and returns to the target's units.
+- **R²** compares the model with a constant mean predictor on the evaluated data. It can be negative when the model is worse than that baseline; it is not a percentage of predictions that are correct.
+
+### Clustering
+
+There is no ground-truth label in ordinary unsupervised clustering. Inspect whether assignments are stable and useful for the intended decision. Inertia is useful for comparing K-Means fits with the same feature representation, but it always falls as more clusters are added. A silhouette score can summarize separation and cohesion, but it should be interpreted alongside plots, domain knowledge, and cluster size.
+
+## Validation without contaminating the final estimate
+
+1. Split data into training and test portions before repeated modeling decisions.
+2. Fit preprocessing only on each training portion; use a Scikit-learn Pipeline or ColumnTransformer to keep this rule intact.
+3. Use a validation set or cross-validation on the training portion to choose models and hyperparameters.
+4. Select the metric before comparing candidates, based on the real cost of errors.
+5. Evaluate the chosen workflow on the held-out test portion once near the end.
+6. If the data is ordered in time, train on the past and validate on later periods instead of shuffling future observations into the past.
+
+Looking at test results repeatedly and changing the model in response turns the test set into part of the tuning process. The reported score then becomes optimistic.
+
+## Final-project connection: rainfall prediction
+
+The course project asks for two different target types from weather observations:
+
+- A **classifier** predicts whether rain occurs. Compare the requested classification methods with suitable classification metrics.
+- A **regressor** predicts a rainfall amount. Use regression metrics such as MAE, MSE/RMSE, and R².
+
+Treat these as separate prediction tasks. The best model for one target need not be best for the other. Before fitting, verify that every feature would be known at the time the forecast is made. A feature calculated from the future outcome would leak the answer into training.
+
+## Common assessment traps
+
+- A continuous target suggests regression even when it has only a few observed values; the meaning and measurement process of the target matter.
+- A classifier can return probabilities as well as class labels. The threshold converts probabilities to labels and changes the precision-recall trade-off.
+- A higher training score does not prove better generalization.
+- Scaling affects distance- and margin-based models such as KNN and SVM; tree splits usually do not depend on scale.
+- PCA is unsupervised and changes the representation. Its components are combinations of the original features, not the original columns.
+- A clustering algorithm always produces an assignment only if its design does so; density methods can label sparse points as noise.
+- Cross-validation is for model selection, not a reason to reuse the final test set.
+- Correlation or feature importance alone does not prove that changing a feature will cause the target to change.
+
+## Short study routine
+
+1. State the target and task in one sentence.
+2. Explain why a chosen model family fits the shape and constraints of the problem.
+3. Name one baseline and one plausible alternative.
+4. Choose a metric and explain which errors it emphasizes.
+5. Describe how preprocessing and validation prevent leakage.
+6. Explain one limitation and a follow-up check.
+
+## Active-recall questions
+
+1. Which data split should influence hyperparameter selection, and which split should provide the final estimate?
+2. Why can accuracy be a poor measure for an imbalanced classification task?
+3. When would MAE be easier to explain than MSE?
+4. Which preprocessing steps must be fitted separately inside each cross-validation fold?
+5. What makes a weather feature unavailable or leaky at forecast time?
+
+## Review the module notes
+
+- [Linear and logistic regression](<../../Module 2 Linear and Logistic Regression/3 Module Summary, Cheat Sheet & Evaluation/1-module-2-summary-and-highlights.md>)
+- [Supervised learning models](<../../Module 3 Building Supervised Learning Models/3 Module Summary, Cheat Sheet & Evaluation/1-module-3-summary-and-highlights.md>)
+- [Unsupervised learning models](<../../Module 4 Building Unsupervised Learning Models/3 Module Summary, Cheat Sheet & Evaluation/1-module-4-summary-and-highlights.md>)
+- [Evaluation and validation](<../../Module 5 Evaluating and Validating Machine Learning Models/3 Module Summary, Cheat Sheet & Evaluation/1-module-5-summary-and-highlights.md>)
