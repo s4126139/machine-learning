@@ -24,7 +24,7 @@ House-price example from the transcript:
 | Bedrooms `x2` | 0–5 | 5 | `w2 = 50` | 250 |
 | Bias | — | — | `b = 50` | 50 |
 
-The prediction is `200 + 250 + 50 = 500`, interpreted as $500,000 in the example.
+The prediction is `200 + 250 + 50 = 500`, interpreted as \$500,000 in the example.
 
 ## Why scaling speeds up gradient descent
 
