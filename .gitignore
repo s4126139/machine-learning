@@ -1,10 +1,20 @@
 **/.venv/
+**/.venv-tensorflow/
+/Machine Learning at RMIT/W9_Unsupervised_Learning_and_CNNs/CIFAR_10_BATCH1/
+/Machine Learning at RMIT/W9_Unsupervised_Learning_and_CNNs/CIFAR_Data.csv
+/Machine Learning at RMIT/W9_Unsupervised_Learning_and_CNNs/*.keras
+/Machine Learning at RMIT/W8_Deep_Learning/model.png
 __pycache__/
 .ipynb_checkpoints/
 .env
 .DS_Store
 .agents/
+/Machine Learning at RMIT/ASM1/
 Python For Machine Learning IBM/Module 3 Building Supervised Learning Models/labs/data/creditcard.csv
 
 # Independent MLA2 assignment repository
 /Machine Learning at RMIT/MLA2/
+
+# Team deliverables are kept only on this machine; assignment briefs remain separate.
+/Machine Learning at RMIT/ASM2-3/COSC2753_A2_SG_G6-2.pdf
+/Machine Learning at RMIT/ASM2-3/COSC2753_A3_SG_G6_Slides.pptx

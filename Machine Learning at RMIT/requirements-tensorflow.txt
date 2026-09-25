@@ -1,0 +1,8 @@
+# Companion environment for the Week 8 and Week 9 Keras labs.
+# Create with Python 3.12; the main project environment uses Python 3.14.5.
+tensorflow>=2.20,<2.21
+jupyterlab>=4.4
+ipykernel>=7
+matplotlib>=3.10
+pandas>=2.2,<3
+scikit-learn>=1.5

@@ -1,7 +1,7 @@
 [project]
 name = "machine-learning-andrew"
 version = "0.1.0"
-description = "Add your description here"
+description = "Study labs for the Machine Learning Specialization"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
