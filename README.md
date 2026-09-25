@@ -34,16 +34,19 @@ kernel, and run cells in order.
   its 151 MB `creditcard.csv` is not in Git. Use the
   [fraud data instructions](<Python For Machine Learning IBM/Module 3 Building Supervised Learning Models/labs/data/README.md>)
   before running that notebook.
-- RMIT Canvas pages require a course login. Their direct links have been
-  removed; the [local material manifest](<Machine Learning at RMIT/canvas_materials_manifest.md>)
+- RMIT Canvas pages require a course login. Direct Canvas links were removed
+  from notes, notebooks, and the personal HTML lab. Two retained assignment
+  brief PDFs still contain their original course links and may require RMIT
+  access. The [local material manifest](<Machine Learning at RMIT/canvas_materials_manifest.md>)
   records what was captured and which slide placeholders remained unresolved.
 - The RMIT ASM1 assignment and supplied dataset are excluded from this public
   repository because their use is restricted to the course. Keep private
   copies within the permitted assessment context.
 - The separate `MLA2` repository is outside this repo. In `ASM2-3`, the two
-  group deliverables are excluded by `.gitignore`; three assignment-brief PDFs
-  and a personal HTML lab remain local and untracked until the owner chooses
-  whether to add them.
+  group deliverables are excluded by `.gitignore`; three assignment briefs and
+  the personal HTML lab are included. The HTML works as a standalone page: it
+  uses in-page navigation and figure descriptions without loading files from
+  the separate `MLA2` repository.
 
 ## Repository checks
 

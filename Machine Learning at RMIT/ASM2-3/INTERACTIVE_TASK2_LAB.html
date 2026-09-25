@@ -668,11 +668,34 @@
       grid-column: 1 / -1;
     }
 
-    .tour-figure img {
-      display: block;
-      width: 100%;
-      height: auto;
-      background: #f7f5f0;
+    .figure-summary {
+      display: grid;
+      align-content: center;
+      min-height: 8rem;
+      padding: 1rem;
+      border: 1px dashed var(--line);
+      border-radius: 0.45rem;
+      background: linear-gradient(135deg, rgba(106, 214, 208, 0.08), rgba(144, 183, 255, 0.04));
+      color: var(--muted);
+    }
+
+    .figure-summary-label {
+      color: var(--orange);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .figure-summary p {
+      margin: 0.42rem 0 0;
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+
+    .tour-figure .figure-summary {
+      min-height: 5rem;
+      padding: 0.72rem;
     }
 
     .tour-figure figcaption {
@@ -2973,11 +2996,8 @@
       grid-column: 1 / -1;
     }
 
-    .performance-figure img {
-      display: block;
-      width: 100%;
-      height: auto;
-      background: #f7f5f0;
+    .performance-figure .figure-summary {
+      min-height: 11rem;
     }
 
     .performance-figure figcaption {
@@ -2985,6 +3005,11 @@
       color: var(--muted);
       font-size: 0.76rem;
       line-height: 1.4;
+    }
+
+    .standalone-reference small {
+      color: var(--muted-2);
+      font-size: 0.78em;
     }
 
     .holdout-grid {
@@ -3431,24 +3456,16 @@
     }
 
     .study-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.55rem;
       margin-top: 1.45rem;
+      padding: 0.75rem 0.9rem;
+      border-left: 2px solid var(--line);
+      background: rgba(5, 11, 23, 0.26);
     }
 
-    .study-links a {
-      padding: 0.5rem 0.65rem;
-      border: 1px solid var(--line);
-      border-radius: 0.5rem;
-      text-decoration: none;
+    .study-links p {
+      margin: 0;
+      color: var(--muted);
       font-size: 0.84rem;
-    }
-
-    .study-links a:hover,
-    .study-links a:focus-visible {
-      border-color: var(--cyan);
-      outline: none;
     }
 
     .source-footnote {
@@ -4403,23 +4420,23 @@
 
           <div class="performance-figure-grid">
             <figure class="performance-figure wide">
-              <img src="../../results/figures/task2/development_model_comparison.png" alt="Development out-of-fold comparison of all 20 registered Task 2 configurations." loading="lazy">
-              <figcaption>Saved project figure: the complete development leaderboard. Hatched P* is a pretrained transfer-learning benchmark, not a final candidate.</figcaption>
+              <div class="figure-summary"><span class="figure-summary-label">Figure description</span><p>Development out-of-fold comparison of all 20 registered Task 2 configurations.</p></div>
+              <figcaption>Figure note: the complete development leaderboard. Hatched P* is a pretrained transfer-learning benchmark, not a final candidate.</figcaption>
             </figure>
             <figure class="performance-figure">
-              <img src="../../results/figures/task2/i1_per_class_f1_delta.png" alt="Per-class F1 changes for the I1 class-balanced loss intervention." loading="lazy">
+              <div class="figure-summary"><span class="figure-summary-label">Figure description</span><p>Per-class F1 changes for the I1 class-balanced loss intervention.</p></div>
               <figcaption>I1 changes the loss, not C1’s layers. It did not win macro-F1, so it was not the final direction.</figcaption>
             </figure>
             <figure class="performance-figure">
-              <img src="../../results/figures/task2/i2_multitask_transfer_deltas.png" alt="Per-class F1 differences between I2 multi-task learning and the C1 reference." loading="lazy">
+              <div class="figure-summary"><span class="figure-summary-label">Figure description</span><p>Per-class F1 differences between I2 multi-task learning and the C1 reference.</p></div>
               <figcaption>I2’s ArticleType head is training-only. The plotted improvement comes from shared image features, not ArticleType metadata at prediction time.</figcaption>
             </figure>
             <figure class="performance-figure">
-              <img src="../../results/figures/task2/seed_stability_comparison.png" alt="Development performance comparison across primary and second random seeds." loading="lazy">
+              <div class="figure-summary"><span class="figure-summary-label">Figure description</span><p>Development performance comparison across primary and second random seeds.</p></div>
               <figcaption>Seed check: I2 stays ahead of the comparable C2 direction on the second seed too.</figcaption>
             </figure>
             <figure class="performance-figure">
-              <img src="../../results/figures/task2/pretraining_benchmark_effect.png" alt="Comparison of scratch and pretrained standard-stem ResNet18 benchmark results." loading="lazy">
+              <div class="figure-summary"><span class="figure-summary-label">Figure description</span><p>Comparison of scratch and pretrained standard-stem ResNet18 benchmark results.</p></div>
               <figcaption>P0S and P* share an architecture. The only intended difference is starting weights; P* is shown honestly as benchmark-only.</figcaption>
             </figure>
           </div>
@@ -4447,19 +4464,19 @@
 
           <div class="performance-figure-grid">
             <figure class="performance-figure wide">
-              <img src="../../results/figures/task2/final_evaluation/holdout_scorecard.png" alt="Final holdout scorecard comparing frozen I2 with the B0 majority baseline." loading="lazy">
+              <div class="figure-summary"><span class="figure-summary-label">Figure description</span><p>Final holdout scorecard comparing frozen I2 with the B0 majority baseline.</p></div>
               <figcaption>Final scorecard: I2 is compared to B0 on the same untouched holdout. The lower panel checks whether the development result shifted on holdout.</figcaption>
             </figure>
             <figure class="performance-figure">
-              <img src="../../results/figures/task2/final_evaluation/holdout_per_class_confusion.png" alt="I2 holdout F1 by class and row-normalized holdout confusion matrix." loading="lazy">
+              <div class="figure-summary"><span class="figure-summary-label">Figure description</span><p>I2 holdout F1 by class and row-normalized holdout confusion matrix.</p></div>
               <figcaption>Read the confusion matrix by true-class row. Its diagonal is correct prediction; off-diagonal cells reveal which seasons get confused.</figcaption>
             </figure>
             <figure class="performance-figure">
-              <img src="../../results/figures/task2/final_evaluation/holdout_bootstrap_intervals.png" alt="Family-blocked holdout bootstrap confidence intervals for I2 metrics and I2 minus B0." loading="lazy">
+              <div class="figure-summary"><span class="figure-summary-label">Figure description</span><p>Family-blocked holdout bootstrap confidence intervals for I2 metrics and I2 minus B0.</p></div>
               <figcaption>10,000 family-blocked bootstrap draws use product families as the resampling unit, keeping related catalogue rows together.</figcaption>
             </figure>
             <figure class="performance-figure wide">
-              <img src="../../results/figures/task2/final_evaluation/holdout_bootstrap_distributions.png" alt="Bootstrap distributions for I2 macro-F1, I2 minus B0 macro-F1, and Spring F1 on holdout." loading="lazy">
+              <div class="figure-summary"><span class="figure-summary-label">Figure description</span><p>Bootstrap distributions for I2 macro-F1, I2 minus B0 macro-F1, and Spring F1 on holdout.</p></div>
               <figcaption>Each histogram bin counts bootstrap resamples. The horizontal axis is the metric recalculated on one resampled collection of product families.</figcaption>
             </figure>
           </div>
@@ -4480,11 +4497,11 @@
 
           <div class="performance-figure-grid">
             <figure class="performance-figure wide">
-              <img src="../../results/figures/task2/final_evaluation/holdout_calibration_risk.png" alt="Holdout reliability chart and confidence-ranked risk coverage for raw versus frozen-temperature I2 probabilities." loading="lazy">
+              <div class="figure-summary"><span class="figure-summary-label">Figure description</span><p>Holdout reliability chart and confidence-ranked risk coverage for raw versus frozen-temperature I2 probabilities.</p></div>
               <figcaption>Left: a well-calibrated line sits near the dashed perfect diagonal. Right: keep only the most confident predictions first; risk rises when automatic coverage expands to harder images.</figcaption>
             </figure>
             <figure class="performance-figure wide">
-              <img src="../../results/figures/task2/calibration_reliability.png" alt="Five-fold cross-fitted temperature calibration on development out-of-fold predictions." loading="lazy">
+              <div class="figure-summary"><span class="figure-summary-label">Figure description</span><p>Five-fold cross-fitted temperature calibration on development out-of-fold predictions.</p></div>
               <figcaption>Development-only cross-fitted evidence used to check calibration honestly before the frozen temperature is audited once on holdout.</figcaption>
             </figure>
           </div>
@@ -4512,19 +4529,19 @@
 
           <div class="performance-figure-grid">
             <figure class="performance-figure wide">
-              <img src="../../results/figures/task2/final_evaluation/holdout_slices_robustness.png" alt="Predeclared final holdout slice macro-F1 and image perturbation robustness results for frozen I2." loading="lazy">
+              <div class="figure-summary"><span class="figure-summary-label">Figure description</span><p>Predeclared final holdout slice macro-F1 and image perturbation robustness results for frozen I2.</p></div>
               <figcaption>Final holdout audit: declared slices reveal heterogeneity; perturbation tests reveal sensitivity to image changes.</figcaption>
             </figure>
             <figure class="performance-figure">
-              <img src="../../results/figures/task2/robustness_comparison.png" alt="Development robustness comparison between C2 ResNet18 and I2 under controlled image perturbations." loading="lazy">
+              <div class="figure-summary"><span class="figure-summary-label">Figure description</span><p>Development robustness comparison between C2 ResNet18 and I2 under controlled image perturbations.</p></div>
               <figcaption>Development robustness comparison was one component of the decision between frozen finalists C2 and I2.</figcaption>
             </figure>
             <figure class="performance-figure">
-              <img src="../../results/figures/task2/shortcut_slice_macro_f1.png" alt="Development out-of-fold macro-F1 across declared metadata-like shortcut slices for C2 and I2." loading="lazy">
+              <div class="figure-summary"><span class="figure-summary-label">Figure description</span><p>Development out-of-fold macro-F1 across declared metadata-like shortcut slices for C2 and I2.</p></div>
               <figcaption>These are descriptive slices. They expose risks and differences, but they do not prove a causal story about Season labels.</figcaption>
             </figure>
             <figure class="performance-figure wide">
-              <img src="../../results/figures/task2/deployment_cost.png" alt="Task 2 development comparison of model performance and deployment cost." loading="lazy">
+              <div class="figure-summary"><span class="figure-summary-label">Figure description</span><p>Task 2 development comparison of model performance and deployment cost.</p></div>
               <figcaption>Performance is not the only practical number. This figure adds the cost boundary when comparing the model families.</figcaption>
             </figure>
           </div>
@@ -4585,10 +4602,10 @@
             <p><strong>Method.</strong> Examine the frozen I2 over each complete validation fold. A channel is <em>exact-dead</em> if its largest absolute output is at most 10<sup>−12</sup> across that fold. It is <em>near-dead</em> if its input to ReLU is positive less than 1% of the time.</p>
             <p><strong>Result.</strong> Across five folds and 4,800 channel–fold observations, there were <strong>zero exact-dead</strong> and <strong>zero near-dead</strong> channels. About <strong>56.64% of individual activation values</strong> were zero. That is ordinary sparsity, not “56.64% dead neurons.”</p>
             <figure class="performance-figure wide">
-              <img src="../../results/figures/task2/post_submission/relu_baseline_dead_channels_by_layer.png" alt="Five-fold ReLU activation audit by layer: many individual zero outputs but no exact-dead or near-dead channels.">
-              <figcaption>The important comparison is zero-valued outputs versus whole channels that never respond. <a href="../../results/figures/task2/post_submission/relu_baseline_dead_channels_by_layer.png" target="_blank" rel="noopener">Open full-size chart</a>.</figcaption>
+              <div class="figure-summary"><span class="figure-summary-label">Figure description</span><p>Five-fold ReLU activation audit by layer: many individual zero outputs but no exact-dead or near-dead channels.</p></div>
+              <figcaption>The important comparison is zero-valued outputs versus whole channels that never respond. <span class="standalone-reference">Chart image omitted; description shown above.</span>.</figcaption>
             </figure>
-            <p><strong>Decision.</strong> A LeakyReLU swap was not justified as a dead-channel fix. Two early LeakyReLU folds completed, one run failed, and one was interrupted; that is <strong>not</strong> a five-fold model comparison, so it cannot establish whether LeakyReLU is better or worse. See the <a href="../../results/evidence/task2/post_submission/relu_baseline_activation_summary.json">activation definitions and counts</a>, <a href="../../results/evidence/task2/post_submission/summary.json">attempt statuses</a>, and <a href="../../src/fashion/task2/post_submission_experiments.py">experiment code</a>.</p>
+            <p><strong>Decision.</strong> A LeakyReLU swap was not justified as a dead-channel fix. Two early LeakyReLU folds completed, one run failed, and one was interrupted; that is <strong>not</strong> a five-fold model comparison, so it cannot establish whether LeakyReLU is better or worse. See the <span class="standalone-reference">activation definitions and counts <small>(source file not bundled with this page)</small></span>, <span class="standalone-reference">attempt statuses <small>(source file not bundled with this page)</small></span>, and <span class="standalone-reference">experiment code <small>(source file not bundled with this page)</small></span>.</p>
           </div>
         </details>
 
@@ -4618,10 +4635,10 @@
               </table>
             </div>
             <figure class="performance-figure wide">
-              <img src="../../results/figures/task2/post_submission/boosted_model_performance_comparison.png" alt="Five-fold development macro-F1 comparison for frozen I2, its Random Forest and histogram gradient boosting heads, and fixed 50-50 probability blends.">
-              <figcaption>The RF head has the highest OOF macro-F1 here. These are development results, not internal-holdout or official-test scores. <a href="../../results/figures/task2/post_submission/boosted_model_performance_comparison.png" target="_blank" rel="noopener">Open full-size chart</a>.</figcaption>
+              <div class="figure-summary"><span class="figure-summary-label">Figure description</span><p>Five-fold development macro-F1 comparison for frozen I2, its Random Forest and histogram gradient boosting heads, and fixed 50-50 probability blends.</p></div>
+              <figcaption>The RF head has the highest OOF macro-F1 here. These are development results, not internal-holdout or official-test scores. <span class="standalone-reference">Chart image omitted; description shown above.</span>.</figcaption>
             </figure>
-            <p><strong>Decision.</strong> Explore the RF head further. HGB and the two fixed blends did not beat it. The 50/50 mix was a fixed probe, not a tuned weight. Check the <a href="../../results/evidence/task2/post_submission/boosted_model_comparison.csv">exact model scores</a>, <a href="../../results/evidence/task2/post_submission/boosting_summary.json">experiment summary</a>, and <a href="../../src/fashion/task2/post_submission_experiments.py">experiment code</a>.</p>
+            <p><strong>Decision.</strong> Explore the RF head further. HGB and the two fixed blends did not beat it. The 50/50 mix was a fixed probe, not a tuned weight. Check the <span class="standalone-reference">exact model scores <small>(source file not bundled with this page)</small></span>, <span class="standalone-reference">experiment summary <small>(source file not bundled with this page)</small></span>, and <span class="standalone-reference">experiment code <small>(source file not bundled with this page)</small></span>.</p>
           </div>
         </details>
 
@@ -4644,20 +4661,20 @@
             <p>The paired macro-F1 gain was <strong>+0.01228</strong>. Resampling complete product families 10,000 times gave a descriptive 95% interval of <strong>[+0.00625, +0.01864]</strong>. The interval is positive, but it does not restore the holdout's original independence.</p>
             <div class="performance-figure-grid">
               <figure class="performance-figure">
-                <img src="../../results/figures/task2/post_submission/full_refit/holdout_scorecard.png" alt="Retrospective holdout scorecard comparing the submitted I2 and the full-development Random Forest head.">
-                <figcaption>Same holdout images, different decision heads. <a href="../../results/figures/task2/post_submission/full_refit/holdout_scorecard.png" target="_blank" rel="noopener">Open full-size chart</a>.</figcaption>
+                <div class="figure-summary"><span class="figure-summary-label">Figure description</span><p>Retrospective holdout scorecard comparing the submitted I2 and the full-development Random Forest head.</p></div>
+                <figcaption>Same holdout images, different decision heads. <span class="standalone-reference">Chart image omitted; description shown above.</span>.</figcaption>
               </figure>
               <figure class="performance-figure">
-                <img src="../../results/figures/task2/post_submission/full_refit/holdout_bootstrap.png" alt="Product-family-blocked bootstrap interval for the retrospective holdout difference between Random Forest and I2.">
-                <figcaption>Paired family resampling describes uncertainty in this observed difference. <a href="../../results/figures/task2/post_submission/full_refit/holdout_bootstrap.png" target="_blank" rel="noopener">Open full-size chart</a>.</figcaption>
+                <div class="figure-summary"><span class="figure-summary-label">Figure description</span><p>Product-family-blocked bootstrap interval for the retrospective holdout difference between Random Forest and I2.</p></div>
+                <figcaption>Paired family resampling describes uncertainty in this observed difference. <span class="standalone-reference">Chart image omitted; description shown above.</span>.</figcaption>
               </figure>
             </div>
             <p><strong>Trade-offs.</strong> RF probabilities were not temperature-calibrated like I2, and their log-loss was worse. The combined model files were about <strong>51.2 MB</strong> versus <strong>4.9 MB</strong> for I2. Recorded CPU throughput was about <strong>126 versus 462 images/s</strong> in separate runs, so treat the speed ratio as indicative, not a matched benchmark. Both models nearly lost Spring under brightness 0.85: Spring recall was about <strong>0.0043</strong>. The RF is a heavier exploratory alternative, not a safe automatic replacement.</p>
             <figure class="performance-figure wide">
-              <img src="../../results/figures/task2/post_submission/full_refit/holdout_robustness.png" alt="Frozen image-condition holdout test showing a severe performance and Spring-recall decline when image brightness is reduced to 0.85.">
-              <figcaption>Better clean macro-F1 did not remove the darkness failure. <a href="../../results/figures/task2/post_submission/full_refit/holdout_robustness.png" target="_blank" rel="noopener">Open full-size chart</a>.</figcaption>
+              <div class="figure-summary"><span class="figure-summary-label">Figure description</span><p>Frozen image-condition holdout test showing a severe performance and Spring-recall decline when image brightness is reduced to 0.85.</p></div>
+              <figcaption>Better clean macro-F1 did not remove the darkness failure. <span class="standalone-reference">Chart image omitted; description shown above.</span>.</figcaption>
             </figure>
-            <p><strong>Artifacts.</strong> The RF needs the original I2 <code>.pt</code> plus a separate <code>.joblib</code> head and matching manifest. No official teacher-test export was made. See the <a href="../task2-post-submission-rf-refit.md">refit and evaluation note</a>, <a href="../../results/evidence/task2/post_submission/full_refit/scorecard.csv">scorecard</a>, <a href="../../results/evidence/task2/post_submission/full_refit/paired_bootstrap_intervals.csv">interval table</a>, and <a href="../../src/fashion/task2/post_submission_rf_refit.py">refit code</a>.</p>
+            <p><strong>Artifacts.</strong> The RF needs the original I2 <code>.pt</code> plus a separate <code>.joblib</code> head and matching manifest. No official teacher-test export was made. See the <span class="standalone-reference">refit and evaluation note <small>(source file not bundled with this page)</small></span>, <span class="standalone-reference">scorecard <small>(source file not bundled with this page)</small></span>, <span class="standalone-reference">interval table <small>(source file not bundled with this page)</small></span>, and <span class="standalone-reference">refit code <small>(source file not bundled with this page)</small></span>.</p>
           </div>
         </details>
 
@@ -4680,10 +4697,10 @@
               </table>
             </div>
             <figure class="performance-figure wide">
-              <img src="../../results/figures/task2/post_submission/rf_grid/paired_delta.png" alt="Paired five-fold product-family bootstrap intervals for each Random Forest grid candidate minus the original Random Forest head; all differences overlap zero.">
-              <figcaption>Zero means no improvement over r0. Every candidate has a lower OOF macro-F1, and every interval includes zero. <a href="../../results/figures/task2/post_submission/rf_grid/paired_delta.png" target="_blank" rel="noopener">Open full-size chart</a>.</figcaption>
+              <div class="figure-summary"><span class="figure-summary-label">Figure description</span><p>Paired five-fold product-family bootstrap intervals for each Random Forest grid candidate minus the original Random Forest head; all differences overlap zero.</p></div>
+              <figcaption>Zero means no improvement over r0. Every candidate has a lower OOF macro-F1, and every interval includes zero. <span class="standalone-reference">Chart image omitted; description shown above.</span>.</figcaption>
             </figure>
-            <p><strong>Decision.</strong> Keep the already fitted RF head. A small Spring F1 rise in some variants does not satisfy the overall gate. The 0.25-feature heads also took roughly four times longer to fit than the reference <em>RF head alone</em>; this is not end-to-end CNN latency. There was no new full-development refit, holdout run, or official prediction after this grid. See the <a href="../../results/evidence/task2/post_submission/rf_grid/summary.json">decision record</a>, <a href="../../results/evidence/task2/post_submission/rf_grid/model_comparison.csv">exact scores</a>, <a href="../../results/evidence/task2/post_submission/rf_grid/cost.csv">head-only cost</a>, and <a href="../../src/fashion/task2/post_submission_rf_grid.py">grid code</a>.</p>
+            <p><strong>Decision.</strong> Keep the already fitted RF head. A small Spring F1 rise in some variants does not satisfy the overall gate. The 0.25-feature heads also took roughly four times longer to fit than the reference <em>RF head alone</em>; this is not end-to-end CNN latency. There was no new full-development refit, holdout run, or official prediction after this grid. See the <span class="standalone-reference">decision record <small>(source file not bundled with this page)</small></span>, <span class="standalone-reference">exact scores <small>(source file not bundled with this page)</small></span>, <span class="standalone-reference">head-only cost <small>(source file not bundled with this page)</small></span>, and <span class="standalone-reference">grid code <small>(source file not bundled with this page)</small></span>.</p>
           </div>
         </details>
 
@@ -4713,12 +4730,7 @@
               <button class="word-button" type="button" data-term="bootstrap">bootstrap</button>
             </div>
             <div class="study-links">
-              <a href="00_START_HERE.md">00 · Start here</a>
-              <a href="03_BASELINES_B0_AND_B1.md">03 · B0 &amp; B1</a>
-              <a href="04_SCRATCH_MODELS_C1_C2_C3.md">04 · CNN / ResNet / MobileNet</a>
-              <a href="06_I1_I2_AND_PRETRAINED_BOUNDARY.md">06 · I1 / I2 / P*</a>
-              <a href="07_STABILITY_SLICES_ROBUSTNESS_AND_CALIBRATION.md">07 · calibration / robustness</a>
-              <a href="08_BOOTSTRAP_GRADCAM_AND_ULTIMATE_JUDGEMENT.md">08 · bootstrap / Grad-CAM</a>
+              <p>Related project notes, source code, and result files are not included in this standalone page. The learning summaries above remain available here.</p>
             </div>
           </div>
           <aside class="definition-box" aria-live="polite">
@@ -4885,9 +4897,9 @@
           decision: "Use image-only inference, macro-F1 as the primary metric, P0 preprocessing, and the canonical five-fold split. Never call a fresh <code>train_test_split</code>.",
           limit: "This finds risks such as imbalance and related catalogue rows. It does not tell us which model will work best or prove that a metadata pattern causes Season.",
           figures: [
-            { src: "../../results/figures/data_preparation/target_distributions.png", alt: "Task 2 Season label distribution showing a large Summer class and smaller Spring class.", caption: "Why macro-F1 is needed: Summer is much more common than Spring." },
-            { src: "../../results/figures/data_preparation/family_group_evidence.png", alt: "Evidence that related catalogue images occur in product-family groups.", caption: "Family grouping keeps related catalogue rows together during resampling." },
-            { src: "../../results/figures/data_preparation/transform_risk.png", alt: "Visual comparison of image transforms and their risks.", caption: "P0 preserves the product shape with padding instead of stretching it." }
+            { alt: "Task 2 Season label distribution showing a large Summer class and smaller Spring class.", caption: "Why macro-F1 is needed: Summer is much more common than Spring." },
+            { alt: "Evidence that related catalogue images occur in product-family groups.", caption: "Family grouping keeps related catalogue rows together during resampling." },
+            { alt: "Visual comparison of image transforms and their risks.", caption: "P0 preserves the product shape with padding instead of stretching it." }
           ]
         },
         {
@@ -4904,7 +4916,7 @@
           decision: "PASS. The pipeline can enter B0/B1 and real model experiments. The 0.3433 integration score is not used as a generalisation result.",
           limit: "A tiny model can memorise 64 examples even if it will generalise badly. G0 proves mechanics, not scientific performance.",
           figures: [
-            { src: "../../results/figures/task2/g0_pipeline_smoke.png", alt: "G0 pipeline smoke test showing tiny-overfit and integration checks.", caption: "G0 validates the path before a score is allowed to influence a model decision." }
+            { alt: "G0 pipeline smoke test showing tiny-overfit and integration checks.", caption: "G0 validates the path before a score is allowed to influence a model decision." }
           ]
         },
         {
@@ -4921,8 +4933,8 @@
           decision: "Keep both as anchors. Proceed to learned CNN features; a later model must explain why it beats B1, not only B0.",
           limit: "B1 decision scores are not naturally calibrated probabilities. It is a strong classical reference, not an end-to-end neural representation.",
           figures: [
-            { src: "../../results/figures/task2/b0_majority.png", alt: "B0 majority baseline results by Season.", caption: "B0 shows why accuracy alone can look better than the actual four-class performance." },
-            { src: "../../results/figures/task2/b1_hog_hsv_svm.png", alt: "B1 HOG HSV LinearSVC baseline performance.", caption: "B1 proves hand-designed image vectors carry real signal." }
+            { alt: "B0 majority baseline results by Season.", caption: "B0 shows why accuracy alone can look better than the actual four-class performance." },
+            { alt: "B1 HOG HSV LinearSVC baseline performance.", caption: "B1 proves hand-designed image vectors carry real signal." }
           ]
         },
         {
@@ -4939,7 +4951,7 @@
           decision: "Retain C1 and C2. Stop C3. Do not crown C2 yet: this was only an eight-epoch screen.",
           limit: "One seed and a short budget cannot prove a final winner. C1 and C2 need controlled ablations and full-budget comparison.",
           figures: [
-            { src: "../../results/figures/task2/g1_family_screen.png", alt: "G1 comparison of C1 SmallCNN, C2 ResNet18, and C3 MobileNetV3-Small.", caption: "Same rules, different architecture family: keep C1 and C2; stop C3." }
+            { alt: "G1 comparison of C1 SmallCNN, C2 ResNet18, and C3 MobileNetV3-Small.", caption: "Same rules, different architecture family: keep C1 and C2; stop C3." }
           ]
         },
         {
@@ -4956,9 +4968,9 @@
           decision: "Retain P0/A0. Send C1 T1 and C2 T0 to G3. Stop expanding the tuning grid.",
           limit: "A gate says only whether one declared change earned its place at this budget. It does not prove that every untried setting is worse.",
           figures: [
-            { src: "../../results/figures/task2/g2_input_size_ablation.png", alt: "G2 P0 versus P1 input size ablation.", caption: "P1 failed its required macro-F1 gain, so P0 stays." },
-            { src: "../../results/figures/task2/g2_augmentation_ablation.png", alt: "G2 A0 versus A1 augmentation ablation.", caption: "A1 hurt OOF macro-F1, so the project retains A0." },
-            { src: "../../results/figures/task2/g2_tuning_c1_learning_curves.png", alt: "Learning curves for C1 compact optimiser tuning in G2.", caption: "C1 T1 is the one optimiser change that cleared its predeclared gain gate." }
+            { alt: "G2 P0 versus P1 input size ablation.", caption: "P1 failed its required macro-F1 gain, so P0 stays." },
+            { alt: "G2 A0 versus A1 augmentation ablation.", caption: "A1 hurt OOF macro-F1, so the project retains A0." },
+            { alt: "Learning curves for C1 compact optimiser tuning in G2.", caption: "C1 T1 is the one optimiser change that cleared its predeclared gain gate." }
           ]
         },
         {
@@ -4975,8 +4987,8 @@
           decision: "Use C1 as a provisional reference because it leads numerically, but retain C2 as comparator. No ultimate winner is frozen.",
           limit: "Second-seed stability, robustness, calibrated confidence, and grouped-bootstrap uncertainty are still missing at this point.",
           figures: [
-            { src: "../../results/figures/task2/g3_c1_t1_learning_curves.png", alt: "Full-budget learning curves for C1 T1.", caption: "C1 T1 is the numeric leader, not yet the final winner." },
-            { src: "../../results/figures/task2/g3_c2_t0_learning_curves.png", alt: "Full-budget learning curves for C2 T0.", caption: "C2 remains close enough to be a real comparator." }
+            { alt: "Full-budget learning curves for C1 T1.", caption: "C1 T1 is the numeric leader, not yet the final winner." },
+            { alt: "Full-budget learning curves for C2 T0.", caption: "C2 remains close enough to be a real comparator." }
           ]
         },
         {
@@ -4993,9 +5005,9 @@
           decision: "Reject I1. Make I2 λ=0.3 the challenger and retain C2 for G5. Show P* honestly as a transfer ceiling, never as a submission candidate.",
           limit: "ArticleType–Season association is not proof that ArticleType causes Season. I2 sees only the image at inference; it never receives true ArticleType, year, or other metadata.",
           figures: [
-            { src: "../../results/figures/task2/i1_per_class_f1_delta.png", alt: "Per-class F1 difference for I1 class balancing versus its C1 reference.", caption: "I1 changes loss only and fails its Spring and global performance gates." },
-            { src: "../../results/figures/task2/i2_multitask_transfer_deltas.png", alt: "I2 multi-task performance differences versus C1 reference.", caption: "I2’s ArticleType head supports training but is absent at prediction time." },
-            { src: "../../results/figures/task2/pretraining_benchmark_effect.png", alt: "Difference between scratch standard-stem ResNet18 and pretrained benchmark P star.", caption: "P* measures a pretraining ceiling, not an eligible candidate." }
+            { alt: "Per-class F1 difference for I1 class balancing versus its C1 reference.", caption: "I1 changes loss only and fails its Spring and global performance gates." },
+            { alt: "I2 multi-task performance differences versus C1 reference.", caption: "I2’s ArticleType head supports training but is absent at prediction time." },
+            { alt: "Difference between scratch standard-stem ResNet18 and pretrained benchmark P star.", caption: "P* measures a pretraining ceiling, not an eligible candidate." }
           ]
         },
         {
@@ -5012,7 +5024,7 @@
           decision: "Keep I2 as the candidate and C2 as comparator. Move to diagnostics without post-hoc retuning.",
           limit: "Two seeds support a stability check, but they do not represent every possible random start or distribution shift.",
           figures: [
-            { src: "../../results/figures/task2/seed_stability_comparison.png", alt: "I2 and C2 development performance across two random seeds.", caption: "The ordering holds at both complete five-fold seeds." }
+            { alt: "I2 and C2 development performance across two random seeds.", caption: "The ordering holds at both complete five-fold seeds." }
           ]
         },
         {
@@ -5029,11 +5041,11 @@
           decision: "Close diagnostics and record their limits. They cannot trigger a new candidate or a tuning change after results are seen.",
           limit: "Slices and Grad-CAM are diagnostic, not causal proof. Synthetic shifts do not cover every real image shift. The holdout remains sealed.",
           figures: [
-            { src: "../../results/figures/task2/shortcut_slice_macro_f1.png", alt: "Development macro-F1 in declared shortcut-like slices for I2 and C2.", caption: "Slices expose where performance changes; they never become model inputs." },
-            { src: "../../results/figures/task2/robustness_comparison.png", alt: "Robustness comparison for I2 and C2 under image perturbations.", caption: "I2 stays relatively above C2, yet darkness is a severe absolute weakness." },
-            { src: "../../results/figures/task2/calibration_reliability.png", alt: "Calibration reliability plot for I2 before and after temperature scaling.", caption: "Temperature changes confidence quality, not the predicted Season label." },
-            { src: "../../results/figures/task2/paired_group_bootstrap.png", alt: "Paired grouped bootstrap comparison of I2 minus C2 macro-F1.", caption: "Both predefined family-blocked intervals stay above zero." },
-            { src: "../../results/figures/task2/gradcam_i2_contact_sheet.png", alt: "Grad-CAM contact sheet for I2 examples.", caption: "Grad-CAM gives review hypotheses about image regions, not causal proof." }
+            { alt: "Development macro-F1 in declared shortcut-like slices for I2 and C2.", caption: "Slices expose where performance changes; they never become model inputs." },
+            { alt: "Robustness comparison for I2 and C2 under image perturbations.", caption: "I2 stays relatively above C2, yet darkness is a severe absolute weakness." },
+            { alt: "Calibration reliability plot for I2 before and after temperature scaling.", caption: "Temperature changes confidence quality, not the predicted Season label." },
+            { alt: "Paired grouped bootstrap comparison of I2 minus C2 macro-F1.", caption: "Both predefined family-blocked intervals stay above zero." },
+            { alt: "Grad-CAM contact sheet for I2 examples.", caption: "Grad-CAM gives review hypotheses about image regions, not causal proof." }
           ]
         },
         {
@@ -5050,8 +5062,8 @@
           decision: "Freeze <code>g4-i2-article-type-lambda-0-3-c1</code> as I2. Do not reopen architecture, loss, transform, or temperature choices after holdout unlock.",
           limit: "The claim is limited to two fixed seeds and development OOF evidence. It is not proof of superiority for every random start, retailer, or image distribution.",
           figures: [
-            { src: "../../results/figures/task2/final_evaluation/development_selection_story.png", alt: "Development selection story leading to the frozen I2 candidate.", caption: "The winner is chosen before the holdout, using development evidence only." },
-            { src: "../../results/figures/task2/task2_report_selection_uncertainty.png", alt: "Selection and uncertainty summary for I2 versus C2.", caption: "The score is only one part of the pre-holdout decision." }
+            { alt: "Development selection story leading to the frozen I2 candidate.", caption: "The winner is chosen before the holdout, using development evidence only." },
+            { alt: "Selection and uncertainty summary for I2 versus C2.", caption: "The score is only one part of the pre-holdout decision." }
           ]
         },
         {
@@ -5068,8 +5080,8 @@
           decision: "Mark the component ready for the group freeze and final notebook. It may now be audited once on holdout; it may not be changed because of that audit.",
           limit: "A refit training curve is not new generalisation evidence. Training all development rows removes an internal validation set by design.",
           figures: [
-            { src: "../../results/figures/task2/development_refit_training_curve.png", alt: "Training curve for final I2 refit on all development data.", caption: "G8 follows the frozen recipe; this curve does not select a new model." },
-            { src: "../../results/figures/task2/file_impact_flow.png", alt: "Flow of Task 2 files from selection freeze through model handoff.", caption: "The component is packaged before the final audit." }
+            { alt: "Training curve for final I2 refit on all development data.", caption: "G8 follows the frozen recipe; this curve does not select a new model." },
+            { alt: "Flow of Task 2 files from selection freeze through model handoff.", caption: "The component is packaged before the final audit." }
           ]
         },
         {
@@ -5086,9 +5098,9 @@
           decision: "Report I2 as conditionally viable for catalogue decision support with human review. Do not turn this into a claim that Season is an objective visual truth or that every shifted image is safe to automate.",
           limit: "This is an internal same-source holdout, not a new retailer. Brightness shifts still materially hurt performance, confidence has no business-cost threshold, and Grad-CAM remains non-causal diagnostic evidence.",
           figures: [
-            { src: "../../results/figures/task2/final_evaluation/holdout_scorecard.png", alt: "Final Task 2 holdout scorecard for frozen I2 versus B0.", caption: "The independent holdout audits the already selected model." },
-            { src: "../../results/figures/task2/final_evaluation/holdout_bootstrap_intervals.png", alt: "Family-blocked holdout bootstrap intervals for I2 and I2 minus B0.", caption: "The I2−B0 interval remains completely above no effect." },
-            { src: "../../results/figures/task2/final_evaluation/holdout_slices_robustness.png", alt: "Final holdout slice and robustness results for frozen I2.", caption: "A good overall score coexists with real slice and image-shift limitations." }
+            { alt: "Final Task 2 holdout scorecard for frozen I2 versus B0.", caption: "The independent holdout audits the already selected model." },
+            { alt: "Family-blocked holdout bootstrap intervals for I2 and I2 minus B0.", caption: "The I2−B0 interval remains completely above no effect." },
+            { alt: "Final holdout slice and robustness results for frozen I2.", caption: "A good overall score coexists with real slice and image-shift limitations." }
           ]
         }
       ];
@@ -7014,10 +7026,26 @@
         }
         if (item.figures && item.figures.length) {
           figureTarget.hidden = false;
-          figureTarget.innerHTML = item.figures.map(function (figure, figureIndex) {
+          figureTarget.textContent = "";
+          item.figures.forEach(function (figure, figureIndex) {
             var wideClass = item.figures.length === 1 || (item.figures.length % 2 === 1 && figureIndex === item.figures.length - 1) ? " wide" : "";
-            return '<figure class="tour-figure' + wideClass + '"><img src="' + figure.src + '" alt="' + figure.alt + '" loading="lazy"><figcaption>' + figure.caption + "</figcaption></figure>";
-          }).join("");
+            var figureElement = document.createElement("figure");
+            figureElement.className = "tour-figure" + wideClass;
+            var summary = document.createElement("div");
+            summary.className = "figure-summary";
+            var label = document.createElement("span");
+            label.className = "figure-summary-label";
+            label.textContent = "Figure description";
+            var description = document.createElement("p");
+            description.textContent = figure.alt;
+            summary.appendChild(label);
+            summary.appendChild(description);
+            var caption = document.createElement("figcaption");
+            caption.textContent = figure.caption;
+            figureElement.appendChild(summary);
+            figureElement.appendChild(caption);
+            figureTarget.appendChild(figureElement);
+          });
         } else {
           figureTarget.hidden = true;
           figureTarget.innerHTML = "";
