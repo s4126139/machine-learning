@@ -1,6 +1,6 @@
 # Week 5 — Decision Tree Learning
 
-Source: Canvas module [Week 5 — Decision Tree Learning](https://rmit.instructure.com/courses/171525/modules/items/8460493)
+Source: Canvas module Week 5 — Decision Tree Learning
 
 Captured: 2026-09-24
 

@@ -1,6 +1,6 @@
 # Week 5 Learning Materials
 
-Source: Canvas [W5 Learning Materials](https://rmit.instructure.com/courses/171525/modules/items/8460497)
+Source: Canvas W5 Learning Materials
 
 Captured: 2026-09-24
 

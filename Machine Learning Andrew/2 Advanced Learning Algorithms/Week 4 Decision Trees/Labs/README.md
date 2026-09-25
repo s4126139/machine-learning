@@ -11,8 +11,7 @@ The notebooks share the local `utils.py`, `public_tests.py`, style sheet,
 relative imports and dataset path work:
 
 ```powershell
-cd "C:\Users\Khoai\RMIT\Machine_Learning\Machine Learning Andrew\2 Advanced Learning Algorithms\Week 4 Decision Trees\Labs"
-python -m jupyter lab
+& ..\..\..\.venv\Scripts\python.exe -m jupyter lab
 ```
 
 The tree-ensemble notebook uses XGBoost. The notebook no longer runs a

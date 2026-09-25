@@ -11,8 +11,7 @@ and plotting style. Run Jupyter from this `Labs` directory so paths such as
 `data/data_w3_ex1.csv` and imports such as `assigment_utils` resolve locally.
 
 ```powershell
-cd "C:\Users\Khoai\RMIT\Machine_Learning\Machine Learning Andrew\2 Advanced Learning Algorithms\Week 3 Advice for applying machine learning\Labs"
-python -m jupyter lab
+& ..\..\..\.venv-tensorflow\Scripts\python.exe -m jupyter lab
 ```
 
 The model-selection notebooks use scikit-learn and the assignment also uses

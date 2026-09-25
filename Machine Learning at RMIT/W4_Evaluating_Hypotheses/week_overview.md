@@ -1,6 +1,6 @@
 # Week 4 — Evaluating Hypotheses
 
-Source: Canvas module [Week 4 — Evaluating Hypotheses](https://rmit.instructure.com/courses/171525/modules/items/8460480)
+Source: Canvas module Week 4 — Evaluating Hypotheses
 
 Captured: 2026-09-24
 

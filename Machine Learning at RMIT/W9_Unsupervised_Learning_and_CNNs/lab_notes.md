@@ -1,6 +1,6 @@
 # Week 9 Lab — Deep Learning (CNN)
 
-Source: Canvas module item [8460549](https://rmit.instructure.com/courses/171525/modules/items/8460549)
+Source: Canvas module item 8460549
 
 Captured: 2026-09-24
 
@@ -15,7 +15,7 @@ Captured: 2026-09-24
 ## Downloaded artifacts
 
 - [`w9_Lab_DeepLearning.ipynb`](./w9_Lab_DeepLearning.ipynb), Canvas file `53327668`,
-  SHA-256 `2755007593DC057C26216F0C8D1DD06417A6DBA6AB1671BD014911AF7FAE46BB`.
+  source SHA-256 `2755007593DC057C26216F0C8D1DD06417A6DBA6AB1671BD014911AF7FAE46BB`. Its setup now extracts the tracked archive locally.
 - [`CIFAR10_Lab9.zip`](./CIFAR10_Lab9.zip), Canvas file `53328023`, SHA-256
   `40BEF1E86568F90E84EE902487201FFE8F33E52874090C73A3235C0386EE626D`.
 

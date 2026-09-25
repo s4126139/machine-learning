@@ -53,8 +53,12 @@ jupyter lab
 ```
 
 Select the `Python For Machine Learning IBM` kernel when opening a notebook.
-The project pins the course-compatible core stack and includes the local-lab
+The tracked `.python-version` selects Python 3.12. The project pins the course-compatible core stack and includes the local-lab
 extras used by the notebooks: SciPy, Seaborn, XGBoost, HDBSCAN and UMAP.
+
+The fraud-detection lab also needs `creditcard.csv`. Git does not include this
+150 MB dataset. Follow [the data setup instructions](<Module 3 Building Supervised Learning Models/labs/data/README.md>)
+before running that notebook; the other lab datasets are already tracked.
 
 ## Smoke-test all notebooks
 
@@ -81,7 +85,7 @@ $labs = Get-ChildItem -Recurse -File -Filter *.ipynb -Path . | Where-Object { $_
   current Module 4–6 apps. The HDBSCAN extension, t-SNE/UMAP lab and several
   Module 5/6 labs are therefore marked or structured as local adaptations of
   the closest IBM-compatible public materials.
-- The large `creditcard.csv` dataset is included so the fraud lab can run
-  offline. Do not re-download it unless the local copy is missing or corrupt.
+- The large `creditcard.csv` dataset is excluded from Git. Once downloaded as
+  described above, the fraud lab can run offline.
 
 Never place Coursera credentials, API keys or session cookies in this folder.

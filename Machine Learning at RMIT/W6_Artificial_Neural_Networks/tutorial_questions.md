@@ -1,6 +1,6 @@
 # Week 6 Tutorial Questions — Neural Networks
 
-Source: Canvas module item [8460514](https://rmit.instructure.com/courses/171525/modules/items/8460514)
+Source: Canvas module item 8460514
 
 ## Objectives
 

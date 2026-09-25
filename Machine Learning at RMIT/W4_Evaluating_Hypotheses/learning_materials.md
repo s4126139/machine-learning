@@ -1,6 +1,6 @@
 # Week 4 Learning Materials
 
-Source: Canvas [W4 Learning Materials](https://rmit.instructure.com/courses/171525/modules/items/8460484)
+Source: Canvas W4 Learning Materials
 
 Captured: 2026-09-24
 

@@ -1,6 +1,6 @@
 # Week 5 Tutorial Questions — Decision Trees
 
-Source: Canvas [W5 Tutorial Questions](https://rmit.instructure.com/courses/171525/modules/items/8460501)
+Source: Canvas W5 Tutorial Questions
 
 Captured: 2026-09-24
 

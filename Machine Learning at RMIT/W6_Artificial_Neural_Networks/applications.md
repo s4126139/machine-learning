@@ -1,6 +1,6 @@
 # Week 6 Applications — ANN and MLP
 
-Source: Canvas module item [8460515](https://rmit.instructure.com/courses/171525/modules/items/8460515)
+Source: Canvas module item 8460515
 
 ## Main ideas
 

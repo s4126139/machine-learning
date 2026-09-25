@@ -1,6 +1,6 @@
 # Week 2 Learning Materials
 
-Sources: Canvas [Learning Materials](https://rmit.instructure.com/courses/171525/modules/items/8460457) and [Material & Recordings](https://rmit.instructure.com/courses/171525/modules/items/8688503)
+Sources: Canvas Learning Materials and Material & Recordings
 
 Captured: 2026-09-24
 

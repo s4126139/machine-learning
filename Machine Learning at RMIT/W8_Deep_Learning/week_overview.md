@@ -1,6 +1,6 @@
 # Week 8 — Deep Learning
 
-Source: Canvas module [Week 8 — Deep Learning](https://rmit.instructure.com/courses/171525/modules/items/8460527)
+Source: Canvas module Week 8 — Deep Learning
 
 Captured: 2026-09-24
 

@@ -1,6 +1,6 @@
 # Week 10 Tutorial Questions — Clustering
 
-Source: Canvas module item [8460563](https://rmit.instructure.com/courses/171525/modules/items/8460563)
+Source: Canvas module item 8460563
 
 Captured: 2026-09-24
 

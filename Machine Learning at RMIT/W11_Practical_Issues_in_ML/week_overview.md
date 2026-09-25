@@ -1,6 +1,6 @@
 # Week 11 — Practical Issues
 
-Source: Canvas module item [8460569](https://rmit.instructure.com/courses/171525/modules/items/8460569)
+Source: Canvas module item 8460569
 
 Captured: 2026-09-24
 

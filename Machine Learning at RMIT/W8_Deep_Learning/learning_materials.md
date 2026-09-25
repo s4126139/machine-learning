@@ -1,6 +1,6 @@
 # Week 8 Learning Materials — Deep Learning
 
-Source: Canvas [W8 Learning Materials](https://rmit.instructure.com/courses/171525/modules/items/8460530)
+Source: Canvas W8 Learning Materials
 
 Captured: 2026-09-24
 

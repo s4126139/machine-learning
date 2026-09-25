@@ -1,6 +1,6 @@
 # Week 12 Learning Materials
 
-Source: Canvas page [8460584](https://rmit.instructure.com/courses/171525/modules/items/8460584)
+Source: Canvas page 8460584
 
 Captured: 2026-09-24
 

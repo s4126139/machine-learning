@@ -1,6 +1,6 @@
 # Week 4 Tutorial Questions — Evaluation
 
-Source: Canvas [W4 Tutorial Questions](https://rmit.instructure.com/courses/171525/modules/items/8460488)
+Source: Canvas W4 Tutorial Questions
 
 Captured: 2026-09-24
 

@@ -1,6 +1,6 @@
 # Week 8 Tutorial Questions — Perceptrons and MLPs
 
-Source: Canvas [W8 Tutorial Questions](https://rmit.instructure.com/courses/171525/modules/items/8460534)
+Source: Canvas W8 Tutorial Questions
 
 Captured: 2026-09-24
 

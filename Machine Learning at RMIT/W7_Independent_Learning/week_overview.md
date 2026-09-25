@@ -1,6 +1,6 @@
 # Week 7 — Independent Learning
 
-Source: Canvas module item [8460519](https://rmit.instructure.com/courses/171525/modules/items/8460519)
+Source: Canvas module item 8460519
 
 Captured: 2026-09-24
 

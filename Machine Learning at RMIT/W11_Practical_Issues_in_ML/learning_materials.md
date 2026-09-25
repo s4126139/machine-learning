@@ -1,6 +1,6 @@
 # Week 11 Learning Materials
 
-Source: Canvas page [8460573](https://rmit.instructure.com/courses/171525/modules/items/8460573)
+Source: Canvas page 8460573
 
 Captured: 2026-09-24
 

@@ -1,6 +1,6 @@
 # Week 2 — Regression
 
-Source: Canvas module [Week 2 — Regression](https://rmit.instructure.com/courses/171525/modules/items/8460453)
+Source: Canvas module Week 2 — Regression
 
 Captured: 2026-09-24
 

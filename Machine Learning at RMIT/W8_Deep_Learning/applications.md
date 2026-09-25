@@ -1,6 +1,6 @@
 # Week 8 Applications — Deep Learning
 
-Source: Canvas [W8 Applications of Deep Learning](https://rmit.instructure.com/courses/171525/modules/items/8460536)
+Source: Canvas W8 Applications of Deep Learning
 
 Captured: 2026-09-24
 

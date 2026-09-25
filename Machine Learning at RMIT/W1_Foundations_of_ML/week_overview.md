@@ -1,6 +1,6 @@
 # Week 1 — Foundations of Machine Learning
 
-Source: Canvas module [Week 1 — Foundations of Machine Learning](https://rmit.instructure.com/courses/171525/modules/items/8460439)
+Source: Canvas module Week 1 — Foundations of Machine Learning
 
 Captured: 2026-09-24
 

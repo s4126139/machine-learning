@@ -1,6 +1,6 @@
 # Week 9 Tutorial Questions — CNN
 
-Source: Canvas module item [8460548](https://rmit.instructure.com/courses/171525/modules/items/8460548)
+Source: Canvas module item 8460548
 
 Captured: 2026-09-24
 

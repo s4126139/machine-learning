@@ -1,6 +1,6 @@
 # Week 1 Learning Materials
 
-Source: Canvas [W1 Learning Materials](https://rmit.instructure.com/courses/171525/modules/items/8460444)
+Source: Canvas W1 Learning Materials
 
 Captured: 2026-09-24
 

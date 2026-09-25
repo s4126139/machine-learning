@@ -1,6 +1,6 @@
 # Week 5 Lab — Canvas Placement and Files
 
-Source: Canvas [W5 Lab Exercises](https://rmit.instructure.com/courses/171525/modules/items/8460503)
+Source: Canvas W5 Lab Exercises
 
 Captured: 2026-09-24
 

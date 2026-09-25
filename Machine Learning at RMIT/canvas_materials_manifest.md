@@ -1,82 +1,82 @@
 # Canvas Materials Manifest
 
-Course: [Machine Learning — COSC2753/COSC2812](https://rmit.instructure.com/courses/171525)
+Course: Machine Learning — COSC2753/COSC2812
 
 Captured from the signed-in Canvas course through its **Modules** page and linked week pages: **2026-09-24**.
 
-The Modules page is used as the source of the current week sequence. Canvas's Syllabus page contains stale/conflicting week labels for several later weeks; those differences are listed below. This file records what was linked on Canvas at capture time, not a promise that Canvas will not change later. External videos, readings, and websites remain links and were not copied.
+The Modules page is used as the source of the current week sequence. Canvas's Syllabus page contains stale/conflicting week labels for several later weeks; those differences are listed below. This file records what was linked on Canvas at capture time, not a promise that Canvas will not change later. Direct Canvas URLs are omitted because they require course access; item IDs remain for provenance. External videos, readings, and websites were not copied.
 
 ## Week-by-week audit
 
 ### Week 1 — Foundations of Machine Learning
 
-Items checked: [8460439 overview](https://rmit.instructure.com/courses/171525/modules/items/8460439), [8460441 introduction](https://rmit.instructure.com/courses/171525/modules/items/8460441), [8460442 cloud platforms](https://rmit.instructure.com/courses/171525/modules/items/8460442), [8460444 learning materials](https://rmit.instructure.com/courses/171525/modules/items/8460444), [8460447 lab exercises](https://rmit.instructure.com/courses/171525/modules/items/8460447), [8460448 Intro to Python](https://rmit.instructure.com/courses/171525/modules/items/8460448), [8460449 applications](https://rmit.instructure.com/courses/171525/modules/items/8460449), [8460451 tutorial questions](https://rmit.instructure.com/courses/171525/modules/items/8460451).
+Items checked: 8460439 overview, 8460441 introduction, 8460442 cloud platforms, 8460444 learning materials, 8460447 lab exercises, 8460448 Intro to Python, 8460449 applications, 8460451 tutorial questions.
 
-Local coverage: `W1_Foundations_of_ML/week_overview.md`, `learning_materials.md`, `lab_notes.md`, plus the pre-existing `lecture_note.md`. The Canvas slide PDF matches local `week01_lecture_slides.pdf`. The current self-study Python notebook is `week01_lab_exercises_python-1.ipynb`; the previous differing local copy is preserved as `.local.ipynb`.
+Local coverage: `W1_Foundations_of_ML/week_overview.md`, `learning_materials.md`, `lab_notes.md`, plus the pre-existing `lecture_note.md`. The Canvas slide PDF matches local `week01_lecture_slides.pdf`. The current self-study Python notebook is `week01_lab_exercises_python-1.ipynb`; the older `.local.ipynb` variant has a NumPy compatibility fix.
 
 ### Week 2 — Regression
 
-Items checked: [8460453 overview](https://rmit.instructure.com/courses/171525/modules/items/8460453), [8460455 introduction](https://rmit.instructure.com/courses/171525/modules/items/8460455), [8460457 learning materials](https://rmit.instructure.com/courses/171525/modules/items/8460457), [8688503 material and recordings](https://rmit.instructure.com/courses/171525/modules/items/8688503), [8460461 Math for Regression](https://rmit.instructure.com/courses/171525/modules/items/8460461), [8460463 lab exercises](https://rmit.instructure.com/courses/171525/modules/items/8460463).
+Items checked: 8460453 overview, 8460455 introduction, 8460457 learning materials, 8688503 material and recordings, 8460461 Math for Regression, 8460463 lab exercises.
 
 Local coverage: `W2_Regression/week_overview.md`, `learning_materials.md`, `lab_notes.md`, and existing notes/notebooks. Current Canvas notebook and datasets are present. The official housing file differed from the older local file; the older copy is retained as `Dataset_for_tutorial/housing-2.data.local.csv`, while `housing-2.data.csv` now matches Canvas and the relative paths used by W2–W4 notebooks. Bike data, the code book, Chapter 7 PDF, and the local regression slides match Canvas.
 
 ### Week 3 — Logistic Regression and Regularisation
 
-Items checked: [8460467 overview](https://rmit.instructure.com/courses/171525/modules/items/8460467), [8460469 introduction](https://rmit.instructure.com/courses/171525/modules/items/8460469), [8460471 learning materials](https://rmit.instructure.com/courses/171525/modules/items/8460471), [8460475 tutorial questions](https://rmit.instructure.com/courses/171525/modules/items/8460475), [8460476 lab exercises](https://rmit.instructure.com/courses/171525/modules/items/8460476), [8460477 applications](https://rmit.instructure.com/courses/171525/modules/items/8460477).
+Items checked: 8460467 overview, 8460469 introduction, 8460471 learning materials, 8460475 tutorial questions, 8460476 lab exercises, 8460477 applications.
 
-Local coverage: `W3_Logistic_Regression_and_Regularisation/week_overview.md`, `learning_materials.md`, `lab_notes.md`, plus existing `Intro.md` and `take_note.md`. The current Canvas lab notebook is present under its original filename; the old differing copy is retained with `.local.ipynb`. Canvas assigns a regression lab to this logistic-regression week; see `lab_notes.md`.
+Local coverage: `W3_Logistic_Regression_and_Regularisation/week_overview.md`, `learning_materials.md`, `lab_notes.md`, plus existing `Intro.md` and `take_note.md`. The current Canvas lab notebook is present under its original filename; the older `.local.ipynb` variant has local-path fixes. Canvas assigns a regression lab to this logistic-regression week; see `lab_notes.md`.
 
 ### Week 4 — Evaluating Hypotheses
 
-Items checked: [8460480 overview](https://rmit.instructure.com/courses/171525/modules/items/8460480), [8460482 introduction](https://rmit.instructure.com/courses/171525/modules/items/8460482), [8460484 learning materials](https://rmit.instructure.com/courses/171525/modules/items/8460484), [8460488 tutorial questions](https://rmit.instructure.com/courses/171525/modules/items/8460488), [8460489 Matrix Revision](https://rmit.instructure.com/courses/171525/modules/items/8460489), [8460490 lab exercises](https://rmit.instructure.com/courses/171525/modules/items/8460490).
+Items checked: 8460480 overview, 8460482 introduction, 8460484 learning materials, 8460488 tutorial questions, 8460489 Matrix Revision, 8460490 lab exercises.
 
 Local coverage: `W4_Evaluating_Hypotheses/week_overview.md`, `learning_materials.md`, `tutorial_questions.md`, `lab_notes.md`, and existing `take_note.md`/slide images. Both linked lecture decks and `MatrixOverview.pdf` are present. The current Canvas lab notebook is installed under its original filename; the former differing local copy is preserved with `.local.ipynb`.
 
 ### Week 5 — Decision Tree Learning
 
-Items checked: [8460493 overview](https://rmit.instructure.com/courses/171525/modules/items/8460493), [8460495 introduction](https://rmit.instructure.com/courses/171525/modules/items/8460495), [8460497 learning materials](https://rmit.instructure.com/courses/171525/modules/items/8460497), [8460501 tutorial questions](https://rmit.instructure.com/courses/171525/modules/items/8460501), [8460503 lab exercises](https://rmit.instructure.com/courses/171525/modules/items/8460503), [8460504 Decision Tree and Random Forest for Regression](https://rmit.instructure.com/courses/171525/modules/items/8460504).
+Items checked: 8460493 overview, 8460495 introduction, 8460497 learning materials, 8460501 tutorial questions, 8460503 lab exercises, 8460504 Decision Tree and Random Forest for Regression.
 
 Local coverage: `W5_Decision_Trees/week_overview.md`, `learning_materials.md`, `tutorial_questions.md`, `lab_notes.md`, plus existing notes and tutorial material. The Canvas lab is logistic regression with an NBA dataset despite its placement in the decision-tree week. Official Canvas notebook/data are present; prior differing local notebook/data remain alongside them.
 
 ### Week 6 — Neural Networks
 
-Items checked: [8460507 overview](https://rmit.instructure.com/courses/171525/modules/items/8460507), [8460509 introduction](https://rmit.instructure.com/courses/171525/modules/items/8460509), [8460514 tutorial questions](https://rmit.instructure.com/courses/171525/modules/items/8460514), [8460515 applications](https://rmit.instructure.com/courses/171525/modules/items/8460515), [8460517 lab exercises — Decision Tree and Random Forest](https://rmit.instructure.com/courses/171525/modules/items/8460517).
+Items checked: 8460507 overview, 8460509 introduction, 8460514 tutorial questions, 8460515 applications, 8460517 lab exercises — Decision Tree and Random Forest.
 
-Local coverage: `W6_Artificial_Neural_Networks/week_overview.md`, `introduction.md`, `tutorial_questions.md`, `applications.md`, `learning_materials.md`, `lab_notes.md`. The Decision Tree lab notebook and bank dataset match the attached W6 files. The existing `ML_Viet2026B_NeuralNetworks.pdf` is retained locally but is **not linked from the current W6 Canvas module**, so it cannot be checksum-verified as a current Canvas slide.
+Local coverage: `W6_Artificial_Neural_Networks/week_overview.md`, `introduction.md`, `tutorial_questions.md`, `applications.md`, `learning_materials.md`, `lab_notes.md`. The bank dataset matches the attached W6 file; the Decision Tree notebook has a local filename fix. The existing `ML_Viet2026B_NeuralNetworks.pdf` is retained locally but is **not linked from the current W6 Canvas module**, so it cannot be checksum-verified as a current Canvas slide.
 
 ### Week 7 — Personal Development Week
 
-Item checked: [8460519 overview](https://rmit.instructure.com/courses/171525/modules/items/8460519). Local coverage: `W7_Independent_Learning/week_overview.md`. Canvas presents independent-learning/current-assessment activities only; no lecture slide, notebook, or dataset was linked.
+Item checked: 8460519 overview. Local coverage: `W7_Independent_Learning/week_overview.md`. Canvas presents independent-learning/current-assessment activities only; no lecture slide, notebook, or dataset was linked.
 
 ### Week 8 — Deep Learning
 
-Items checked: [8460527 overview](https://rmit.instructure.com/courses/171525/modules/items/8460527), [8460530 learning materials](https://rmit.instructure.com/courses/171525/modules/items/8460530), [8460534 tutorial questions](https://rmit.instructure.com/courses/171525/modules/items/8460534), [8460535 lab exercises — ANN (MLP)](https://rmit.instructure.com/courses/171525/modules/items/8460535), [8460536 applications](https://rmit.instructure.com/courses/171525/modules/items/8460536).
+Items checked: 8460527 overview, 8460530 learning materials, 8460534 tutorial questions, 8460535 lab exercises — ANN (MLP), 8460536 applications.
 
 The former folder name `W8_CIFAR_10_Image_Classification` is now `W8_Deep_Learning`. Local coverage includes `week_overview.md`, `learning_materials.md`, `tutorial_questions.md`, `lab_notes.md`, and `applications.md`. Canvas's lecture PDF and official MLP notebook are present. The local label CSV and image directory contain 10,000 matched examples over 10 classes. Canvas links the same subset archive from both W8 and W9; the single archive remains under W9 to avoid a duplicate. The old local `tutorial.ipynb` is noted as a separate scratch file, not the Canvas lab; use `w8_lab_exercises_MLP-1.ipynb` for the official exercise.
 
 ### Week 9 — Unsupervised Learning
 
-Items checked: [8460540 overview](https://rmit.instructure.com/courses/171525/modules/items/8460540), [8460542 introduction](https://rmit.instructure.com/courses/171525/modules/items/8460542), [8460544 learning materials](https://rmit.instructure.com/courses/171525/modules/items/8460544), [8460548 tutorial questions](https://rmit.instructure.com/courses/171525/modules/items/8460548), [8460549 lab exercises — Deep Learning (CNN)](https://rmit.instructure.com/courses/171525/modules/items/8460549).
+Items checked: 8460540 overview, 8460542 introduction, 8460544 learning materials, 8460548 tutorial questions, 8460549 lab exercises — Deep Learning (CNN).
 
 Local coverage: the existing W9 overview, introduction, learning materials, tutorial, and lab notes. The slide, CNN tutorial/lab notebook, and shared CIFAR subset archive are present. The Canvas lecture outcome and slide cover clustering, while the tutorial and lab cover CNNs; the folder name retains both topics to make this placement visible.
 
 ### Week 10 — Practical Issues
 
-Items checked: [8460555 overview](https://rmit.instructure.com/courses/171525/modules/items/8460555), [8460557 introduction](https://rmit.instructure.com/courses/171525/modules/items/8460557), [8460559 learning materials](https://rmit.instructure.com/courses/171525/modules/items/8460559), [8460563 tutorial questions](https://rmit.instructure.com/courses/171525/modules/items/8460563), [8460564 lab exercises — Unsupervised Learning](https://rmit.instructure.com/courses/171525/modules/items/8460564).
+Items checked: 8460555 overview, 8460557 introduction, 8460559 learning materials, 8460563 tutorial questions, 8460564 lab exercises — Unsupervised Learning.
 
 Local coverage: the existing W10 overview, introduction, learning materials, tutorial, and lab notes. The slide and clustering notebook are present; the lab uses scikit-learn's built-in Iris data, so Canvas links no separate data file. The lecture is about practical issues while the tutorial/lab are about clustering.
 
 ### Week 11 — Guest Lecture
 
-Items checked: [8460569 overview](https://rmit.instructure.com/courses/171525/modules/items/8460569) and [8460573 learning materials](https://rmit.instructure.com/courses/171525/modules/items/8460573). Local coverage: `W11_Practical_Issues_in_ML/week_overview.md` and `learning_materials.md`. The module title is Guest Lecture, while the overview outcome says practical techniques/problems in real-life ML. The learning-materials page still has a post-class slide placeholder and no downloadable attachment was exposed on 2026-09-24.
+Items checked: 8460569 overview and 8460573 learning materials. Local coverage: `W11_Practical_Issues_in_ML/week_overview.md` and `learning_materials.md`. The module title is Guest Lecture, while the overview outcome says practical techniques/problems in real-life ML. The learning-materials page still has a post-class slide placeholder and no downloadable attachment was exposed on 2026-09-24.
 
 ### Week 12 — Review
 
-Items checked: [8460581 overview](https://rmit.instructure.com/courses/171525/modules/items/8460581), [8460584 learning materials](https://rmit.instructure.com/courses/171525/modules/items/8460584), [8460590 tutorial questions](https://rmit.instructure.com/courses/171525/modules/items/8460590). Local coverage: the existing W12 overview, learning-materials, and tutorial notes. The module is titled Review, its weekly outcome text says Deep Learning, and its tutorial reviews evaluation metrics, cross-validation, bias/variance, and regularisation. The slide page still says “update soon” and has no file attachment.
+Items checked: 8460581 overview, 8460584 learning materials, 8460590 tutorial questions. Local coverage: the existing W12 overview, learning-materials, and tutorial notes. The module is titled Review, its weekly outcome text says Deep Learning, and its tutorial reviews evaluation metrics, cross-validation, bias/variance, and regularisation. The slide page still says “update soon” and has no file attachment.
 
 ## Canvas slide and PDF inventory
 
-A **match** means the SHA-256 of the local file equals the Canvas download. The matrix overview and Chapter 7 are course PDFs but are not lecture slides.
+A **match** means the recorded source download matches the canonical bytes stored in Git. A Windows checkout may convert line endings in text CSV files, changing the worktree SHA-256 without changing the data. The matrix overview and Chapter 7 are course PDFs but are not lecture slides.
 
 | Week | Canvas file / ID | Local file | Result / SHA-256 |
 |---|---|---|---|
@@ -98,14 +98,19 @@ A **match** means the SHA-256 of the local file equals the Canvas download. The 
 
 ## Other downloaded Canvas files
 
-| Week | Canvas file / ID | Local file | SHA-256 / note |
+Notebook checksums in the table below identify the original downloads at
+capture time. Several local notebook copies were later adapted to remove
+course-only links, Colab paths, or outdated code, so their current file hashes
+differ. Dataset and slide checksums continue to identify the local files.
+
+| Week | Canvas file / ID | Local file | Source SHA-256 / note |
 |---|---|---|---|
-| 1 | `week01_lab_exercises_python-1.ipynb` / `53329158` | `W1_Foundations_of_ML/week01_lab_exercises_python-1.ipynb` | `BDA37AACD4C34ECCFDDA6B47466ED9B8CE7A90B5AF8BE3B07283ACE538F1E271`; older differing notebook is preserved as `.local.ipynb` |
+| 1 | `week01_lab_exercises_python-1.ipynb` / `53329158` | `W1_Foundations_of_ML/week01_lab_exercises_python-1.ipynb` | `BDA37AACD4C34ECCFDDA6B47466ED9B8CE7A90B5AF8BE3B07283ACE538F1E271`; older `.local.ipynb` variant has a NumPy compatibility fix |
 | 2 | `Tutorial_week2-2.ipynb` / `54912786` | `W2_Regression/Tutorial_week2-2.ipynb` | `8F5121C91C3BBD3EB156B03938D01A245C3716D002C6B50CACA36D110343E1F1` |
 | 2 | `housing-2.data.csv` / `53328963` | `Dataset_for_tutorial/housing-2.data.csv` | `F3A9A57928897989AC0D3D2384D633023D328AD2831C7AC9574F2B49139F6914`; previous differing file preserved as `.local.csv` |
 | 2 | `bikeShareDay-1.csv` / `53328950` | `Dataset_for_tutorial/bikeShareDay-1.csv` | `A6BCF826782D3C0FBFDCBEEAD17CD0884185A0DAFE8FF10CD48A874EE7BA18BE` |
 | 2 | `(code_book)` / `53328972` | `W2_Regression/bikeShareDay_code_book.docx` | `68F9E28C711EEE62FF969763C4B8F948B2959C82436072B4884F3C1597C01788` |
-| 3 | `w3_linear_regression-1.ipynb` / `55048351` | `W3_Logistic_Regression_and_Regularisation/w3_linear_regression-1.ipynb` | `964113A338AEA37B1EA9A100ED5AA83E1A2700A38AE73C39DCE822BC3A24C75B`; older differing notebook preserved as `.local.ipynb` |
+| 3 | `w3_linear_regression-1.ipynb` / `55048351` | `W3_Logistic_Regression_and_Regularisation/w3_linear_regression-1.ipynb` | `964113A338AEA37B1EA9A100ED5AA83E1A2700A38AE73C39DCE822BC3A24C75B`; older `.local.ipynb` variant has local-path fixes |
 | 4 | `Tutorial_w4_measure_regression-3-1.ipynb` / `55129766` | `W4_Evaluating_Hypotheses/Tutorial_w4_measure_regression-3-1.ipynb` | `52CF0165AAFF2A728F929DA3910D49C5EEC97DF7E3BA265A5B564E0A3FE79C1F`; older differing notebook preserved as `.local.ipynb` |
 | 5 | `Tutorial_w5_logisticregression_finetuneparameters-1-1.ipynb` / `53329231` | `W5_Decision_Trees/Tutorial_w5_logisticregression_finetuneparameters-1-1.ipynb` | `427DE4CD6A2264644B22C9455353DAA97079A369CDF720A3BFA5E159FF8DFE12`; older differing notebook preserved as `.local.ipynb` |
 | 5 | `nbaRookies.csv` / `53329005` | `W5_Decision_Trees/nbaRookies.csv` | `6429D3E773639B4DD61C520229434FEDF92388CE99CE53A47026C82DA1BF11E0`; different prior local `nbaRookies(in).csv` retained |
@@ -126,6 +131,6 @@ A **match** means the SHA-256 of the local file equals the Canvas download. The 
 - W9's lecture is clustering while its tutorial and lab are CNNs. W10's lecture is Practical Issues while its tutorial and lab are clustering.
 - W11's module title is Guest Lecture but the overview describes practical ML techniques; no lecture slide file was available during this check.
 - W12 is titled Review, its overview says Deep Learning, and its tutorial covers evaluation and regularisation. The slide placeholder had no file on 2026-09-24.
-- The existing W8 `tutorial.ipynb` is a local scratch notebook and contains the stray `uherhe` suffix noted in `W8_Deep_Learning/lab_notes.md`; the current Canvas notebook is separately downloaded and should be used for the official lab.
+- The existing W8 `tutorial.ipynb` is a local scratch notebook; its stray `uherhe` suffix was removed. The captured course notebook remains the primary W8 lab.
 
 The Canvas course can change after this snapshot. Recheck W11/W12 and any cross-week placements on the Modules page before relying on them as final course structure.

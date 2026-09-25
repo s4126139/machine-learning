@@ -21,10 +21,9 @@ work locally.
 
 ## Run the labs locally
 
-From the parent project directory, install the main environment with:
+From the parent `Machine Learning Andrew` directory, install the main environment with:
 
 ```powershell
-cd "C:\Users\Khoai\RMIT\Machine_Learning\Machine Learning Andrew"
 uv sync --locked
 ```
 

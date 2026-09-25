@@ -1,6 +1,6 @@
 # Week 10 Learning Materials — Practical Matters in ML
 
-Source: Canvas page [8460559](https://rmit.instructure.com/courses/171525/modules/items/8460559)
+Source: Canvas page 8460559
 
 Captured: 2026-09-24
 

@@ -16,11 +16,10 @@ data so that relative imports such as `lab_coffee_utils` and paths such as
 
 ## Run locally
 
-Start Jupyter with this directory as the working directory:
+Open PowerShell in this `Labs` directory and use the parent project's environment:
 
 ```powershell
-cd "C:\Users\Khoai\RMIT\Machine_Learning\Machine Learning Andrew\2 Advanced Learning Algorithms\Week 1 Neural Networks\Labs"
-python -m jupyter lab
+& ..\..\..\.venv\Scripts\python.exe -m jupyter lab
 ```
 
 The TensorFlow notebooks and the binary practice lab require a TensorFlow-
@@ -28,8 +27,9 @@ compatible Python environment. The parent project currently targets Python
 3.14, while the available Windows TensorFlow wheels support older Python
 versions. Use a separate Python 3.10–3.13 environment for those notebooks;
 the NumPy coffee lab is kept independent of TensorFlow and can run in the
-parent environment. A starter dependency file for that companion environment
-is available at `../../requirements-course2-tensorflow.txt`.
+parent environment. For the other labs, create the companion environment as
+shown in the [project README](<../../../README.md>) and start Jupyter with
+`..\..\..\.venv-tensorflow\Scripts\python.exe -m jupyter lab`.
 
 ## Local compatibility adjustments
 

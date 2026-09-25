@@ -1,6 +1,6 @@
 # Week 12 — Review
 
-Source: Canvas module item [8460581](https://rmit.instructure.com/courses/171525/modules/items/8460581)
+Source: Canvas module item 8460581
 
 Captured: 2026-09-24
 

@@ -1,6 +1,6 @@
 # Introduction to Practical Issues of Machine Learning
 
-Source: Canvas module item [8460557](https://rmit.instructure.com/courses/171525/modules/items/8460557)
+Source: Canvas module item 8460557
 
 ## Overview
 

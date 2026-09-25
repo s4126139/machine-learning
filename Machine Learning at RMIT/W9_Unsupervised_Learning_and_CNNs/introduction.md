@@ -1,6 +1,6 @@
 # Introduction to Unsupervised Learning
 
-Source: Canvas module item [8460542](https://rmit.instructure.com/courses/171525/modules/items/8460542)
+Source: Canvas module item 8460542
 
 ## Overview
 

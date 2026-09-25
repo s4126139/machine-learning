@@ -1,6 +1,6 @@
 # Introduction to Neural Networks
 
-Source: Canvas module item [8460509](https://rmit.instructure.com/courses/171525/modules/items/8460509)
+Source: Canvas module item 8460509
 
 ## Topics
 

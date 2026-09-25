@@ -1,6 +1,6 @@
 # Week 3 Learning Materials
 
-Source: Canvas [W3 Learning Materials](https://rmit.instructure.com/courses/171525/modules/items/8460471)
+Source: Canvas W3 Learning Materials
 
 Captured: 2026-09-24
 

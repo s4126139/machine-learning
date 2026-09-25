@@ -1,6 +1,6 @@
 # Week 3 — Logistic Regression and Regularisation
 
-Source: Canvas module [Week 3 — Logistic Regression and Regularisation](https://rmit.instructure.com/courses/171525/modules/items/8460467)
+Source: Canvas module Week 3 — Logistic Regression and Regularisation
 
 Captured: 2026-09-24
 

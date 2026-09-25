@@ -17,8 +17,7 @@ with the notebooks. Start Jupyter from this folder so imports and relative
 paths resolve as they do in the course environment.
 
 ```powershell
-cd "C:\Users\Khoai\RMIT\Machine_Learning\Machine Learning Andrew\2 Advanced Learning Algorithms\Week 2 Neural network training\Labs"
-python -m jupyter lab
+& ..\..\..\.venv-tensorflow\Scripts\python.exe -m jupyter lab
 ```
 
 The notebooks use TensorFlow/Keras. Use a Python 3.10–3.13 environment with a
