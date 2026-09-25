@@ -45,8 +45,8 @@ kernel, and run cells in order.
 - The separate `MLA2` repository is outside this repo. In `ASM2-3`, the two
   group deliverables are excluded by `.gitignore`; three assignment briefs and
   the personal HTML lab are included. The HTML works as a standalone page: it
-  uses in-page navigation and figure descriptions without loading files from
-  the separate `MLA2` repository.
+  uses in-page navigation and embeds the original project figures without
+  loading files from the separate `MLA2` repository.
 
 ## Repository checks
 
