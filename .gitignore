@@ -1,5 +1,6 @@
 **/.venv/
 **/.venv-tensorflow/
+/Machine Learning Andrew/.venv-course3/
 /Machine Learning at RMIT/W9_Unsupervised_Learning_and_CNNs/CIFAR_10_BATCH1/
 /Machine Learning at RMIT/W9_Unsupervised_Learning_and_CNNs/CIFAR_Data.csv
 /Machine Learning at RMIT/W9_Unsupervised_Learning_and_CNNs/*.keras
@@ -18,3 +19,6 @@ Python For Machine Learning IBM/Module 3 Building Supervised Learning Models/lab
 # Team deliverables are kept only on this machine; assignment briefs remain separate.
 /Machine Learning at RMIT/ASM2-3/COSC2753_A2_SG_G6-2.pdf
 /Machine Learning at RMIT/ASM2-3/COSC2753_A3_SG_G6_Slides.pptx
+
+# Local source copies for Course 3; keep raw transcripts and original lab downloads private.
+/Machine Learning Andrew/3 Unsupervised Learning, Recommenders, Reinforcement Learning/.local-only/
